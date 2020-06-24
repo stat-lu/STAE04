@@ -1,0 +1,21 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# STAE04
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+This repository contains the slides and code used to generate the slides
+for the course STAE04: Data Visualization. Please see 
+<https://jolars.github.io/STAE04/> for links to all of the slides.
