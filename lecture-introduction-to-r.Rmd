@@ -4,10 +4,10 @@ subtitle: "STAE04: Data Visualization"
 author: "Johan Larsson"
 institute: "Department of Statistics, Lund University"
 date: "`r Sys.Date()`"
-bibliography: STAE04.bib
+bibliography: "assets/stae04.bib"
 output:
   xaringan::moon_reader:
-    css: [default, "stae04.css"]
+    css: [default, "assets/stae04.css"]
     lib_dir: libs
     nature:
       highlightStyle: github
@@ -43,7 +43,7 @@ BibOptions(check.entries = FALSE,
            bib.style = "authoryear",
            style = "markdown",
            dashed = TRUE)
-bib <- ReadBib("STAE04.bib")
+bib <- ReadBib("assets/stae04.bib")
 
 theme_set(theme_bw())
 
@@ -224,7 +224,7 @@ x[c(1, 2)] # or x[1:2]
 
 ## Matrices
 
-create using `matrix()`, `cbind()`, and `rbind()` functions
+create matrices with `matrix()`, `cbind()`, and `rbind()`
 
 ```{r, echo = TRUE}
 A <- cbind(c(1, 2), c(2, 3)) # numeric matrix
@@ -233,19 +233,18 @@ A
 
 --
 
-acess elemments, rows, and columns using `[` operator
+access elements, rows, and columns using `[` operator
 
 ```{r, echo = TRUE}
 A[2, 2]  # lower right element
-A[1, ]   # first row
-A[, 2]   # second column
+A[1, ]   # first row, A[, 2] accesses second column
 ```
 
 ---
 
 ## Data frames
 
-like matrix, but columns may have different classes
+like matrices, but columns may have different classes
 
 ```{r, echo = TRUE}
 d <- data.frame(x = c(1, 2),
@@ -266,10 +265,10 @@ d$x    # same as above!
 
 ## Lists
 
-a list of **any kind of objects** (of any dimensions)
+a collection of objects of **any kind** (of any dimensions)
 
 ```{r, echo = TRUE}
-# use <name> = <element> syntax
+# <name> = <element> syntax
 x <- list(a = c("foo", "bar"), 
           b = matrix(1:4, 2, 2))
 x
@@ -277,13 +276,19 @@ x
 
 --
 
-fun fact: a data frame is in fact a special type of list
+a data frame is in fact a special type of list
 
-## Next steps
+--
 
-* quiz
-* practice
+---
 
+## Help in R
 
-
-
+- learn how to read object documentation, particularly for functions
+  * `F1` shortcut in R Studio
+  * `help(function)` or `?function` in console
+  
+- each problem you run into has usually been encountered (and solved)
+  by many others
+  * use [stack overflow](https://stackoverflow.com/) (tag `r`) or 
+    a search engine

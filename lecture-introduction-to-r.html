@@ -4,10 +4,10 @@
     <title>Introduction to R and R Studio</title>
     <meta charset="utf-8" />
     <meta name="author" content="Johan Larsson" />
-    <meta name="date" content="2020-04-03" />
-    <script src="libs/header-attrs-2.1/header-attrs.js"></script>
+    <meta name="date" content="2020-07-03" />
+    <script src="libs/header-attrs-2.3/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link rel="stylesheet" href="stae04.css" type="text/css" />
+    <link rel="stylesheet" href="assets/stae04.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -17,7 +17,7 @@ class: middle, center, title-slide
 ## STAE04: Data Visualization
 ### Johan Larsson
 ### Department of Statistics, Lund University
-### 2020-04-03
+### 2020-07-03
 
 ---
 
@@ -240,7 +240,7 @@ x[c(1, 2)] # or x[1:2]
 
 ## Matrices
 
-create using `matrix()`, `cbind()`, and `rbind()` functions
+create matrices with `matrix()`, `cbind()`, and `rbind()`
 
 
 ```r
@@ -256,7 +256,7 @@ A
 
 --
 
-acess elemments, rows, and columns using `[` operator
+access elements, rows, and columns using `[` operator
 
 
 ```r
@@ -268,26 +268,18 @@ A[2, 2]  # lower right element
 ```
 
 ```r
-A[1, ]   # first row
+A[1, ]   # first row, A[, 2] accesses second column
 ```
 
 ```
 ## [1] 1 2
 ```
 
-```r
-A[, 2]   # second column
-```
-
-```
-## [1] 2 3
-```
-
 ---
 
 ## Data frames
 
-like matrix, but columns may have different classes
+like matrices, but columns may have different classes
 
 
 ```r
@@ -327,11 +319,11 @@ d$x    # same as above!
 
 ## Lists
 
-a list of **any kind of objects** (of any dimensions)
+a collection of objects of **any kind** (of any dimensions)
 
 
 ```r
-# use &lt;name&gt; = &lt;element&gt; syntax
+# &lt;name&gt; = &lt;element&gt; syntax
 x &lt;- list(a = c("foo", "bar"), 
           b = matrix(1:4, 2, 2))
 x
@@ -349,16 +341,22 @@ x
 
 --
 
-fun fact: a data frame is in fact a special type of list
+a data frame is in fact a special type of list
 
-## Next steps
+--
 
-* quiz
-* practice
+---
 
+## Help in R
 
-
-
+- learn how to read object documentation, particularly for functions
+  * `F1` shortcut in R Studio
+  * `help(function)` or `?function` in console
+  
+- each problem you run into has usually been encountered (and solved)
+  by many others
+  * use [stack overflow](https://stackoverflow.com/) (tag `r`) or 
+    a search engine
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
