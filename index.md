@@ -5,8 +5,9 @@
 
 This page contains slides for the course STAE04: Visualization of Data
 
-* [introduction](lecture-introduction)
-* [introduction to R](lecture-introduction-to-r)
+* [Introduction](lecture-introduction)
+* [Introduction to R](lecture-introduction-to-r)
+* [Data in R](lecture-data-in-r)
 
 ### Source code
 
