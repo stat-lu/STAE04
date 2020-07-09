@@ -4,7 +4,7 @@
     <title>Working with Data in R</title>
     <meta charset="utf-8" />
     <meta name="author" content="Johan Larsson" />
-    <meta name="date" content="2020-07-08" />
+    <meta name="date" content="2020-07-09" />
     <script src="libs/header-attrs-2.3/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/stae04.css" type="text/css" />
@@ -17,7 +17,7 @@ class: middle, center, title-slide
 ## STAE04: Data Visualization
 ### Johan Larsson
 ### Department of Statistics, Lund University
-### 2020-07-08
+### 2020-07-09
 
 ---
 
@@ -36,10 +36,10 @@ class: middle, center, title-slide
 ## Tidyverse
 
 - a collection of packages built around a set of
-  principles and design choices.
+  principles and design choices. 
 - includes the package **ggplot2** that we will use for all our
   visualizations in this course
-
+  
 ]
 
 .pull-right[
@@ -49,7 +49,7 @@ class: middle, center, title-slide
 ---
 
 class: middle
-
+  
 &lt;img src="images/tidyverse-workflow.svg" style="display: block; margin: auto;" /&gt;
 
 ---
@@ -67,9 +67,9 @@ read_csv("data/us_cars.csv") %&gt;%
   # visualize
   ggplot(aes(mileage, y = price, color = title_status)) +
   geom_point(alpha = 0.5) +
-  labs(x = "mileage (miles)",
-       y = "price (sek)",
-       color = "status")
+  labs(x = "mileage (miles)", 
+       y = "price (sek)", 
+       color = "status") 
 ```
 
 ---
@@ -83,27 +83,27 @@ class: center, middle
 ## Importing data
 
 data can be stored in a myriad of formats (`.csv.`, `.tsv`, `.dat`, `.sav`, etc)
-
+  
 --
 
 we will use the **readr** package, in which functions are named
-`read_*()` (or
+`read_*()` (or 
 
 
 ```r
-data_tsv &lt;- read_tsv("data.tsv")
+data_tsv &lt;- read_tsv("data.tsv") 
 data_csv &lt;- read_csv("data.csv")
 # and so on
 ```
-
+  
 --
-
+  
 always inspect the result; datasets are not always stored in a clean
 way
 
 in this course, however, you will generally be provided data
 that needs little preprocessing
-
+  
 --
 
 many datasets available from base R or from packages
@@ -120,7 +120,7 @@ many datasets available from base R or from packages
 
 ## Data wrangling
 
-Many times, data is not in the format that we need it to be; it
+Many times, data is not in the format that we need it to be; it 
 needs to be **wrangled** with.
 
 Our workhorses: [dplyr](https://dplyr.tidyverse.org/)
@@ -166,6 +166,8 @@ each value corresponds to an **observation** and a **variable**
 there are usually multiple ways to format the same data
 
 &lt;br&gt;
+
+--
 
 .pull-left[
 &lt;table&gt;
@@ -302,8 +304,8 @@ In `d`, we've stored the treatment data from before.
 
 ```r
 library(tidyverse) # loads tidyr, dplyr, tibble, etc
-d &lt;- tibble(person = c("James", "Julia", "Bixby"),
-            control = c(1, 3, 2),
+d &lt;- tibble(person = c("James", "Julia", "Bixby"), 
+            control = c(1, 3, 2), 
             treatment = c(5, 6, 3))
 ```
 
@@ -316,9 +318,9 @@ To reshape this into **tidy** data, we will use the function
 
 ```r
 d_tidy &lt;- pivot_longer(
-  data = d,
-  cols = c("control",
-           "treatment"),
+  data = d, 
+  cols = c("control", 
+           "treatment"), 
   names_to = "intervention",
   values_to = "result"
 )
@@ -345,11 +347,11 @@ d_tidy &lt;- pivot_longer(
 ## Manipulating data with dplyr
 
 .pull-left[
-use `filter()` to filter in or out observations
+use `filter()` to filter rows (observations)
 
 
 ```r
-filter(d_tidy,
+filter(d_tidy, 
        person != "Bixby")
 ```
 
@@ -367,7 +369,7 @@ filter(d_tidy,
 --
 
 .pull-right[
-use `select()` to select individual variables
+use `select()` to select columns (variables)
 
 
 ```r
@@ -393,19 +395,19 @@ use `mutate()` to modify or add new variables
 
 
 ```r
-mutate(d_tidy, rel_value = result/max(result))
+mutate(d_tidy, rel_result = result/max(result))
 ```
 
 ```
 ## # A tibble: 6 x 4
-##   person intervention result rel_value
-##   &lt;chr&gt;  &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt;
-## 1 James  control           1     0.167
-## 2 James  treatment         5     0.833
-## 3 Julia  control           3     0.5
-## 4 Julia  treatment         6     1
-## 5 Bixby  control           2     0.333
-## 6 Bixby  treatment         3     0.5
+##   person intervention result rel_result
+##   &lt;chr&gt;  &lt;chr&gt;         &lt;dbl&gt;      &lt;dbl&gt;
+## 1 James  control           1      0.167
+## 2 James  treatment         5      0.833
+## 3 Julia  control           3      0.5  
+## 4 Julia  treatment         6      1    
+## 5 Bixby  control           2      0.333
+## 6 Bixby  treatment         3      0.5
 ```
 
 --
@@ -422,7 +424,7 @@ group_by(d_tidy, intervention) %&gt;%
 ## # A tibble: 2 x 2
 ##   intervention mean_result
 ##   &lt;chr&gt;              &lt;dbl&gt;
-## 1 control             2
+## 1 control             2   
 ## 2 treatment           4.67
 ```
 
@@ -438,7 +440,7 @@ the next function
 
 
 ```r
-d_tidy %&gt;%
+d_tidy %&gt;% 
   filter(person == "James") %&gt;%
   select(intervention, result)
 ```
@@ -451,6 +453,7 @@ d_tidy %&gt;%
 ## 2 treatment         5
 ```
 
+--
 
 
 ```r
@@ -475,7 +478,7 @@ Our scope is limited to **making data ready for visualizations**
 
 If you want to learn more about data wrangling and tidy data, we recommend
 the chapter [Wrangle](https://r4ds.had.co.nz/wrangle-intro.html) in
-the free e-book *R for Data Science*.
+the free e-book *R for Data Science*.   
 
 
     </textarea>
