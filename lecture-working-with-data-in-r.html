@@ -4,7 +4,7 @@
     <title>Working with Data in R</title>
     <meta charset="utf-8" />
     <meta name="author" content="Johan Larsson" />
-    <meta name="date" content="2020-07-09" />
+    <meta name="date" content="2020-08-17" />
     <script src="libs/header-attrs-2.3/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/stae04.css" type="text/css" />
@@ -17,7 +17,7 @@ class: middle, center, title-slide
 ## STAE04: Data Visualization
 ### Johan Larsson
 ### Department of Statistics, Lund University
-### 2020-07-09
+### 2020-08-17
 
 ---
 
@@ -76,7 +76,7 @@ read_csv("data/us_cars.csv") %&gt;%
 
 class: center, middle
 
-![](lecture-data-in-r_files/figure-html/cars-code-1.svg)
+![](lecture-working-with-data-in-r_files/figure-html/cars-code-1.svg)
 
 ---
 
@@ -206,7 +206,7 @@ there are usually multiple ways to format the same data
 &lt;caption&gt;Version B&lt;/caption&gt;
  &lt;thead&gt;
   &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; treatment &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; intervention &lt;/th&gt;
    &lt;th style="text-align:right;"&gt; James &lt;/th&gt;
    &lt;th style="text-align:right;"&gt; Julia &lt;/th&gt;
    &lt;th style="text-align:right;"&gt; Bixby &lt;/th&gt;
@@ -251,7 +251,7 @@ in our example, **person**, **intervention**, and **result** are the variables
  &lt;thead&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt; person &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; treatment &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; intervention &lt;/th&gt;
    &lt;th style="text-align:right;"&gt; result &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
@@ -331,14 +331,14 @@ d_tidy &lt;- pivot_longer(
 
 ```
 ## # A tibble: 6 x 3
-##   person result    value
-##   &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;
-## 1 James  control       1
-## 2 James  treatment     5
-## 3 Julia  control       3
-## 4 Julia  treatment     6
-## 5 Bixby  control       2
-## 6 Bixby  treatment     3
+##   person intervention result
+##   &lt;chr&gt;  &lt;chr&gt;         &lt;dbl&gt;
+## 1 James  control           1
+## 2 James  treatment         5
+## 3 Julia  control           3
+## 4 Julia  treatment         6
+## 5 Bixby  control           2
+## 6 Bixby  treatment         3
 ```
 ]
 

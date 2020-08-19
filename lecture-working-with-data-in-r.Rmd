@@ -330,7 +330,6 @@ group_by(d_tidy, intervention) %>%
   summarize(mean_result = mean(result))
 ```
 
-
 ---
 
 ## The pipe operator
