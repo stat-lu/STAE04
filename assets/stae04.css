@@ -100,3 +100,39 @@ body {
   font-style: italic;
   color: #222;
 }
+
+.footnote {
+  font-size: 0.7em;
+}
+
+.vcenter {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.pull-left-60 {
+  float: left;
+  width: 57%;
+}
+
+.pull-right-40 {
+  float: right;
+  width: 37%;
+}
+
+.pull-left-40 {
+  float: left;
+  width: 37%;
+}
+
+.pull-right-60 {
+  float: right;
+  width: 57%;
+}
+
+.pull-right + * {
+  clear: both;
+}
