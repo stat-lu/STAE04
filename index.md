@@ -3,7 +3,7 @@
 
 ### Slides
 
-This page contains slides for the course STAE04: Visualization of Data
+This page contains slides for the course STAE04: Data Visualization
 
 * [Introduction](lecture-introduction)
 * [Introduction to R](lecture-introduction-to-r)
