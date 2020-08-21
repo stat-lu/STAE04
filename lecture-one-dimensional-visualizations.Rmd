@@ -65,13 +65,7 @@ class: center, middle
 .pull-left[
 best place to start: continuous or discrete one-dimensional data
 
-examples: 
-
-- weight of people in the world
-- number of pets of people in Sweden
-- temperature at a single point in time
-
-usually need either a **statistical transformation** or **position adjustment**
+often need **statistical transformation** or **position adjustment**
 to avoid overlapping
 
 if data is discrete (and not too large), a dotplot (`geom_dotplot()`) is often suitable
@@ -169,11 +163,11 @@ faithful %>%
 
 ---
 
-## Violin plots
+## Violin Plots
 
 a type of density plot, often used instead of boxplot
 
-save pitfalls as with other density plots
+same pitfalls as with other density plots
 
 ```{r, fig.width = 5, fig.height = 2.5, fig.cap = "geom_violin() does not work with a single variable, so we need y = 1 here."}
 faithful %>%
@@ -198,6 +192,7 @@ always what you are doing with your **ink** in a visualization
 data-ink: ink used to draw data
 
 $$\text{data-ink ratio} = \frac{\text{data-ink}}{\text{total ink used in visualization}}$$
+--
 
 .pull-left[
 ```{r, echo = FALSE, fig.cap = "low data-ink ratio", fig.height = 2.5}
