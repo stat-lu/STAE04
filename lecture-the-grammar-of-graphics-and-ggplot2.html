@@ -4,7 +4,7 @@
     <title>The Grammar of Graphics and ggplot2</title>
     <meta charset="utf-8" />
     <meta name="author" content="Johan Larsson" />
-    <meta name="date" content="2020-08-19" />
+    <meta name="date" content="2020-08-20" />
     <script src="libs/header-attrs-2.3/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/stae04.css" type="text/css" />
@@ -17,7 +17,7 @@ class: middle, center, title-slide
 ## STAE04: Data Visualization
 ### Johan Larsson
 ### Department of Statistics, Lund University
-### 2020-08-19
+### 2020-08-20
 
 ---
 
@@ -55,8 +55,6 @@ class: middle, center, title-slide
   * facets.
   
 It also includes a **hierarchy of defaults**.
-  
---
   
 ### ggplot2
 
@@ -226,23 +224,25 @@ controls **how** variables are mapped to aesthetics
 
 
 ```r
-p &lt;- ggplot(faithfuld) +
-  geom_tile(aes(waiting, eruptions, fill = density))
+p &lt;- ggplot(msleep, aes(brainwt, sleep_total)) +
+  geom_point()
 ```
 
 .pull-left[
 
 ```r
-p + scale_fill_gradient2()
+p # + scale_x_continuous()
 ```
 
 &lt;img src="lecture-the-grammar-of-graphics-and-ggplot2_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
+--
+
 .pull-right[
 
 ```r
-p + scale_fill_viridis_c()
+p + scale_x_log10()
 ```
 
 &lt;img src="lecture-the-grammar-of-graphics-and-ggplot2_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
@@ -257,14 +257,17 @@ coordinate systems controls the position of objects on the plot
 
 
 ```r
-# cartesian coordinates
+# cartesian coordinates (bar chart)
 mutate(mpg, cyl = factor(cyl)) %&gt;%
   ggplot(aes(x = cyl, fill = cyl)) +
   geom_bar(show.legend = FALSE) +
   coord_cartesian() +
   ggtitle("cartesian")
+```
 
-# polar coordinates (don't do this!)
+
+```r
+# polar coordinates (pie chart)
 mutate(mpg, cyl = factor(cyl)) %&gt;%
   ggplot(aes(x = "1", fill = cyl)) +
   geom_bar(width = 1) +
@@ -272,13 +275,13 @@ mutate(mpg, cyl = factor(cyl)) %&gt;%
   ggtitle("polar")
 ```
 
-coordinate systems are important when plotting maps too
+
 ]
 
 .pull-right-40[
-&lt;img src="lecture-the-grammar-of-graphics-and-ggplot2_files/figure-html/unnamed-chunk-17-1.svg" style="display: block; margin: auto;" /&gt;
-
 &lt;img src="lecture-the-grammar-of-graphics-and-ggplot2_files/figure-html/unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="lecture-the-grammar-of-graphics-and-ggplot2_files/figure-html/unnamed-chunk-19-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -311,7 +314,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="lecture-the-grammar-of-graphics-and-ggplot2_files/figure-html/unnamed-chunk-21-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture-the-grammar-of-graphics-and-ggplot2_files/figure-html/unnamed-chunk-22-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -324,7 +327,7 @@ parts of the grammar with each plot would be **very** tiresome
 
 thankfully, the grammar of graphics (and ggplot2) comes with a **hierarchy of defaults**
 
-&lt;img src="lecture-the-grammar-of-graphics-and-ggplot2_files/figure-html/unnamed-chunk-22-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture-the-grammar-of-graphics-and-ggplot2_files/figure-html/unnamed-chunk-23-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 --
@@ -381,7 +384,7 @@ visualizing data with a single variable
 ]
 
 .pull-right[
-&lt;img src="lecture-the-grammar-of-graphics-and-ggplot2_files/figure-html/unnamed-chunk-25-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture-the-grammar-of-graphics-and-ggplot2_files/figure-html/unnamed-chunk-26-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 

@@ -90,8 +90,6 @@ knitr::include_graphics("images/wickham.jpg")
   
 It also includes a **hierarchy of defaults**.
   
---
-  
 ### ggplot2
 
 This grammar of graphics is central to
@@ -268,19 +266,21 @@ controls **how** variables are mapped to aesthetics
 **guides** is the inverse of a scale, showing how to read the scale
 
 ```{r}
-p <- ggplot(faithfuld) +
-  geom_tile(aes(waiting, eruptions, fill = density))
+p <- ggplot(msleep, aes(brainwt, sleep_total)) +
+  geom_point()
 ```
 
 .pull-left[
 ```{r, fig.width = 4.4, fig.height = 3.7, dev = "png"}
-p + scale_fill_gradient2()
+p # + scale_x_continuous()
 ```
 ]
 
+--
+
 .pull-right[
 ```{r, fig.width = 4.4, fig.height = 3.7, dev = "png"}
-p + scale_fill_viridis_c()
+p + scale_x_log10()
 ```
 ]
 
