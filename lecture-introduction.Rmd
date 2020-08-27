@@ -2,7 +2,7 @@
 title: "Introduction"
 subtitle: "STAE04: Data Visualization"
 author: "Johan Larsson"
-institute: "Department of Statistics, Lund University"
+institute: "The Department of Statistics, Lund University"
 date: ""
 bibliography: "assets/stae04.bib"
 output:
@@ -335,6 +335,6 @@ class: section-title
 
 ## References
 
-```{r, results='asis', echo=FALSE}
+```{r, results = "asis", echo=FALSE}
 PrintBibliography(bib)
 ```

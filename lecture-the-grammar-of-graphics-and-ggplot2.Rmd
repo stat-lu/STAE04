@@ -2,8 +2,8 @@
 title: "The Grammar of Graphics and ggplot2"
 subtitle: "STAE04: Data Visualization"
 author: "Johan Larsson"
-institute: "Department of Statistics, Lund University"
-date: "`r Sys.Date()`"
+institute: "The Department of Statistics, Lund University"
+date: ""
 bibliography: "assets/stae04.bib"
 output:
   xaringan::moon_reader:
@@ -442,4 +442,11 @@ ggplot(faithful, aes(waiting)) +
 ```
 ]
 
+---
+
+## References
+
+```{r, results = "asis", echo=FALSE}
+PrintBibliography(bib)
+```
 

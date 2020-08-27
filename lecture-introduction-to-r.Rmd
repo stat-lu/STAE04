@@ -2,8 +2,8 @@
 title: "Introduction to R and R Studio"
 subtitle: "STAE04: Data Visualization"
 author: "Johan Larsson"
-institute: "Department of Statistics, Lund University"
-date: "`r Sys.Date()`"
+institute: "The Department of Statistics, Lund University"
+date: ""
 bibliography: "assets/stae04.bib"
 output:
   xaringan::moon_reader:

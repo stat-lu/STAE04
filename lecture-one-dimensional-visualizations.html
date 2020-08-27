@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>One-Dimensional Visualizations and Data-Ink</title>
+    <title>One-Dimensional Visualizations</title>
     <meta charset="utf-8" />
     <meta name="author" content="Johan Larsson" />
-    <meta name="date" content="2020-08-21" />
     <script src="libs/header-attrs-2.3/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/stae04.css" type="text/css" />
@@ -13,58 +12,39 @@
     <textarea id="source">
 class: middle, center, title-slide
 
-# One-Dimensional Visualizations and Data-Ink
+# One-Dimensional Visualizations
 ## STAE04: Data Visualization
 ### Johan Larsson
-### Department of Statistics, Lund University
-### 2020-08-21
+### The Department of Statistics, Lund University
 
 ---
 
 
 
-
-class: center, middle
-
-# One-Dimensional Visualizations
-
----
 
 ## One-Dimensional Visualizations 
 
-.pull-left[
 best place to start: continuous or discrete one-dimensional data
 
-examples: 
-
-- weight of people in the world
-- number of pets of people in Sweden
-- temperature at a single point in time
-
-usually need either a **statistical transformation** or **position adjustment**
-to avoid overlapping
-
-if data is discrete (and not too large), a dotplot (`geom_dotplot()`) is often suitable
-]
+often need **statistical transformation** or **position adjustment**
 
 --
 
-.pull-right[
+dotplots (`geom_dotplot()`) are great for small and discrete data
+
 
 ```r
 library(tidyverse)
 
-faithful %&gt;%
-  ggplot(aes(waiting)) +
+ggplot(faithful, aes(waiting)) +
   geom_dotplot(binwidth = 1)
 ```
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="lecture-one-dimensional-visualizations_files/figure-html/unnamed-chunk-1-1.svg" alt="Duration between eruptions of the Old Faithful geyser. (The y axis is not useful here and should be removed.)"  /&gt;
-&lt;p class="caption"&gt;Duration between eruptions of the Old Faithful geyser. (The y axis is not useful here and should be removed.)&lt;/p&gt;
+&lt;img src="lecture-one-dimensional-visualizations_files/figure-html/unnamed-chunk-1-1.svg" alt="Duration between eruptions of the Old Faithful geyser."  /&gt;
+&lt;p class="caption"&gt;Duration between eruptions of the Old Faithful geyser.&lt;/p&gt;
 &lt;/div&gt;
 
-]
 
 ---
 
@@ -140,11 +120,12 @@ most common type:
   - 1st and 3rd **quartiles** as edges of box,
   - whiskers to last observation within 1.5 times the
     inter-quartile range, and
-  - points (or starts) beyond whiskers
+  - points (or stars) beyond whiskers
 
 typically useful when there are categories in the plot
 
-more abstraction (aggregation) than histogram or densityplot
+more abstraction (aggregation) than histogram or densityplot and terrible for 
+data with multiple modes
 ]
 
 .pull-right[
@@ -156,18 +137,18 @@ faithful %&gt;%
 ```
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="lecture-one-dimensional-visualizations_files/figure-html/unnamed-chunk-5-1.svg" alt="Boxplot of the Old Faithful data."  /&gt;
-&lt;p class="caption"&gt;Boxplot of the Old Faithful data.&lt;/p&gt;
+&lt;img src="lecture-one-dimensional-visualizations_files/figure-html/unnamed-chunk-5-1.svg" alt="Boxplot of the Old Faithful data, which fails completely in accurately describing the distribution."  /&gt;
+&lt;p class="caption"&gt;Boxplot of the Old Faithful data, which fails completely in accurately describing the distribution.&lt;/p&gt;
 &lt;/div&gt;
 ]
 
 ---
 
-## Violin plots
+## Violin Plots
 
 a type of density plot, often used instead of boxplot
 
-save pitfalls as with other density plots
+same pitfalls as with other density plots
 
 
 ```r
@@ -181,69 +162,6 @@ faithful %&gt;%
 &lt;p class="caption"&gt;geom_violin() does not work with a single variable, so we need y = 1 here.&lt;/p&gt;
 &lt;/div&gt;
 
----
-
-class: center, middle
-
-# Data-Ink
-
----
-
-## Data-Ink
-
-always what you are doing with your **ink** in a visualization
-
-&gt; Above all else show the data (Tufte, 1983)
-
-data-ink: ink used to draw data
-
-`$$\text{data-ink ratio} = \frac{\text{data-ink}}{\text{total ink used in visualization}}$$`
-
-.pull-left[
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="lecture-one-dimensional-visualizations_files/figure-html/unnamed-chunk-7-1.svg" alt="low data-ink ratio"  /&gt;
-&lt;p class="caption"&gt;low data-ink ratio&lt;/p&gt;
-&lt;/div&gt;
-]
-
-.pull-right[
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="lecture-one-dimensional-visualizations_files/figure-html/unnamed-chunk-8-1.svg" alt="high data-ink ratio"  /&gt;
-&lt;p class="caption"&gt;high data-ink ratio&lt;/p&gt;
-&lt;/div&gt;
-]
-
----
-
-## Tufte
-
-Edward Tufte's work has been seminal in dataviz
-
-has developed variations on standard plots (some available in **ggthemes**)
-
-.pull-left[
-
-```r
-library(ggthemes)
-ggplot(mpg, aes(drv, cty)) +
-  geom_tufteboxplot() +
-  theme_tufte()
-```
-
-&lt;img src="lecture-one-dimensional-visualizations_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-.pull-right[
-
-```r
-ggplot(mpg, aes(drv, cty)) +
-  geom_boxplot(
-    stat = "fivenumber"
-  )
-```
-
-&lt;img src="lecture-one-dimensional-visualizations_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
-]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
