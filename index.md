@@ -10,6 +10,7 @@ This page contains slides for the course STAE04: Data Visualization
 * [Working with Data in R](lecture-working-with-data-in-r)
 * [The Grammar of Graphics and ggplot2](lecture-the-grammar-of-graphics-and-ggplot2)
 * [One-Dimensional Visualizations and Data-Ink](lecture-one-dimensional-visualizations)
+* [Data-Ink](lecture-data-ink)
 
 ### Source code
 
