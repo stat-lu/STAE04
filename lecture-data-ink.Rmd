@@ -99,7 +99,7 @@ knitr::include_graphics("images/playfair-england-usa.jpg")
 
 ---
 
-## Above Else Show the Data
+## Above All Else Show the Data
 
 a golden rule: data should be the focus of any visualization
 
