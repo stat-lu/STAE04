@@ -12,9 +12,12 @@ This page contains slides for the course STAE04: Data Visualization
 * [One-Dimensional Visualizations and Data-Ink](lecture-one-dimensional-visualizations)
 * [Data-Ink](lecture-data-ink)
 
+### Submission Template
+
+* [Submission Template and Introduction to R Markdown](stae04-template.Rmd)
+
 ### Source code
 
-The source code for all of the slides is available 
-at <https://github.com/stat-lu/STAE04>
+The source code for all of the slides can be found at <https://github.com/stat-lu/STAE04>.
 
 
