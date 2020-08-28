@@ -6,14 +6,28 @@ author: "Johan Larsson"
 affiliation: "Department of Statistics, Lund University"
 date: "`r Sys.Date()`"
 toc: true
-header: true
 graphics: true
 colorlinks: true
-bibliography: assets/stae04.bib
 output: 
   rmarkdown::pdf_document:
     template: NULL
     number_sections: true
+references:
+- id: wickham2010
+  title: A Layered Grammar of Graphics
+  author: 
+    - family: Wickham
+      given: Hadley
+  issued:
+    year: 2010
+    month: 1
+  container-title: Journal of computational and graphical statistics
+  volume: 19
+  issue: 1
+  page: 3-28
+  DOI: 10.1198/jcgs.2009.07098
+  URL: http://www.tandfonline.com/doi/abs/10.1198/jcgs.2009.07098
+  type: article-journal
 ---
 
 ```{r, include = FALSE}
@@ -82,8 +96,9 @@ output: pdf_document
 ---
 ```
 
-For this course, you will not need to
-change anything in the YAML block other than the `author`, `date`, and `title` fields.
+For this course, please use the YAML block supplied in this template but
+change `author`, `date`, and `title` fields. You can also remove the `references`
+item in the YAML block.
 
 ## Formatting
 
@@ -124,8 +139,10 @@ R Markdown can do quotation formatting too!
   creates a block quote ---Johan Larsson
   
 There are [many ways](https://pandoc.org/MANUAL#tables) to format tables in markdown,
-but the simplest one is two simply create columns of text with dahes `---` separating
+but the simplest one is two simply create columns of text with dashes (`---`) separating
 the title of each column from the cells of the table.
+
+Table: A caption for the table can be added like this.
 
 Header 1    Header 2
 ---------   ---------
@@ -140,12 +157,20 @@ parantheses to provide your own
 [text for the link](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf).
 
 Images can be added with syntax similar to the one for links, with the
-text inside brackets indicating the caption for the figure.
+text inside brackets indicating the caption for the figure. Let's first download
+an image to our working directory.
 
-![Here is Charle's Minard famous Napoleon chart, for instance. (Public domain.)](images/napoleon.png)
+```{r}
+download.file(
+  "https://upload.wikimedia.org/wikipedia/commons/2/29/Minard.png",
+  "minard.png"
+)
+```
 
-Sometimes it is useful to provide footnotes^[If the footnote is short, it is often
-best to write it in-line, like this.]. For a longer footnote, it might be better to
+![Here is Charle's Minard famous Napoleon chart, for instance. (Public domain.)](minard.png)
+
+Footnotes can be useful to provide additional information^[If the footnote is short, it is 
+often best to write it in-line, like this.]. For a longer footnote, it might be better to
 refer to it with a number[^1].
 
 [^1]: Then you can add your text separately in the document.
@@ -156,8 +181,11 @@ will usually never need more than one or two citations, so we suggest you write 
 citations manually, which means you can skip the next paragraph (unless you are keen on 
 getting deeper into R Markdown and pandoc).
 
-You will need a `.bib` file in your working directory or a sub-directory of it. This
-file should contain bibtex-formatted references. Find the key of the reference you
+To cite in R Markdown, you will need either 
+1) a `.bib` file (with bibtex-formatted references) somewhere in your working directory 
+or 2) a `references` field
+in the YAML block; in this document we use the latter but only to keep this document
+self-contained. Using a `.bib` file is recommended. Find the key of the reference you
 are looking for and preface it with an `@`, like the following reference to 
 @wickham2010, which creates a text reference. If you surround the key with brackets, you 
 instead get a non-text citation [@wickham2010]. If you've done everything right, 
