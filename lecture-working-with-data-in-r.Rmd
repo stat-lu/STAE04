@@ -353,6 +353,25 @@ select(filter(d_tidy, person == "James"), intervention, result)
 
 ---
 
+## Missing Data
+
+normally, missing data should be approached with diligence (e.g. imputation), but in 
+this course we will usually simply disregard it (`drop_na()`)
+
+missing data is denoted by `NA` in R
+
+functions applied to missing data often return `NA` unless `na.rm = TRUE`
+is specified
+
+```{r}
+msleep %>%
+  select(name, sleep_rem, sleep_cycle, brainwt, bodywt) %>%
+  head(5) %>%
+  knitr::kable()
+```
+
+---
+
 ## Learn more about data wrangling
 
 In this course, we will only scrape the surface
