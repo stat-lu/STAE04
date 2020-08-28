@@ -1,0 +1,138 @@
+---
+title: "R Markdown Template"
+subtitle: "STAE04: Data Visualization"
+papersize: a4
+author: "Johan Larsson"
+affiliation: "Department of Statistics, Lund University"
+date: "`r Sys.Date()`"
+toc: true
+header: true
+graphics: true
+colorlinks: true
+output: 
+  rmarkdown::pdf_document:
+    template: NULL
+    number_sections: true
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = "center",
+  fig.width = 2.5,
+  fig.height = 2.2
+)
+
+library(tidyverse)
+
+# set ggtheme options
+theme_set(theme_grey(base_size = 8))
+
+# some sensible options
+options(
+  digits = 3, # limit number of significant digits
+  width = 63  # limit width of code
+)
+```
+
+# Rmarkdown
+
+This document is written using [R Markdown](http://rmarkdown.rstudio.com). R Markdown
+is a syntax for formatting documents that lets you focus on the 
+content instead of formatting. You write text, including code, in Rmarkdown syntax
+and then Rmarkdown (plus a handful of very useful packages) turn that text into
+a neatly formatted document.
+
+This document serves as both a template for your submissions during the data visualization
+course as well as an introduction into R Markdown. To follow along, you should load
+this file in RStudio. To get started, you need to install the **rmarkdown** package.
+
+```{r, eval = FALSE}
+install.packages("rmarkdown")
+```
+
+
+A Rmarkdown file ends with `.Rmd` and is best edited using RStudio. Each Rmarkdown file
+starts with a so called YAML block; here is a bare-bones one:
+
+```yaml
+---
+title: "An Awesome Title"
+author: "Fantastic Me"
+date: "2020-09-28"
+output: pdf_document
+---
+```
+
+For this course, you will not need to
+change anything in the YAML block other than the `author`, `date`, and `title` fields.
+
+## Text Formatting
+
+Rmarkdown uses [Pandoc markdown](https://pandoc.org/MANUAL.html#pandocs-markdown)
+for formatting text, which uses a special---but very simple---syntax for formatting
+text. To write bold text for instance, you use **two stars** to surround text. To
+write italic text, you use a *single star*.
+
+Links can be specified using square brackets
+with the text for the link followed by parantheses for the
+actual link, such as [this link to pandoc manual](https://pandoc.org/MANUAL).
+
+Section titles are written using hash tags, as in this document. One hash tag
+indicates the highest-level section heading, two the second-highest, and so on.
+
+## Code Chunks
+
+What makes RMarkdown special is that is allows us to write code chunks containing
+R code. This is a code chunk that plots a simple plot using ggplot2:
+
+```{r fig.cap = "A Caption."}
+library(tidyverse)
+
+ggplot(msleep, aes(brainwt, sleep_rem)) +
+  geom_point() + 
+  scale_x_log10() +
+  labs(x = "Brain Weight (lbs)", y = "REM Sleep (hours)")
+```
+
+You can control many settings by changing the parameters in the headline of the
+code chunk. The following chunk changes the width and height of the figure, which
+are settings that will be very useful to you.
+
+```{r fig.cap = "A Caption.", fig.width = 4, fig.height = 1.5}
+ggplot(msleep, aes(brainwt, sleep_rem)) +
+  geom_point() +
+  scale_x_log10() +
+  labs(x = "Brain Weight (kg)", y = "REM Sleep (hours)")
+```
+
+## Rendering an Rmarkdown Document
+
+When you are done with your writing, you can render the final document by *knitting* it.
+In RStudio, the shortcut for this is `CTRL+Shift+K`. When a document is knitted, all your
+code in the document is first run and then the result is passed on to pandoc, which
+produces the final document for you.
+
+R Markdown files can be knitted to a wide range of different medium, including
+PDF files, HTML, and word documents. In this course, however, you will always
+produce PDF files from your R Markdown documents.
+
+## Reproducibility
+
+Authoring your documents using R Markdown facilitates reproducibility. Because you
+need to supply all the code used to produce your paper in the `.Rmd` file, this
+makes it much easier for other people to re-run your analysis and use your code.
+
+# Submissions
+
+In this course, you will use R Markdown for all your assignment submissions. For each
+of these you will need to submit both the `.Rmd` source file as well
+as the knitted `.pdf` file. Documents from office packages (such as Microsoft Office)
+will not be accepted.
+
+# Learning More About R Markdown
+
+If you want to learn more about R Markdown, a good place to start is
+at <https://rmarkdown.rstudio.com/lesson-1.html>.
