@@ -9,6 +9,7 @@ toc: true
 header: true
 graphics: true
 colorlinks: true
+bibliography: assets/stae04.bib
 output: 
   rmarkdown::pdf_document:
     template: NULL
@@ -37,24 +38,39 @@ options(
 )
 ```
 
-# Rmarkdown
+# R Markdown
 
 This document is written using [R Markdown](http://rmarkdown.rstudio.com). R Markdown
 is a syntax for formatting documents that lets you focus on the 
-content instead of formatting. You write text, including code, in Rmarkdown syntax
-and then Rmarkdown (plus a handful of very useful packages) turn that text into
+content instead of formatting. You write text, including code, in R Markdown syntax
+and then R Markdown (plus a handful of very useful packages) turn that text into
 a neatly formatted document.
 
 This document serves as both a template for your submissions during the data visualization
 course as well as an introduction into R Markdown. To follow along, you should load
-this file in RStudio. To get started, you need to install the **rmarkdown** package.
+this file in RStudio. 
+
+## Installation
+
+To get started, you are going to need two
+packages: **rmarkdown** and **knitr**.
 
 ```{r, eval = FALSE}
-install.packages("rmarkdown")
+install.packages(c("rmarkdown", "knitr"))
 ```
 
+You will also need a distribution of LaTeX. Installing LaTeX can be a little 
+involved, but it is fortunately very easy to install a lightweight LaTeX distribution
+using the **tinytex** package (if you don't already have a distribution), like so:
 
-A Rmarkdown file ends with `.Rmd` and is best edited using RStudio. Each Rmarkdown file
+```{r, eval = FALSE}
+install.packages("tinytex")
+tinytex::install_tinytex()
+```
+
+## YAML
+
+A R Markdown file ends with `.Rmd` and is best edited using RStudio. Each Rmarkdown file
 starts with a so called YAML block; here is a bare-bones one:
 
 ```yaml
@@ -69,26 +85,91 @@ output: pdf_document
 For this course, you will not need to
 change anything in the YAML block other than the `author`, `date`, and `title` fields.
 
-## Text Formatting
+## Formatting
 
 Rmarkdown uses [Pandoc markdown](https://pandoc.org/MANUAL.html#pandocs-markdown)
 for formatting text, which uses a special---but very simple---syntax for formatting
-text. To write bold text for instance, you use **two stars** to surround text. To
-write italic text, you use a *single star*.
+text. The following are some ways in which you can format text in R Markdown.
 
-Links can be specified using square brackets
-with the text for the link followed by parantheses for the
-actual link, such as [this link to pandoc manual](https://pandoc.org/MANUAL).
+Start a new paragraph by surrounding text with blank lines.
 
-Section titles are written using hash tags, as in this document. One hash tag
-indicates the highest-level section heading, two the second-highest, and so on.
+*Single asterisks italicize text*, **double asterisks format text in bold**, and
+`grave accents formats text in monospace`.
+
+To create lists in markdown, you add a 
+
+- dash before each item in the list, and
+  * possibly asterisks for sub-items in the list,
+- placing items each on its own line, and
+- adding blank lines before and after the list.
+
+Numbered lists are 
+
+1. created similarly, but
+2. using numbers instead of dashes.
+
+Sections are created by prefacing the section title with a hash tag (`#`):
+
+```markdown
+# One Hashtag Creates a Section
+
+## Two Hashtags Creates a Subsection
+
+### Three Hastags Creates a Subsubsection
+```
+
+R Markdown can do quotation formatting too!
+
+> If you want to quote something, adding a `>` before the text
+  creates a block quote ---Johan Larsson
+  
+There are [many ways](https://pandoc.org/MANUAL#tables) to format tables in markdown,
+but the simplest one is two simply create columns of text with dahes `---` separating
+the title of each column from the cells of the table.
+
+Header 1    Header 2
+---------   ---------
+Cell 1      Cell 2
+Cell 3      Cell 4
+
+To add a link in markdown, you can either simply surround the URL with
+brackets like this link to a R Markdown 
+cheatsheet: <https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf>
+or you can use brackets and 
+parantheses to provide your own 
+[text for the link](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf).
+
+Images can be added with syntax similar to the one for links, with the
+text inside brackets indicating the caption for the figure.
+
+![Here is Charle's Minard famous Napoleon chart, for instance. (Public domain.)](images/napoleon.png)
+
+Sometimes it is useful to provide footnotes^[If the footnote is short, it is often
+best to write it in-line, like this.]. For a longer footnote, it might be better to
+refer to it with a number[^1].
+
+[^1]: Then you can add your text separately in the document.
+
+It is also possible to add citations in R Markdown but this is somewhat complicated if
+you are not familiar with markdown, pandoc, or LaTeX since before. In this course you
+will usually never need more than one or two citations, so we suggest you write the
+citations manually, which means you can skip the next paragraph (unless you are keen on 
+getting deeper into R Markdown and pandoc).
+
+You will need a `.bib` file in your working directory or a sub-directory of it. This
+file should contain bibtex-formatted references. Find the key of the reference you
+are looking for and preface it with an `@`, like the following reference to 
+@wickham2010, which creates a text reference. If you surround the key with brackets, you 
+instead get a non-text citation [@wickham2010]. If you've done everything right, 
+the final document will get a bibliography at the end (as in this one).
 
 ## Code Chunks
 
-What makes RMarkdown special is that is allows us to write code chunks containing
-R code. This is a code chunk that plots a simple plot using ggplot2:
+So far we've only really talked about features that are made possible by pandoc and its
+flavor of markdown. But what makes R Markdown special is that is allows us to write code
+chunks containing R code. This is a code chunk that plots a simple plot using ggplot2:
 
-```{r fig.cap = "A Caption."}
+```{r}
 library(tidyverse)
 
 ggplot(msleep, aes(brainwt, sleep_rem)) +
@@ -97,26 +178,33 @@ ggplot(msleep, aes(brainwt, sleep_rem)) +
   labs(x = "Brain Weight (lbs)", y = "REM Sleep (hours)")
 ```
 
-You can control many settings by changing the parameters in the headline of the
-code chunk. The following chunk changes the width and height of the figure, which
-are settings that will be very useful to you.
+As you can see, we've started the code chunk with ` ```{r} ` and ended it with
+` ``` `. Everything in between will be treated as R code, just as if you would have
+written in in an R script of the R terminal. When you compile this document all
+this code will be run and if it produces any output (text, plot, tables) then that
+output will make it into the final document.
 
-```{r fig.cap = "A Caption.", fig.width = 4, fig.height = 1.5}
+You can control many settings by changing the parameters in the headline of the
+code chunk. In the following chunk we've changed the width and height of the figure as well
+as added a caption to the figure. These are settings that will be **incredibly** useful
+to you during the course.
+
+```{r fig.cap = "Brain weight and REM sleep duration for mammals.", fig.width = 4, fig.height = 1.5}
 ggplot(msleep, aes(brainwt, sleep_rem)) +
   geom_point() +
   scale_x_log10() +
   labs(x = "Brain Weight (kg)", y = "REM Sleep (hours)")
 ```
 
-## Rendering an Rmarkdown Document
+## Knitting
 
-When you are done with your writing, you can render the final document by *knitting* it.
+When you are done writing content, you can render the final document by *knitting* it.
 In RStudio, the shortcut for this is `CTRL+Shift+K`. When a document is knitted, all your
 code in the document is first run and then the result is passed on to pandoc, which
 produces the final document for you.
 
-R Markdown files can be knitted to a wide range of different medium, including
-PDF files, HTML, and word documents. In this course, however, you will always
+R Markdown files can be knitted to a wide range of medium, including
+PDF files, HTML, and word documents. Although in this course you will always
 produce PDF files from your R Markdown documents.
 
 ## Reproducibility
@@ -134,5 +222,10 @@ will not be accepted.
 
 # Learning More About R Markdown
 
-If you want to learn more about R Markdown, a good place to start is
-at <https://rmarkdown.rstudio.com/lesson-1.html>.
+If you want to learn more about R Markdown, we recommend the 
+[R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/install-latex.html).
+If you run into any issues with R Markdown, please use the course's discussion board on
+Canvas or search [stack overflow](https://stackoverflow.com) with the `[r-markdown]` 
+or `[knitr]` tag.
+
+# References
