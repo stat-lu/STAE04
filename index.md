@@ -12,6 +12,7 @@ This page contains slides for the course STAE04: Data Visualization
 * [One-Dimensional Visualizations](lecture-one-dimensional-visualizations)
 * [Two-Dimensional Visualizations](lecture-two-dimensional-visualizations)
 * [Data-Ink](lecture-data-ink)
+* [Use and Abuse of Scales](lecture-use-and-abuse-of-scales)
 
 ### Submission Template
 
