@@ -11,6 +11,7 @@ This page contains slides for the course STAE04: Data Visualization
 * [The Grammar of Graphics and ggplot2](lecture-the-grammar-of-graphics-and-ggplot2)
 * [One-Dimensional Visualizations](lecture-one-dimensional-visualizations)
 * [Two-Dimensional Visualizations](lecture-two-dimensional-visualizations)
+* [Visualizing Categorical Data](lecture-visualizing-categorical-data)
 * [Data-Ink](lecture-data-ink)
 * [Use and Abuse of Scales](lecture-use-and-abuse-of-scales)
 
