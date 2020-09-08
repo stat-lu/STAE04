@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Two-Dimensional Visualizations</title>
+    <title>Visualizing Categorical Data</title>
     <meta charset="utf-8" />
     <meta name="author" content="Johan Larsson" />
     <script src="libs/header-attrs-2.3/header-attrs.js"></script>
@@ -12,7 +12,7 @@
     <textarea id="source">
 class: middle, center, title-slide
 
-# Two-Dimensional Visualizations
+# Visualizing Categorical Data
 ## STAE04: Data Visualization
 ### Johan Larsson
 ### The Department of Statistics, Lund University
@@ -22,215 +22,170 @@ class: middle, center, title-slide
 
 
 
-## Associations
+## Visualizing Categorical Data
 
-.pull-left[
-two-dimensional plots show **associations**: how does `\(x\)` relate to `\(y\)`?
+visualizing categorical data is really about visualizing proportions
 
-visualizing two dimensions is usually **straightforward**, particularly when both
-variables are continuous
+ggplot2 has **limited** capabilities for visualizing categorical data
 
-scatter plots (`geom_point()`) are the bread and butter of visualizations of
-two continuous variables
+---
+
+## Bar Charts
+
+**bar** charts are intuitive and obiquitous
+
+plots up to three categories at once with the use of **facets**
 
 
 ```r
-library(tidyverse)
-ggplot(swiss, 
-       aes(Examination, 
-           Fertility)) +
-  geom_point()
-```
+library(productplots) # for happy data set
+happy &lt;- drop_na(happy)
 
-]
-
-.pull-right[
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="lecture-two-dimensional-visualizations_files/figure-html/unnamed-chunk-2-1.svg" alt="Fertility and % of draftees receiving highest mark on army examination in French-speaking provinces in Switzerland."  /&gt;
-&lt;p class="caption"&gt;Fertility and % of draftees receiving highest mark on army examination in French-speaking provinces in Switzerland.&lt;/p&gt;
-&lt;/div&gt;
-]
-
----
-
-## Patterns
-
-understanding patterns is key to being able to visualize data effectively
-
-&lt;img src="lecture-two-dimensional-visualizations_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-
-## Variation
-
-.pull-left-40[
-a good visualization should describe the variation in the data
-]
-
-.pull-right-60[
-&lt;img src="lecture-two-dimensional-visualizations_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
---
-
-.pull-left-60[
-&lt;img src="lecture-two-dimensional-visualizations_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-.pull-right-40[
-sometimes variation has a pattern of itself
-]
-
-
-
----
-
-## Time
-
-time has a specific order, so the line geom is often natural
-
-always place time on the horizontal (x) axis
-
-
-```r
-ggplot(economics, aes(date, uempmed)) +
-  geom_line() +
-  xlab("Time") +
-  ylab("Unemployment duration")
+ggplot(happy, aes(happy)) + geom_bar()
 ```
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="lecture-two-dimensional-visualizations_files/figure-html/unnamed-chunk-6-1.svg" alt="Median unemployment duration in the US."  /&gt;
-&lt;p class="caption"&gt;Median unemployment duration in the US.&lt;/p&gt;
+&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-1-1.svg" alt="Happiness ratings from the GSS in the US."  /&gt;
+&lt;p class="caption"&gt;Happiness ratings from the GSS in the US.&lt;/p&gt;
 &lt;/div&gt;
 
 ---
 
-## Geoms and Time
+## Grouped Bar Chart
 
-often useful to use points and lines together when measurements
-are taken at irregular intervals or seldom
+makes it easy to compare between categories, but harder to judge composition within categories
 
 
 ```r
-filter(ChickWeight, Chick == 5) %&gt;%
-  ggplot(aes(Time, weight)) +
-  geom_point() +
-  geom_line()
+ggplot(happy, aes(degree, fill = happy)) +
+  geom_bar(position = "dodge")
 ```
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="lecture-two-dimensional-visualizations_files/figure-html/unnamed-chunk-7-1.svg" alt="Weight of a chick over time."  /&gt;
-&lt;p class="caption"&gt;Weight of a chick over time.&lt;/p&gt;
+&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-2-1.svg" alt="A grouped barchart."  /&gt;
+&lt;p class="caption"&gt;A grouped barchart.&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+## Stacked Barchart
+
+makes it easy to compare within categories, but difficult to judge between categories
+
+
+```r
+ggplot(happy, aes(degree, fill = happy)) +
+  geom_bar() # position = "stack" is the default
+```
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-3-1.svg" alt="A stacked barchart."  /&gt;
+&lt;p class="caption"&gt;A stacked barchart.&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+## Proportional Stacked Barchart
+
+easy to compare both between and within categories but lose information on category size
+
+
+```r
+ggplot(happy, aes(degree, fill = happy)) +
+  geom_bar(position = "fill") +
+  ylab("Proportion")
+```
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-4-1.svg" alt="A stacked bar chart. Y axis unit is now proportions."  /&gt;
+&lt;p class="caption"&gt;A stacked bar chart. Y axis unit is now proportions.&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+## Mosaic Plots
+
+a type of stacked barchart that maps category size to 
+the width of bars
+
+need to use another package for this: [productplots](https://CRAN.R-project.org/package=productplots) or [ggmosaic](https://CRAN.R-project.org/package=ggmosaic)
+
+
+```r
+library(productplots)
+prodplot(drop_na(happy), ~ happy + degree) +
+  aes(fill = happy) +
+  theme(legend.position = "none") # remove legend
+```
+
+&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Waffle Plots
+
+suitable when there are large differences between categories
+
+again need to use a new package: [waffle](https://CRAN.R-project.org/package=waffle)
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-6-1.svg" alt="A waffle plot of the happiness data. Every square represents 100 people. The code is quite complicated (see the source code for this slide)."  /&gt;
+&lt;p class="caption"&gt;A waffle plot of the happiness data. Every square represents 100 people. The code is quite complicated (see the source code for this slide).&lt;/p&gt;
 &lt;/div&gt;
 
 
 ---
 
-## Categorical Variables
+## Euler and Venn Diagrams
 
-categorical variables (factors) can of course be used
-as the second dimension
 
+useful when relationships between categorical variables is at interest
+
+not always possible to get **exact** diagram for more than two categories
+
+.pull-left[
 
 ```r
-ggplot(msleep, aes(vore, sleep_total)) +
-  geom_boxplot()
+library(eulerr)
+
+combo &lt;- c(
+  "happy" = 100, 
+  "graduated" = 40,
+  "happy&amp;graduated" = 35
+)
+
+# fit and inspect
+r &lt;- euler(combo)
+
+# plot
+plot(r)
 ```
+]
+
+.pull-right[
+&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+.footnote[
+Disclaimer: Johan Larsson is the author of [eulerr](https://CRAN.R-project.org/package=eulerr).
+]
+
+---
+
+## More on Visualizing Categorical Data
+
+much more to learn on visualizations of categorical data
+
+packages [vcd](https://CRAN.R-project.org/package=vcd) and 
+[vcdExtra](https://CRAN.R-project.org/package=vcdExtra) offer lots of functionality
+
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="lecture-two-dimensional-visualizations_files/figure-html/unnamed-chunk-8-1.svg" alt="Boxplot of total sleep duration for different mammals."  /&gt;
-&lt;p class="caption"&gt;Boxplot of total sleep duration for different mammals.&lt;/p&gt;
+&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-8-1.svg" alt="A plot from the vcd package."  /&gt;
+&lt;p class="caption"&gt;A plot from the vcd package.&lt;/p&gt;
 &lt;/div&gt;
-
----
-
-## Ordered Factors
-
-pay attention to whether or not the factor is **ordered**
-
-.pull-left[
-&lt;img src="lecture-two-dimensional-visualizations_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
---
-
-.pull-right[
-&lt;img src="lecture-two-dimensional-visualizations_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
----
-
-## Discrete Data
-
-a problem when one (or both) variables are discrete (or categorical)
-is that they might overlap
-
-a simply solution is to use opacity (`alpha`)
-
-.pull-left[
-
-```r
-ggplot(mpg, aes(cty, hwy)) +
-  geom_point() 
-```
-
-&lt;img src="lecture-two-dimensional-visualizations_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
---
-
-.pull-right[
-
-```r
-ggplot(mpg, aes(cty, hwy)) +
-  geom_point(alpha = 0.2) 
-```
-
-&lt;img src="lecture-two-dimensional-visualizations_files/figure-html/unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
----
-
-## Scales
-
-for some variables, it is more natural to study them on a different scale
-
-other times it is simply convenient (more compact)
-
-.pull-left[
-
-```r
-ggplot(msleep, 
-       aes(brainwt, 
-           sleep_total)) +
-  geom_point() +
-  scale_y_continuous()
-```
-
-&lt;img src="lecture-two-dimensional-visualizations_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
---
-
-.pull-right[
-
-```r
-ggplot(msleep, 
-       aes(brainwt, 
-           sleep_total)) +
-  geom_point() +
-  scale_x_log10()
-```
-
-&lt;img src="lecture-two-dimensional-visualizations_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
-
-
-
-
 
 
 

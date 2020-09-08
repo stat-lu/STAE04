@@ -57,7 +57,7 @@ options(digits = 3)
 ## Associations
 
 .pull-left[
-two-dimensional visualizations show **associations**: how does $x$ relate to $y$?
+two-dimensional plots show **associations**: how does $x$ relate to $y$?
 
 visualizing two dimensions is usually **straightforward**, particularly when both
 variables are continuous
