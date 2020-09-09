@@ -28,8 +28,6 @@ knitr::opts_chunk$set(
   fig.align = "center"
 )
 
-knitr::knit_hooks$set(crop = knitr::hook_mogrify)
-
 library(tidyverse)
 library(tactile)
 library(lattice)
@@ -39,8 +37,6 @@ library(kableExtra)
 kable <- function(x, ...) {
   knitr::kable(x, escape = FALSE, linesep = "", booktabs = TRUE)
 }
-
-
 
 library(RefManageR)
 BibOptions(check.entries = FALSE, 
@@ -60,30 +56,40 @@ options(digits = 3)
 
 ## Visualizing Categorical Data
 
-visualizing categorical data is really about visualizing proportions
+visualizing categorical data usually comes down to visualizing proportions
+
+```{r, echo = FALSE, fig.cap = "A 'scatter plot' of categorical data; not very appealing.", fig.width = 10, fig.height = 5, dev = "png", dpi = 200}
+library(tidyverse)
+library(productplots) # for happy data set
+happy <- drop_na(happy)
+
+ggplot(happy, aes(degree, happy)) + 
+  geom_point(position = "jitter", alpha = 0.1)
+```
+
 
 ggplot2 has **limited** capabilities for visualizing categorical data
 
 ---
 
-## Bar Charts
+## Barcharts
 
-**bar** charts are intuitive and obiquitous
-
-plots up to three categories at once with the use of **facets**
+intuitive and common: easily understood
 
 ```{r, fig.width = 5, fig.height = 2.8, fig.cap = "Happiness ratings from the GSS in the US."}
 library(productplots) # for happy data set
 happy <- drop_na(happy)
 
-ggplot(happy, aes(happy)) + geom_bar()
+ggplot(happy, aes(happy)) +
+  geom_bar()
 ```
 
 ---
 
-## Grouped Bar Chart
+## Grouped Barchart
 
-makes it easy to compare between categories, but harder to judge composition within categories
+good when counts are what matters and group sizes are important, but hard to judge within
+categories
 
 ```{r, fig.cap = "A grouped barchart.", fig.width = 8}
 ggplot(happy, aes(degree, fill = happy)) +
@@ -94,7 +100,8 @@ ggplot(happy, aes(degree, fill = happy)) +
 
 ## Stacked Barchart
 
-makes it easy to compare within categories, but difficult to judge between categories
+same use case as grouped barcharts, but easier to compare within categories whilst
+harder to compare between
 
 ```{r, fig.cap = "A stacked barchart.", fig.width = 8}
 ggplot(happy, aes(degree, fill = happy)) +
@@ -107,7 +114,7 @@ ggplot(happy, aes(degree, fill = happy)) +
 
 easy to compare both between and within categories but lose information on category size
 
-```{r, fig.cap = "A stacked bar chart. Y axis unit is now proportions.", fig.width = 8}
+```{r, fig.cap = "A stacked bar chart. Y axis unit is now proportions within each category.", fig.width = 8}
 ggplot(happy, aes(degree, fill = happy)) +
   geom_bar(position = "fill") +
   ylab("Proportion")
@@ -120,14 +127,28 @@ ggplot(happy, aes(degree, fill = happy)) +
 a type of stacked barchart that maps category size to 
 the width of bars
 
-need to use another package for this: [productplots](https://CRAN.R-project.org/package=productplots) or [ggmosaic](https://CRAN.R-project.org/package=ggmosaic)
+need to use another package for this: [productplots](https://CRAN.R-project.org/package=productplots) or [ggmosaic](https://CRAN.R-project.org/package=ggmosaic), or [vcd](https://CRAN.R-project.org/package=vcd)
 
 ```{r, fig.width = 8}
 library(productplots)
-prodplot(drop_na(happy), ~ happy + degree) +
+prodplot(happy, ~ happy + degree) +
   aes(fill = happy) +
   theme(legend.position = "none") # remove legend
 ```
+
+---
+
+## Mappings
+
+choice of mappings with categorical data is important
+
+```{r, fig.cap = "The proportional stacked bar chart with a different mapping.", fig.width = 8}
+ggplot(happy, aes(happy, fill = degree)) +
+  geom_bar(position = "fill", col = 1) +
+  ylab("Proportion")
+```
+
+pay attention to **which relationship it is you want to display**
 
 ---
 
@@ -160,15 +181,13 @@ ggplot(happier,
   theme_enhance_waffle()
 ```
 
-
 ---
 
 ## Euler and Venn Diagrams
 
-
 useful when relationships between categorical variables is at interest
 
-not always possible to get **exact** diagram for more than two categories
+**proportional** diagrams best but not always possible for more than two categories
 
 .pull-left[
 ```{r eulerr, eval = FALSE}
@@ -209,12 +228,12 @@ packages [vcd](https://CRAN.R-project.org/package=vcd) and
 [vcdExtra](https://CRAN.R-project.org/package=vcdExtra) offer lots of functionality
 
 
-```{r, echo = FALSE, fig.width = 7, fig.height =6, fig.cap = "A plot from the vcd package."}
+```{r, echo = FALSE, fig.width = 4, fig.height = 4, fig.cap = "A plot from the vcd package."}
 library(vcd)
-UCB <- aperm(UCBAdmissions[, , 1:3], c(2, 1, 3))
+UCB <- aperm(UCBAdmissions[, , 1:4], c(2, 1, 3))
 names(dimnames(UCB)) <- c("Sex", "Admit?", "Department")
 dimnames(UCB)[[2]] <- c("Yes", "No")
-fourfold(UCB, mfrow = c(1, 3))
+fourfold(UCB)
 ```
 
 

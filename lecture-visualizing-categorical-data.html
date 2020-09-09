@@ -24,36 +24,42 @@ class: middle, center, title-slide
 
 ## Visualizing Categorical Data
 
-visualizing categorical data is really about visualizing proportions
+visualizing categorical data usually comes down to visualizing proportions
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-1-1.png" alt="A 'scatter plot' of categorical data; not very appealing."  /&gt;
+&lt;p class="caption"&gt;A 'scatter plot' of categorical data; not very appealing.&lt;/p&gt;
+&lt;/div&gt;
+
 
 ggplot2 has **limited** capabilities for visualizing categorical data
 
 ---
 
-## Bar Charts
+## Barcharts
 
-**bar** charts are intuitive and obiquitous
-
-plots up to three categories at once with the use of **facets**
+intuitive and common: easily understood
 
 
 ```r
 library(productplots) # for happy data set
 happy &lt;- drop_na(happy)
 
-ggplot(happy, aes(happy)) + geom_bar()
+ggplot(happy, aes(happy)) +
+  geom_bar()
 ```
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-1-1.svg" alt="Happiness ratings from the GSS in the US."  /&gt;
+&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-2-1.svg" alt="Happiness ratings from the GSS in the US."  /&gt;
 &lt;p class="caption"&gt;Happiness ratings from the GSS in the US.&lt;/p&gt;
 &lt;/div&gt;
 
 ---
 
-## Grouped Bar Chart
+## Grouped Barchart
 
-makes it easy to compare between categories, but harder to judge composition within categories
+good when counts are what matters and group sizes are important, but hard to judge within
+categories
 
 
 ```r
@@ -62,7 +68,7 @@ ggplot(happy, aes(degree, fill = happy)) +
 ```
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-2-1.svg" alt="A grouped barchart."  /&gt;
+&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-3-1.svg" alt="A grouped barchart."  /&gt;
 &lt;p class="caption"&gt;A grouped barchart.&lt;/p&gt;
 &lt;/div&gt;
 
@@ -70,7 +76,8 @@ ggplot(happy, aes(degree, fill = happy)) +
 
 ## Stacked Barchart
 
-makes it easy to compare within categories, but difficult to judge between categories
+same use case as grouped barcharts, but easier to compare within categories whilst
+harder to compare between
 
 
 ```r
@@ -79,7 +86,7 @@ ggplot(happy, aes(degree, fill = happy)) +
 ```
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-3-1.svg" alt="A stacked barchart."  /&gt;
+&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-4-1.svg" alt="A stacked barchart."  /&gt;
 &lt;p class="caption"&gt;A stacked barchart.&lt;/p&gt;
 &lt;/div&gt;
 
@@ -97,8 +104,8 @@ ggplot(happy, aes(degree, fill = happy)) +
 ```
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-4-1.svg" alt="A stacked bar chart. Y axis unit is now proportions."  /&gt;
-&lt;p class="caption"&gt;A stacked bar chart. Y axis unit is now proportions.&lt;/p&gt;
+&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-5-1.svg" alt="A stacked bar chart. Y axis unit is now proportions within each category."  /&gt;
+&lt;p class="caption"&gt;A stacked bar chart. Y axis unit is now proportions within each category.&lt;/p&gt;
 &lt;/div&gt;
 
 ---
@@ -108,17 +115,37 @@ ggplot(happy, aes(degree, fill = happy)) +
 a type of stacked barchart that maps category size to 
 the width of bars
 
-need to use another package for this: [productplots](https://CRAN.R-project.org/package=productplots) or [ggmosaic](https://CRAN.R-project.org/package=ggmosaic)
+need to use another package for this: [productplots](https://CRAN.R-project.org/package=productplots) or [ggmosaic](https://CRAN.R-project.org/package=ggmosaic), or [vcd](https://CRAN.R-project.org/package=vcd)
 
 
 ```r
 library(productplots)
-prodplot(drop_na(happy), ~ happy + degree) +
+prodplot(happy, ~ happy + degree) +
   aes(fill = happy) +
   theme(legend.position = "none") # remove legend
 ```
 
-&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Mappings
+
+choice of mappings with categorical data is important
+
+
+```r
+ggplot(happy, aes(happy, fill = degree)) +
+  geom_bar(position = "fill", col = 1) +
+  ylab("Proportion")
+```
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-7-1.svg" alt="The proportional stacked bar chart with a different mapping."  /&gt;
+&lt;p class="caption"&gt;The proportional stacked bar chart with a different mapping.&lt;/p&gt;
+&lt;/div&gt;
+
+pay attention to **which relationship it is you want to display**
 
 ---
 
@@ -130,19 +157,17 @@ again need to use a new package: [waffle](https://CRAN.R-project.org/package=waf
 
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-6-1.svg" alt="A waffle plot of the happiness data. Every square represents 100 people. The code is quite complicated (see the source code for this slide)."  /&gt;
+&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-8-1.svg" alt="A waffle plot of the happiness data. Every square represents 100 people. The code is quite complicated (see the source code for this slide)."  /&gt;
 &lt;p class="caption"&gt;A waffle plot of the happiness data. Every square represents 100 people. The code is quite complicated (see the source code for this slide).&lt;/p&gt;
 &lt;/div&gt;
-
 
 ---
 
 ## Euler and Venn Diagrams
 
-
 useful when relationships between categorical variables is at interest
 
-not always possible to get **exact** diagram for more than two categories
+**proportional** diagrams best but not always possible for more than two categories
 
 .pull-left[
 
@@ -164,7 +189,7 @@ plot(r)
 ]
 
 .pull-right[
-&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -183,7 +208,7 @@ packages [vcd](https://CRAN.R-project.org/package=vcd) and
 
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-8-1.svg" alt="A plot from the vcd package."  /&gt;
+&lt;img src="lecture-visualizing-categorical-data_files/figure-html/unnamed-chunk-10-1.svg" alt="A plot from the vcd package."  /&gt;
 &lt;p class="caption"&gt;A plot from the vcd package.&lt;/p&gt;
 &lt;/div&gt;
 
