@@ -13,6 +13,7 @@ This page contains slides for the course STAE04: Data Visualization
 * [Two-Dimensional Visualizations](lecture-two-dimensional-visualizations)
 * [Visualizing Categorical Data](lecture-visualizing-categorical-data)
 * [Visualizing Multivariate Data](lecture-visualizing-multivariate-data)
+* [Visualizing Big Data](lecture-visualizing-big-data)
 * [Data-Ink](lecture-data-ink)
 * [Use and Abuse of Scales](lecture-use-and-abuse-of-scales)
 

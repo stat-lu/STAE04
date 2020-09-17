@@ -1,0 +1,230 @@
+---
+title: "Visualizing Big Data"
+subtitle: "STAE04: Data Visualization"
+author: "Johan Larsson"
+institute: "The Department of Statistics, Lund University"
+date: ""
+bibliography: "assets/stae04.bib"
+output:
+  xaringan::moon_reader:
+    css: [default, "assets/stae04.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      titleSlideClass: [middle, center]
+      countIncrementalSlides: false
+---
+
+```{r setup, include = FALSE}
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  cache = FALSE,
+  dev = "png",
+  fig.width = 5.2,
+  fig.height = 4.2,
+  fig.align = "center",
+  fig.retina = 3,
+  dev.args = list(pointsize = 16),
+  crop = TRUE
+)
+
+library(tidyverse)
+library(kableExtra)
+
+kable <- function(x, ...) {
+  knitr::kable(x, escape = FALSE, linesep = "", booktabs = TRUE)
+}
+
+library(RefManageR)
+BibOptions(check.entries = FALSE, 
+           bib.style = "authoryear",
+           style = "markdown",
+           dashed = TRUE)
+bib <- ReadBib("assets/stae04.bib")
+
+theme_set(theme_bw())
+
+if (!interactive()) {
+  theme_set(theme_grey(base_size = 16))
+}
+
+options(digits = 3)
+```
+
+## Big Data
+
+big data: many variables **and/or** observations
+
+here we consider the case of many observations
+
+the problem with many observations is overlap
+
+.pull-left[
+```{r diamonds1, eval = FALSE}
+ggplot(diamonds, 
+       aes(carat, price)) +
+  geom_point()
+```
+]
+
+.pull-right[
+```{r, ref.label = "diamonds1", echo = FALSE, fig.cap = "Carat and price of diamonds."}
+```
+]
+
+---
+
+## Aesthetics
+
+simple, but not always effective, solutions: modify aesthetics (size, opacity)
+
+.pull-left[
+```{r}
+ggplot(diamonds, 
+       aes(carat, price)) +
+  geom_point(alpha = 0.01)
+```
+]
+
+.pull-right[
+```{r}
+ggplot(diamonds, 
+       aes(carat, price)) +
+  geom_point(cex = 0.01)
+```
+]
+
+
+---
+
+## Bin-Summarize-Smooth
+
+the bin-summarize-smooth framework `r Citep(bib, "wickham2013a")` is a principled
+methodology to handle large data
+
+**binning** is the process of grouping values into *bins*; **summarizing** is the
+act of computing a summary statistics (count, mean) inside each bean
+
+**smoothing** smooths out noisy data, revealing hard-to-see patterns
+
+we've already encountered binning for one variable: histograms, but they don't work with
+two-dimensional data
+
+---
+
+## Hexogonal Binning
+
+a type of two-dimensional histogram, binning into hexagons instead of bars and
+mapping count to color instead of height
+
+```{r, fig.width = 7, fig.height = 4.8}
+ggplot(diamonds, aes(carat, price)) +
+  geom_hex(bins = 60) +
+  scale_fill_distiller(palette = "Spectral")
+```
+
+---
+
+## Density Plots
+
+two-dimensional density plots can be suitable when you have a large number
+of observations but remember that they are sensitive to settings
+
+default kernel only completely accurate when data is **normally distributed**
+
+
+```{r, fig.width = 7}
+ggplot(diamonds, aes(carat, price)) +
+  geom_density_2d_filled()
+```
+
+---
+
+log-transforming the scales produces a better result
+
+in general **safer** with hexagonal binning
+
+```{r, fig.width = 7, fig.heigt = 5.5}
+ggplot(diamonds, aes(carat, price)) +
+  geom_density_2d_filled() +
+  scale_y_log10() +
+  scale_x_log10()
+```
+
+---
+
+## Smoothing
+
+smoothing is a powerful transformation for noisy data
+
+```{r}
+p <- tsibble::as_tsibble(Nile) %>%
+  ggplot(aes(index, value)) +
+    geom_line()
+```
+
+.pull-left[
+```{r}
+p
+```
+]
+
+--
+
+.pull-right[
+```{r}
+p + geom_smooth()
+```
+]
+
+---
+
+### More on Smoothing
+
+smoothing is equivalent to applying a statistical model to the data; as a thumb rule 
+don't use a smoother that you don't understand
+
+smoothing is also sensitive to which model is used and its parameters
+
+.pull-left[
+```{r}
+p + geom_smooth(
+  method = "gam",
+  formula = y ~ poly(x, 6)
+)
+```
+]
+
+--
+
+.pull-right[
+```{r}
+p + geom_smooth(method = "lm")
+```
+]
+
+---
+
+## Facets
+
+sometimes it's enough to split data into facets
+
+```{r, fig.width = 10, fig.height = 5}
+ggplot(diamonds, aes(carat, price)) +
+  geom_point(alpha = 0.01) +
+  facet_wrap(~cut)
+```
+
+---
+
+## References
+
+
+```{r, results = "asis", echo=FALSE}
+PrintBibliography(bib)
+```
