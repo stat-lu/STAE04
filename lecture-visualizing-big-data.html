@@ -57,7 +57,7 @@ simple, but not always effective, solutions: modify aesthetics (size, opacity)
 ```r
 ggplot(diamonds, 
        aes(carat, price)) +
-  geom_point(alpha = 0.01)
+* geom_point(alpha = 0.01)
 ```
 
 &lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-2-1.png" width="374.4" style="display: block; margin: auto;" /&gt;
@@ -68,141 +68,10 @@ ggplot(diamonds,
 ```r
 ggplot(diamonds, 
        aes(carat, price)) +
-  geom_point(cex = 0.01)
+* geom_point(cex = 0.01)
 ```
 
 &lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-3-1.png" width="374.4" style="display: block; margin: auto;" /&gt;
-]
-
-
----
-
-## Bin-Summarize-Smooth
-
-the bin-summarize-smooth framework &lt;a name=cite-wickham2013a&gt;&lt;/a&gt;([Wickham, 2013](https://vita.had.co.nz/papers/bigvis.pdf)) is a principled
-methodology to handle large data
-
-**binning** is the process of grouping values into *bins*; **summarizing** is the
-act of computing a summary statistics (count, mean) inside each bean
-
-**smoothing** smooths out noisy data, revealing hard-to-see patterns
-
-we've already encountered binning for one variable: histograms, but they don't work with
-two-dimensional data
-
----
-
-## Hexogonal Binning
-
-a type of two-dimensional histogram, binning into hexagons instead of bars and
-mapping count to color instead of height
-
-
-```r
-ggplot(diamonds, aes(carat, price)) +
-  geom_hex(bins = 60) +
-  scale_fill_distiller(palette = "Spectral")
-```
-
-&lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-4-1.png" width="504" style="display: block; margin: auto;" /&gt;
-
----
-
-## Density Plots
-
-two-dimensional density plots can be suitable when you have a large number
-of observations but remember that they are sensitive to settings
-
-default kernel only completely accurate when data is **normally distributed**
-
-
-
-```r
-ggplot(diamonds, aes(carat, price)) +
-  geom_density_2d_filled()
-```
-
-&lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-5-1.png" width="504" style="display: block; margin: auto;" /&gt;
-
----
-
-log-transforming the scales produces a better result
-
-in general **safer** with hexagonal binning
-
-
-```r
-ggplot(diamonds, aes(carat, price)) +
-  geom_density_2d_filled() +
-  scale_y_log10() +
-  scale_x_log10()
-```
-
-&lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-6-1.png" width="504" style="display: block; margin: auto;" /&gt;
-
----
-
-## Smoothing
-
-smoothing is a powerful transformation for noisy data
-
-
-```r
-p &lt;- tsibble::as_tsibble(Nile) %&gt;%
-  ggplot(aes(index, value)) +
-    geom_line()
-```
-
-.pull-left[
-
-```r
-p
-```
-
-&lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-8-1.png" width="374.4" style="display: block; margin: auto;" /&gt;
-]
-
---
-
-.pull-right[
-
-```r
-p + geom_smooth()
-```
-
-&lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-9-1.png" width="374.4" style="display: block; margin: auto;" /&gt;
-]
-
----
-
-### More on Smoothing
-
-smoothing is equivalent to applying a statistical model to the data; as a thumb rule 
-don't use a smoother that you don't understand
-
-smoothing is also sensitive to which model is used and its parameters
-
-.pull-left[
-
-```r
-p + geom_smooth(
-  method = "gam",
-  formula = y ~ poly(x, 6)
-)
-```
-
-&lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-10-1.png" width="374.4" style="display: block; margin: auto;" /&gt;
-]
-
---
-
-.pull-right[
-
-```r
-p + geom_smooth(method = "lm")
-```
-
-&lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-11-1.png" width="374.4" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -218,10 +87,159 @@ ggplot(diamonds, aes(carat, price)) +
   facet_wrap(~cut)
 ```
 
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-12-1.png" alt="Facetting to deal with big data." width="720" /&gt;
-&lt;p class="caption"&gt;Facetting to deal with big data.&lt;/p&gt;
-&lt;/div&gt;
+&lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-4-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Bin-Summarize or Smooth
+
+the bin-summarize-smooth framework &lt;a name=cite-wickham2013a&gt;&lt;/a&gt;([Wickham, 2013](https://vita.had.co.nz/papers/bigvis.pdf)) is a principled
+methodology to handle large data
+
+**binning** is the process of grouping values into *bins*; **summarizing** is the
+act of computing a summary statistics (count, mean) inside each bean
+
+**smoothing** smooths out noisy data, revealing hard-to-see patterns
+
+we've already encountered binning for one variable: histograms, but they don't work with
+two-dimensional data
+
+---
+
+## Binning
+
+simple, but not very sophisticated, idea
+
+
+```r
+trees &lt;- tsibble::as_tsibble(treering)
+ggplot(trees, aes(index, value)) + geom_line()
+```
+
+&lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-5-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+--
+
+
+```r
+ggplot(trees, aes(index, value)) + geom_line(alpha = 0.2) +
+  geom_hline(yintercept = 1, lty = 2) +
+* stat_summary_bin(fun = mean, geom = "line", binwidth = 100)
+```
+
+&lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-6-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+---
+
+### Two-Dimensional Binning
+
+a type of two-dimensional histogram, mapping counts to color intead of height
+and binning into a two-dimensional geometric shape
+
+
+```r
+ggplot(diamonds, aes(carat, price)) +
+  geom_bin2d(bins = 60) +
+  scale_fill_distiller(palette = "Spectral")
+```
+
+&lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-7-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+### Hexagonal Binning
+
+rectangles may obscure information for some data and it is therefore usually better
+to use hexagons instead, via `geom_hex()`
+
+
+```r
+ggplot(diamonds, aes(carat, price)) +
+  geom_hex(bins = 60) +
+  scale_fill_distiller(palette = "Spectral")
+```
+
+&lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-8-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Smoothing
+
+smoothing is a powerful transformation for noisy data
+
+smoothing is equivalent to applying a statistical model to the data
+
+
+```r
+ggplot(trees, aes(index, value)) +
+  geom_line(alpha = 0.3, size = 0.3) +
+  geom_hline(yintercept = 1, lty = 2) +
+* geom_smooth()
+```
+
+&lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-9-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+---
+
+### Smoothers are Sensitive
+
+as a thumb rule use only smoothers that you understand
+
+
+
+.pull-left[
+
+```r
+p + geom_smooth(method = "lm")
+```
+
+&lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-11-1.png" width="374.4" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.pull-right[
+
+```r
+p + geom_smooth(
+  method = "gam",
+  formula = y ~ poly(x, 6)
+)
+```
+
+&lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-12-1.png" width="374.4" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+### 2D Density Plots
+
+two-dimensional density plots is a type of two-dimensional smoothing
+
+uses a density kernel, which is sensitive to parameters
+
+
+```r
+ggplot(diamonds, aes(carat, price)) +
+  geom_density_2d_filled()
+```
+
+&lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-13-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+for other data a density plot may work well
+
+
+```r
+ggplot(faithful, aes(eruptions, waiting)) +
+  geom_density2d_filled() +
+  geom_point()
+```
+
+&lt;img src="lecture-visualizing-big-data_files/figure-html/unnamed-chunk-14-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+hexagonal binning is in general a **safer bet**
 
 ---
 
