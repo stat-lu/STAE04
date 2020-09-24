@@ -63,7 +63,7 @@ options(digits = 3)
 
 visualizations often most intriguing when they show multiple variables
 
-```{r, echo = FALSE, out.width = "82%", fig.cap = "The Emigrants of the World, Charles Joseph Minard, 1858."}
+```{r, echo = FALSE, out.width = "78%", fig.cap = "The Emigrants of the World, Charles Joseph Minard, 1858."}
 knitr::include_graphics("images/minard-migration.jpg")
 ```
 
@@ -151,7 +151,7 @@ update(p[c(1, 1, 1)],
 
 color is often a good choice, especially with categorical variables
 
-```{r, fig.width = 6}
+```{r, fig.height = 3.8}
 mtcars <- 
   rownames_to_column(mtcars, "name") %>%
   mutate_at(vars(cyl, gear), as.factor)
@@ -210,7 +210,7 @@ caveat: comparing areas is **hard**
 ]
 
 .pull-right-60[
-```{r}
+```{r, fig.width = 5.5}
 ggplot(mtcars, 
        aes(disp, hp, size = mpg)) +
   geom_point()
@@ -231,7 +231,7 @@ troops <- read.table("data/troops.txt",
          group = factor(group))
 ```
 
-```{r, fig.cap = "Basic reproduction of Napoleon chart.", fig.width = 10, fig.height = 3.5}
+```{r, fig.cap = "Basic reproduction of Minard's Napoleon chart.", fig.width = 10, fig.height = 3.5}
 # see source for dataset
 ggplot(troops, 
        aes(long, lat, group = group, 
@@ -247,7 +247,7 @@ works quite well for categorical variables, but usually not preferable over colo
 
 mapping to line shapes is generally better than point shapes
 
-```{r}
+```{r, fig.width = 6}
 ggplot(mtcars, aes(disp, hp, shape = cyl)) +
   geom_point()
 ```
@@ -328,10 +328,42 @@ mtcars %>%
 
 ---
 
-## Many Variables
+## Pairs Plots
 
-putting together these building blocks allows us to create interesting and complex but
-still clear visualizations
+plot pairs of variables in a grid, plotting the joint distributions of
+every pair of variables
+
+pairs plots of scatter plots (a scatter plot matrix) can be
+accomplished with ggplot2 by **pivoting** and **facets**
+
+the [GGally](https://ggobi.github.io/ggally) package `r Citep(bib, "emerson2013")`
+presents a cleaner approach
+
+---
+
+```{r, echo = FALSE, eval = FALSE}
+library(GGally)
+ragg::agg_png("images/ggally.png", width = 1028, height = 900)
+theme_set(theme_grey(base_size = 16))
+ggpairs(mpg, columns = c("displ", "drv", "cty", "hwy"))
+dev.off()
+```
+
+```{r, eval = FALSE}
+library(GGally)
+ggpairs(mpg, columns = c("displ", "drv", "cty", "hwy"))
+```
+
+```{r, echo = FALSE, out.width = "85%"}
+knitr::include_graphics("images/ggally.png")
+```
+
+---
+
+## Combining Our Tools
+
+putting together these building blocks allows us to create interesting and complex
+visualizations
 
 ```{r, fig.width = 10, fig.height = 4}
 tail(mtcars, 15) %>%
@@ -342,3 +374,11 @@ tail(mtcars, 15) %>%
 ```
 
 
+---
+
+## References
+
+
+```{r, results = "asis", echo=FALSE}
+PrintBibliography(bib)
+```

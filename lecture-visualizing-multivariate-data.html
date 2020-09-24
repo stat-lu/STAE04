@@ -27,7 +27,7 @@ class: middle, center, title-slide
 visualizations often most intriguing when they show multiple variables
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="images/minard-migration.jpg" alt="The Emigrants of the World, Charles Joseph Minard, 1858." width="82%" /&gt;
+&lt;img src="images/minard-migration.jpg" alt="The Emigrants of the World, Charles Joseph Minard, 1858." width="78%" /&gt;
 &lt;p class="caption"&gt;The Emigrants of the World, Charles Joseph Minard, 1858.&lt;/p&gt;
 &lt;/div&gt;
 
@@ -92,7 +92,7 @@ ggplot(mtcars, aes(disp, hp, color = cyl)) +
   geom_point()
 ```
 
-&lt;img src="lecture-visualizing-multivariate-data_files/figure-html/unnamed-chunk-5-1.png" width="432" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture-visualizing-multivariate-data_files/figure-html/unnamed-chunk-5-1.png" width="374.4" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -150,7 +150,7 @@ ggplot(mtcars,
   geom_point()
 ```
 
-&lt;img src="lecture-visualizing-multivariate-data_files/figure-html/unnamed-chunk-9-1.png" width="374.4" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture-visualizing-multivariate-data_files/figure-html/unnamed-chunk-9-1.png" width="396" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -172,8 +172,8 @@ ggplot(troops,
 ```
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="lecture-visualizing-multivariate-data_files/figure-html/unnamed-chunk-11-1.png" alt="Basic reproduction of Napoleon chart." width="720" /&gt;
-&lt;p class="caption"&gt;Basic reproduction of Napoleon chart.&lt;/p&gt;
+&lt;img src="lecture-visualizing-multivariate-data_files/figure-html/unnamed-chunk-11-1.png" alt="Basic reproduction of Minard's Napoleon chart." width="720" /&gt;
+&lt;p class="caption"&gt;Basic reproduction of Minard's Napoleon chart.&lt;/p&gt;
 &lt;/div&gt;
 
 ---
@@ -190,7 +190,7 @@ ggplot(mtcars, aes(disp, hp, shape = cyl)) +
   geom_point()
 ```
 
-&lt;img src="lecture-visualizing-multivariate-data_files/figure-html/unnamed-chunk-12-1.png" width="374.4" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture-visualizing-multivariate-data_files/figure-html/unnamed-chunk-12-1.png" width="432" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -276,10 +276,35 @@ mtcars %&gt;%
 
 ---
 
-## Many Variables
+## Pairs Plots
 
-putting together these building blocks allows us to create interesting and complex but
-still clear visualizations
+plot pairs of variables in a grid, plotting the joint distributions of
+every pair of variables
+
+pairs plots of scatter plots (a scatter plot matrix) can be
+accomplished with ggplot2 by **pivoting** and **facets**
+
+the [GGally](https://ggobi.github.io/ggally) package &lt;a name=cite-emerson2013&gt;&lt;/a&gt;([Emerson, Green, Schloerke, Crowley, Cook, Hofmann, and Wickham, 2013](https://www.tandfonline.com/doi/ref/10.1080/10618600.2012.694762))
+presents a cleaner approach
+
+---
+
+
+
+
+```r
+library(GGally)
+ggpairs(mpg, columns = c("displ", "drv", "cty", "hwy"))
+```
+
+&lt;img src="images/ggally.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Combining Our Tools
+
+putting together these building blocks allows us to create interesting and complex
+visualizations
 
 
 ```r
@@ -290,9 +315,22 @@ tail(mtcars, 15) %&gt;%
     facet_wrap(vars(gear))
 ```
 
-&lt;img src="lecture-visualizing-multivariate-data_files/figure-html/unnamed-chunk-17-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture-visualizing-multivariate-data_files/figure-html/unnamed-chunk-20-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 
+---
+
+## References
+
+
+&lt;a name=bib-emerson2013&gt;&lt;/a&gt;[Emerson, J. W, W. A. Green, B. Schloerke,
+et al.](#cite-emerson2013) (2013). "The Generalized Pairs Plot". In:
+_Journal of Computational and Graphical Statistics_ 22.1, pp. 79-91.
+ISSN: 1061-8600. DOI:
+[10.1080/10618600.2012.694762](https://doi.org/10.1080%2F10618600.2012.694762).
+URL:
+[https://www.tandfonline.com/doi/ref/10.1080/10618600.2012.694762](https://www.tandfonline.com/doi/ref/10.1080/10618600.2012.694762)
+(visited on sep. 19, 2020).
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
