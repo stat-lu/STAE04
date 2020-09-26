@@ -1,0 +1,166 @@
+---
+title: "One-Dimensional Visualizations"
+subtitle: "STAE04: Data Visualization"
+author: "Johan Larsson"
+institute: "The Department of Statistics, Lund University"
+date: ""
+bibliography: "assets/stae04.bib"
+output:
+  xaringan::moon_reader:
+    css: [default, "assets/stae04.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      titleSlideClass: [middle, center]
+      countIncrementalSlides: false
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  cache = FALSE,
+  dev = "svg",
+  fig.width = 3.5,
+  fig.height = 3,
+  fig.align = "center"
+)
+
+library(tidyverse)
+library(tactile)
+library(lattice)
+library(latticeExtra)
+library(kableExtra)
+
+kable <- function(x, ...) {
+  knitr::kable(x, escape = FALSE, linesep = "", booktabs = TRUE)
+}
+
+library(RefManageR)
+BibOptions(check.entries = FALSE, 
+           bib.style = "authoryear",
+           style = "markdown",
+           dashed = TRUE)
+bib <- ReadBib("assets/stae04.bib")
+
+theme_set(theme_bw())
+
+if (!interactive()) {
+  theme_set(theme_grey(base_size = 14))
+}
+
+options(digits = 3)
+```
+
+## One-Dimensional Visualizations 
+
+best place to start: continuous or discrete one-dimensional data
+
+often need **statistical transformation** or **position adjustment**
+
+--
+
+dotplots (`geom_dotplot()`) are great for small and discrete data
+
+```{r, fig.height = 2.2, fig.width = 6, fig.cap = "Duration between eruptions of the Old Faithful geyser."}
+library(tidyverse)
+
+ggplot(faithful, aes(waiting)) +
+  geom_dotplot(binwidth = 1)
+```
+
+
+---
+
+## Histograms
+
+.pull-left[
+for larger datasets it is often better to
+use a statistical transformation
+
+the histogram accomplishes this by *binning* observations to smoothen
+the visualization
+
+caution: need to choose how to bin, which may introduce bias
+]
+
+.pull-right[
+```{r, fig.height = 2.8, fig.cap = "Histogram of Old Faithful data."}
+faithful %>%
+  ggplot(aes(waiting)) +
+  geom_histogram(bins = 15)
+```
+
+]
+
+---
+
+## Density Plots
+
+alternative to histograms
+
+attractive for variables that are continuous but sensitive to settings (type of kernel, bandwidth, and more)
+
+.pull-left[
+```{r, fig.height = 2}
+faithful %>%
+  ggplot(aes(waiting)) +
+    # tighter bandwidth
+    geom_density(bw = 5)
+```
+]
+
+.pull-right[
+```{r, fig.height = 2}
+faithful %>%
+  ggplot(aes(waiting)) +
+    # longer bandwidth
+    geom_density(bw = 10)
+```
+]
+
+often good idea to add a **rug** layer (`geom_rug()`) to density plots
+
+---
+
+## Boxplots
+
+.pull-left[
+most common type:
+
+  - **median** as middle bar, 
+  - 1st and 3rd **quartiles** as edges of box,
+  - whiskers to last observation within 1.5 times the
+    inter-quartile range, and
+  - points (or stars) beyond whiskers
+
+typically useful when there are categories in the plot
+
+more abstraction (aggregation) than histogram or densityplot and terrible for 
+data with multiple modes
+]
+
+.pull-right[
+```{r, fig.height = 2, fig.cap = "Boxplot of the Old Faithful data, which fails completely in accurately describing the distribution."}
+faithful %>%
+  ggplot(aes(waiting)) +
+    geom_boxplot()
+```
+]
+
+---
+
+## Violin Plots
+
+a type of density plot, often used instead of boxplot
+
+same pitfalls as with other density plots
+
+```{r, fig.width = 5, fig.height = 2.5, fig.cap = "geom_violin() does not work with a single variable, so we need y = 1 here."}
+faithful %>%
+  ggplot(aes(waiting, y = 1)) +
+    geom_violin()
+```
+
