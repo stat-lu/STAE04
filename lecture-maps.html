@@ -28,11 +28,10 @@ class: middle, center, title-slide
 
 data in the wild is often **spatial** in nature
 
-to work with spatial data in ggplot, we need to introduce a few other packages, such as
+basic functionality for working with maps is available directly in **ggplot2**
 
-- [maps](https://CRAN.R-project.org/package=maps),
-- [mapproj](https://CRAN.R-project.org/package=mapproj), and
-- [ggmap](https://CRAN.R-project.org/package=ggmap).
+for more advanced functionality, we need to involve other packages (and ggplot in fact
+relies on some of them for features such as map projections)
 
 it's typically a good idea to go for a minimalist theme when mapping
 
@@ -85,7 +84,7 @@ these different types of data can (and often need to be) combined
 
 ---
 
-## Region-Level Data
+## Vector Data
 
 **example:** crime data from USA states from 1974
 
@@ -199,6 +198,7 @@ mapping to fill color produces a **choropleth**
 ```r
 ggplot(usa_arr, aes(long, lat, group = group, fill = Murder)) +
   geom_polygon() +
+  scale_fill_distiller(direction = 1, palette = "Reds") +
   coord_map()
 ```
 
@@ -209,6 +209,8 @@ ggplot(usa_arr, aes(long, lat, group = group, fill = Murder)) +
 ---
 
 ## Point Data
+
+coordinates (longitude and latitude)
 
 
 ```r
@@ -298,7 +300,7 @@ ggplot() +
 
 ### Adding Layers
 
-with point data, it is easy to add more layers
+points do not always suffice by themselves in revealing data patterns
 
 
 ```r
@@ -307,6 +309,8 @@ ger_air &lt;- filter(airports,
                   Country == "Germany", 
                   Longitude &gt; 5, Latitude &lt; 57)
 ```
+
+--
 
 .pull-left[
 
@@ -569,6 +573,35 @@ world_map + coord_map("azequidistant", xlim = c(-180, 180))
 
 ---
 
+
+### Compromises
+
+tries to compromise distortions among the various aspects
+
+
+```r
+world_map + coord_map("gall", lat0 = 0, xlim = c(-180, 180))
+```
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="lecture-maps_files/figure-html/unnamed-chunk-24-1.png" alt="Gall Stereographic" width="648" /&gt;
+&lt;p class="caption"&gt;Gall Stereographic&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+### More Projections
+
+see &lt;https://en.wikipedia.org/wiki/List_of_map_projections&gt; for an exhaustive
+list of different map projections
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="images/projection-waterman.png" alt="The Waterman Butterfly Projection. A compromise projection." width="90%" /&gt;
+&lt;p class="caption"&gt;The Waterman Butterfly Projection. A compromise projection.&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
 ## More about Maps
 
 ### Other Packages
@@ -583,7 +616,6 @@ for a comprehensive run-down on these packages and their functionality
 
 if you want to read more about mapping with ggplot2, we recommend
 the [Maps chapter in the ggplot2 book](https://ggplot2-book.org/maps.html)
-
 
 
 &lt;!-- --- --&gt;
