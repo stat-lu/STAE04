@@ -5,19 +5,22 @@
 
 This page contains slides for the course STAE04: Data Visualization
 
-* [Introduction](lecture-introduction)
-* [Introduction to R](lecture-introduction-to-r)
-* [Working with Data in R](lecture-working-with-data-in-r)
-* [The Grammar of Graphics and ggplot2](lecture-the-grammar-of-graphics-and-ggplot2)
-* [One-Dimensional Visualizations](lecture-one-dimensional-visualizations)
-* [Two-Dimensional Visualizations](lecture-two-dimensional-visualizations)
-* [Visualizing Categorical Data](lecture-visualizing-categorical-data)
-* [Visualizing Multivariate Data](lecture-visualizing-multivariate-data)
-* [Visualizing Big Data](lecture-visualizing-big-data)
-* [Maps](lecture-maps)
-* [Animated and Interactive Visualizations](lecture-animated-and-interactive-visualizations)
-* [Data-Ink](lecture-data-ink)
-* [Use and Abuse of Scales](lecture-use-and-abuse-of-scales)
+* [Introduction](01-introduction)
+* [Introduction to R](02-introduction-to-r)
+* [Working with Data in R](03-working-with-data-in-r)
+* [The Grammar of Graphics and ggplot2](04-the-grammar-of-graphics-and-ggplot2)
+* [One Variable](05-one-variable)
+* [Data-Ink](06-data-ink)
+* [Two Variables](07-two-variables)
+* [Scales](08-scales)
+* [Categorical Data](09-categorical-data)
+* [Multivariate Data](10-multivariate-data)
+* [Color](11-color)
+* [Big Data](12-big-data)
+* [Maps](13-maps)
+* [Animated and Interactive Visualizations](14-animated-and-interactive-visualizations)
+
+
 
 ### Submission Template
 
