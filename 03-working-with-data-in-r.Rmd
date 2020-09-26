@@ -17,15 +17,20 @@ output:
 ---
 
 ```{r setup, include = FALSE}
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+
 knitr::opts_chunk$set(
-  echo = FALSE,
+  echo = TRUE,
   warning = FALSE,
   message = FALSE,
-  cache = TRUE,
-  dev = "svg",
-  fig.width = 7,
-  fig.height = 5,
-  fig.align = "center"
+  cache = FALSE,
+  dev = "png",
+  fig.width = 5,
+  fig.height = 4,
+  fig.align = "center",
+  fig.retina = 3,
+  dev.args = list(pointsize = 16),
+  crop = TRUE
 )
 
 library(tidyverse)
@@ -48,7 +53,7 @@ bib <- ReadBib("assets/stae04.bib")
 theme_set(theme_bw())
 
 if (!interactive()) {
-  theme_set(theme_grey(base_size = 14))
+  theme_set(theme_grey(base_size = 15))
 }
 
 options(digits = 3)
@@ -56,14 +61,16 @@ options(digits = 3)
 
 ## Data in R
 
-.pull-left[
 - R has excellent facilities for handling data
 - roughly speaking, two approaches
   * base R
   * tidyverse
 - in this course we will use the tidyverse approach
 
-## Tidyverse
+--
+
+.pull-left[
+### Tidyverse
 
 - a collection of packages built around a set of
   principles and design choices. 
@@ -73,7 +80,7 @@ options(digits = 3)
 ]
 
 .pull-right[
-```{r, out.width="50%"}
+```{r, out.width="50%", echo = FALSE}
 knitr::include_graphics("images/tidyverse-logo.png")
 ```
 ]
@@ -82,15 +89,15 @@ knitr::include_graphics("images/tidyverse-logo.png")
 
 class: middle
   
-```{r}
+```{r, echo = FALSE}
 knitr::include_graphics("images/tidyverse-workflow.svg")
 ```
 
 ---
 
-## An example
+## An Example
 
-```{r cars-code, echo = TRUE, fig.show = "hide"}
+```{r cars-code, eval = FALSE}
 library(tidyverse)
 
 # import
@@ -109,11 +116,14 @@ read_csv("data/us_cars.csv") %>%
 
 class: center, middle
 
-![](`r knitr::fig_chunk("cars-code", "svg")`)
+```{r ref.label = "cars-code", echo = FALSE, fig.width = 9, fig.height = 6}
+
+```
+
 
 ---
 
-## Importing data
+## Importing Data
 
 data can be stored in a myriad of formats (`.csv.`, `.tsv`, `.dat`, `.sav`, etc)
   
@@ -144,15 +154,15 @@ many datasets available from base R or from packages
 
 ---
 
-## Using RStudio to import data
+### Using RStudio to Import Data
 
-```{r}
+```{r echo = FALSE}
 knitr::include_graphics("videos/rstudio-data-import.gif")
 ```
 
 ---
 
-## Data wrangling
+## Data Wrangling
 
 Many times, data is not in the format that we need it to be; it 
 needs to be **wrangled** with.
@@ -187,9 +197,9 @@ used for reshaping data, such as
 
 ---
 
-## A step back: data semantics
+## Data Semantics
 
-```{r}
+```{r echo = FALSE}
 d <- tibble(person = rep(c("James", "Julia", "Bixby"), times = 2),
             intervention = rep(c("control", "treatment"), each = 3),
             result = c(1, 3, 2, 5, 6, 3))
@@ -208,7 +218,7 @@ there are usually multiple ways to format the same data
 --
 
 .pull-left[
-```{r}
+```{r echo = FALSE}
 knitr::kable(pivot_wider(d, names_from = "intervention", values_from = "result"),
              caption = "Version A")
 ```
@@ -217,7 +227,7 @@ knitr::kable(pivot_wider(d, names_from = "intervention", values_from = "result")
 --
 
 .pull-right[
-```{r}
+```{r echo = FALSE}
 knitr::kable(pivot_wider(d, names_from = "person", values_from = "result"),
              caption = "Version B")
 ```
@@ -227,7 +237,7 @@ knitr::kable(pivot_wider(d, names_from = "person", values_from = "result"),
 
 .pull-left[
 
-## Tidy data
+## Tidy Data
 
 **tidy data**: each observation has its own row, each variable its own
 column, and each value its own cell
@@ -240,22 +250,22 @@ in our example, **person**, **intervention**, and **result** are the variables
 .pull-right[
 <br>
 
-```{r}
+```{r echo = FALSE}
 knitr::kable(d, caption = "Tidy treament data")
 ```
 ]
 
-```{r}
+```{r echo = FALSE}
 knitr::include_graphics("images/tidy-data.png")
 ```
 
 ---
 
-## Reshaping data with tidyr
+## Reshaping Data with tidyr
 
 In `d`, we've stored the treatment data from before.
 
-```{r}
+```{r echo = FALSE}
 d_wide <- pivot_wider(d, names_from = "intervention", values_from = "result")
 ```
 
@@ -285,14 +295,14 @@ d_tidy <- pivot_longer(
 ]
 
 .pull-right[
-```{r}
+```{r echo = FALSE}
 d_tidy
 ```
 ]
 
 ---
 
-## Manipulating data with dplyr
+## Manipulating Data with dplyr
 
 .pull-left[
 use `filter()` to filter rows (observations)
@@ -332,7 +342,7 @@ group_by(d_tidy, intervention) %>%
 
 ---
 
-## The pipe operator
+## The Pipe Operator
 
 the `%>%` (pipe) operator is very useful when working with data
 
@@ -363,7 +373,7 @@ missing data is denoted by `NA` in R
 functions applied to missing data often return `NA` unless `na.rm = TRUE`
 is specified
 
-```{r}
+```{r echo = FALSE}
 msleep %>%
   select(name, sleep_rem, sleep_cycle, brainwt, bodywt) %>%
   head(5) %>%
@@ -372,14 +382,13 @@ msleep %>%
 
 ---
 
-## Learn more about data wrangling
+## Learning More
 
-In this course, we will only scrape the surface
+In this course, we will only scrape the surface.
 
-Our scope is limited to **making data ready for visualizations**
+Our scope is limited to **making data ready for visualizations**.
 
 If you want to learn more about data wrangling and tidy data, we recommend
 the chapter [Wrangle](https://r4ds.had.co.nz/wrangle-intro.html) in
 the free e-book *R for Data Science*.   
-
 

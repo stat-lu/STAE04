@@ -17,15 +17,20 @@ output:
 ---
 
 ```{r setup, include = FALSE}
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+
 knitr::opts_chunk$set(
   echo = TRUE,
   warning = FALSE,
   message = FALSE,
   cache = FALSE,
-  dev = "svg",
-  fig.width = 3.5,
-  fig.height = 3,
-  fig.align = "center"
+  dev = "png",
+  fig.width = 5,
+  fig.height = 4.3,
+  fig.align = "center",
+  fig.retina = 3,
+  dev.args = list(pointsize = 16),
+  crop = TRUE
 )
 
 library(tidyverse)
@@ -48,7 +53,7 @@ bib <- ReadBib("assets/stae04.bib")
 theme_set(theme_bw())
 
 if (!interactive()) {
-  theme_set(theme_grey(base_size = 14))
+  theme_set(theme_grey(base_size = 15))
 }
 
 options(digits = 3)
@@ -57,13 +62,13 @@ options(digits = 3)
 ## The Grammar of Graphics
 
 .pull-left[
-  Visualizations can be complicated and difficult to describe. 
+  visualizations can be complicated and difficult to describe 
   
-  Leland Wilkinson `r Citep(bib, "wilkinson2005")` established
-  **The Grammar of Graphics** in an attempt to formalize the basic principles
-  of visualizations.
+  Leland Wilkinson `r Citep(bib, "wilkinson2005")` 
+  **The Grammar of Graphics**: an attempt to formalize the basic principles
+  of visualizations
   
-  We will use Hadley Wickham's *Layered Grammar of Graphics* `r Citep(bib, "wickham2010")`.
+  we will use Hadley Wickham's *Layered Grammar of Graphics* `r Citep(bib, "wickham2010")`
 ]
 
 .pull-right[
@@ -115,7 +120,7 @@ A layer consists of
 * a position adjustment.
 
 The plot to the right uses two layers: a density estimate and points.
-```{r, fig.width = 4, fig.height = 4, echo = TRUE, eval = FALSE}
+```{r layers, eval = FALSE}
 mpg %>%
   ggplot(aes(cty, displ)) +
   geom_point() +
@@ -123,14 +128,10 @@ mpg %>%
 ```
 ]
 
-.pull-right[
-```{r, fig.width = 4, fig.height = 4, echo = FALSE}
-mpg %>%
-  ggplot(aes(cty, displ)) +
-  geom_point() +
-  geom_density_2d()
+.pull-right[.vcenter[
+```{r, ref.label = "layers", echo = FALSE, fig.height = 5}
 ```
-]
+]]
 
 ---
 
@@ -145,7 +146,7 @@ We **map** variables (in the dataset) to aesthetics (in the plot), such as
 * engine displacement (displ) to the y axis
 * car class to color
 
-```{r, eval = FALSE, echo = TRUE}
+```{r data-mappings, eval = FALSE}
 library(tidyverse)
 mpg %>%
   ggplot(aes(x = cty, 
@@ -156,11 +157,7 @@ mpg %>%
 ]
 
 .pull-right[.vcenter[
-```{r, fig.width = 4, fig.height = 3.5, echo = FALSE}
-library(ggplot2) # or tidyverse
-mpg %>%
-  ggplot(aes(x = cty, y = displ, color = class)) +
-  geom_point()
+```{r, ref.label = "data-mappings", echo = FALSE}
 ```
 ]]
 
@@ -181,7 +178,7 @@ can also be specified directly in `geom_*` functions
 ]
 
 .pull-right-60[
-```{r, fig.width = 4, fig.height = 4, echo = TRUE}
+```{r, echo = TRUE, fig.height = 5}
 ggplot(faithful, 
        aes(waiting, eruptions)) +
   geom_point() +
@@ -199,7 +196,7 @@ ggplot(faithful,
 
 in ggplot2, geoms have names of the form `geom_*`
 
-```{r, echo = TRUE, eval = FALSE}
+```{r economics, echo = TRUE, eval = FALSE, crop = FALSE}
 # construct base plot
 p <- 
   economics %>%
@@ -214,15 +211,7 @@ p + geom_area()
 ]
 
 .pull-right[
-```{r, fig.width = 3.5, fig.height = 1.8, echo = FALSE}
-p <- 
-  economics %>%
-  head(25) %>%  # select 25 first
-  ggplot(aes(date, pce))
-
-p + geom_line()
-p + geom_point()
-p + geom_area()
+```{r, ref.label = "economics", fig.height = 2.5, echo = FALSE}
 ```
 
 ]
@@ -236,7 +225,7 @@ or jittering points that overlap
 
 .pull-left[
 
-```{r, echo = TRUE, fig.height = 2.5}
+```{r, echo = TRUE, fig.height = 3}
 # points overlap
 ggplot(mpg, aes(hwy, drv)) +
   geom_point()
@@ -246,7 +235,7 @@ ggplot(mpg, aes(hwy, drv)) +
 --
 
 .pull-right[
-```{r, echo = TRUE, fig.height = 2.5}
+```{r, echo = TRUE, fig.height = 3}
 # jitter to avoid overlap
 ggplot(mpg, aes(hwy, drv)) +
   geom_point(
@@ -271,7 +260,7 @@ p <- ggplot(msleep, aes(brainwt, sleep_total)) +
 ```
 
 .pull-left[
-```{r, fig.width = 4.4, fig.height = 3.7, dev = "png"}
+```{r, fig.width = 4.4, fig.height = 3.7}
 p # + scale_x_continuous()
 ```
 ]
@@ -279,7 +268,7 @@ p # + scale_x_continuous()
 --
 
 .pull-right[
-```{r, fig.width = 4.4, fig.height = 3.7, dev = "png"}
+```{r, fig.width = 4.4, fig.height = 3.7}
 p + scale_x_log10()
 ```
 ]
@@ -348,7 +337,7 @@ d <- as_tibble(Titanic) %>%
 ```
 
 .pull-left[
-```{r, echo = TRUE, eval = FALSE}
+```{r titanic, echo = TRUE, eval = FALSE}
 ggplot(
   d, 
   aes(x = Class, 
@@ -360,10 +349,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r, echo = FALSE}
-ggplot(d, aes(x = Class, y = survival_rate)) +
-  geom_col() +
-  facet_wrap(vars(Sex))
+```{r, ref.label = "titanic", echo = FALSE, fig.height = 3}
 ```
 ]
 
@@ -377,7 +363,7 @@ parts of the grammar with each plot would be **very** tiresome
 
 thankfully, the grammar of graphics (and ggplot2) comes with a **hierarchy of defaults**
 
-```{r, fig.width = 3.5, fig.height = 3, echo = FALSE}
+```{r, echo = FALSE}
 ggplot(diamonds, 
        aes(carat, price)) +
   geom_point()
@@ -436,7 +422,7 @@ visualizing data with a single variable
 ]
 
 .pull-right[
-```{r, echo = FALSE}
+```{r, echo = FALSE, fig.height = 4}
 ggplot(faithful, aes(waiting)) +
   geom_histogram(bins = 22)
 ```

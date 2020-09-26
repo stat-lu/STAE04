@@ -1,5 +1,5 @@
 ---
-title: "Introduction to R and R Studio"
+title: "Introduction to R"
 subtitle: "STAE04: Data Visualization"
 author: "Johan Larsson"
 institute: "The Department of Statistics, Lund University"
@@ -17,15 +17,20 @@ output:
 ---
 
 ```{r setup, include = FALSE}
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+
 knitr::opts_chunk$set(
-  echo = FALSE,
+  echo = TRUE,
   warning = FALSE,
   message = FALSE,
-  cache = TRUE,
-  dev = "svg",
-  fig.width = 7,
-  fig.height = 5,
-  fig.align = "center"
+  cache = FALSE,
+  dev = "png",
+  fig.width = 5,
+  fig.height = 4,
+  fig.align = "center",
+  fig.retina = 3,
+  dev.args = list(pointsize = 16),
+  crop = TRUE
 )
 
 library(tidyverse)
@@ -54,12 +59,6 @@ if (!interactive()) {
 options(digits = 3)
 ```
 
-class: section-title
-
-# R
-
----
-
 ## R
 
 .pull-left[
@@ -71,7 +70,7 @@ class: section-title
 ]
 
 .pull-right[
-```{r, out.width = "70%"}
+```{r, out.width = "70%", echo = FALSE}
 knitr::include_graphics("images/r-logo.png")
 ```
 ]
@@ -96,7 +95,7 @@ mean(x)
 ]
 
 .pull-right[
-```{r, out.width = "90%"}
+```{r, out.width = "90%", echo = FALSE}
 knitr::include_graphics("images/rstudio.png")
 ```
 ]
