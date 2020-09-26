@@ -60,11 +60,10 @@ options(digits = 3)
 
 data in the wild is often **spatial** in nature
 
-to work with spatial data in ggplot, we need to introduce a few other packages, such as
+basic functionality for working with maps is available directly in **ggplot2**
 
-- [maps](https://CRAN.R-project.org/package=maps),
-- [mapproj](https://CRAN.R-project.org/package=mapproj), and
-- [ggmap](https://CRAN.R-project.org/package=ggmap).
+for more advanced functionality, we need to involve other packages (and ggplot in fact
+relies on some of them for features such as map projections)
 
 it's typically a good idea to go for a minimalist theme when mapping
 
@@ -117,7 +116,7 @@ knitr::include_graphics("images/raster-vector-data.png")
 
 ---
 
-## Region-Level Data
+## Vector Data
 
 **example:** crime data from USA states from 1974
 
@@ -144,6 +143,7 @@ mapping to fill color produces a **choropleth**
 ```{r, fig.height = 5, fig.width = 8}
 ggplot(usa_arr, aes(long, lat, group = group, fill = Murder)) +
   geom_polygon() +
+  scale_fill_distiller(direction = 1, palette = "Reds") +
   coord_map()
 ```
 
@@ -152,6 +152,8 @@ ggplot(usa_arr, aes(long, lat, group = group, fill = Murder)) +
 ---
 
 ## Point Data
+
+coordinates (longitude and latitude)
 
 ```{r}
 airports <- read_tsv(
@@ -193,7 +195,7 @@ ggplot() +
 
 ### Adding Layers
 
-with point data, it is easy to add more layers
+points do not always suffice by themselves in revealing data patterns
 
 ```{r}
 ger_map <- filter(world, region == "Germany")
@@ -201,6 +203,8 @@ ger_air <- filter(airports,
                   Country == "Germany", 
                   Longitude > 5, Latitude < 57)
 ```
+
+--
 
 .pull-left[
 ```{r vanillager, eval = FALSE}
@@ -479,6 +483,28 @@ preserves distance between any two points
 
 ```{r, fig.width = 5, fig.height = 5, fig.cap = "Azimuthal Equidistance"}
 world_map + coord_map("azequidistant", xlim = c(-180, 180))
+```
+
+---
+
+
+### Compromises
+
+tries to compromise distortions among the various aspects
+
+```{r, fig.width = 9, fig.height = 7, fig.cap = "Gall Stereographic"}
+world_map + coord_map("gall", lat0 = 0, xlim = c(-180, 180))
+```
+
+---
+
+### More Projections
+
+see <https://en.wikipedia.org/wiki/List_of_map_projections> for an exhaustive
+list of different map projections
+
+```{r, fig.cap = "The Waterman Butterfly Projection. A compromise projection.", out.width = "90%", echo = FALSE}
+knitr::include_graphics("images/projection-waterman.png")
 ```
 
 ---

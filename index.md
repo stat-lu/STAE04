@@ -15,6 +15,7 @@ This page contains slides for the course STAE04: Data Visualization
 * [Visualizing Multivariate Data](lecture-visualizing-multivariate-data)
 * [Visualizing Big Data](lecture-visualizing-big-data)
 * [Maps](lecture-maps)
+* [Animated and Interactive Visualizations](lecture-animated-and-interactive-visualizations)
 * [Data-Ink](lecture-data-ink)
 * [Use and Abuse of Scales](lecture-use-and-abuse-of-scales)
 
