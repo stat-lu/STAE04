@@ -1,5 +1,5 @@
 ---
-title: "One-Dimensional Visualizations"
+title: "One Variable"
 subtitle: "STAE04: Data Visualization"
 author: "Johan Larsson"
 institute: "The Department of Statistics, Lund University"
@@ -17,15 +17,20 @@ output:
 ---
 
 ```{r setup, include = FALSE}
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+
 knitr::opts_chunk$set(
   echo = TRUE,
   warning = FALSE,
   message = FALSE,
   cache = FALSE,
-  dev = "svg",
-  fig.width = 3.5,
-  fig.height = 3,
-  fig.align = "center"
+  dev = "png",
+  fig.width = 5,
+  fig.height = 4.3,
+  fig.align = "center",
+  fig.retina = 3,
+  dev.args = list(pointsize = 16),
+  crop = TRUE
 )
 
 library(tidyverse)
@@ -45,10 +50,8 @@ BibOptions(check.entries = FALSE,
            dashed = TRUE)
 bib <- ReadBib("assets/stae04.bib")
 
-theme_set(theme_bw())
-
 if (!interactive()) {
-  theme_set(theme_grey(base_size = 14))
+  theme_set(theme_grey(base_size = 16))
 }
 
 options(digits = 3)
@@ -64,11 +67,11 @@ often need **statistical transformation** or **position adjustment**
 
 dotplots (`geom_dotplot()`) are great for small and discrete data
 
-```{r, fig.height = 2.2, fig.width = 6, fig.cap = "Duration between eruptions of the Old Faithful geyser."}
+```{r, fig.height = 2.5, fig.width = 7, fig.cap = "Duration between eruptions of the Old Faithful geyser."}
 library(tidyverse)
 
 ggplot(faithful, aes(waiting)) +
-  geom_dotplot(binwidth = 1)
+  geom_dotplot(binwidth = 1) #<<
 ```
 
 
@@ -80,17 +83,16 @@ ggplot(faithful, aes(waiting)) +
 for larger datasets it is often better to
 use a statistical transformation
 
-the histogram accomplishes this by *binning* observations to smoothen
-the visualization
+histogram accomplish this by **binning** and **summarizing** (counting)
 
-caution: need to choose how to bin, which may introduce bias
+**caution:** choice of bins may introduce bias
 ]
 
 .pull-right[
-```{r, fig.height = 2.8, fig.cap = "Histogram of Old Faithful data."}
+```{r, fig.cap = "Histogram of Old Faithful data."}
 faithful %>%
   ggplot(aes(waiting)) +
-  geom_histogram(bins = 15)
+  geom_histogram(bins = 15) #<<
 ```
 
 ]
@@ -99,25 +101,25 @@ faithful %>%
 
 ## Density Plots
 
-alternative to histograms
+attractive for variables that are continuous
 
-attractive for variables that are continuous but sensitive to settings (type of kernel, bandwidth, and more)
+but sensitive to settings (type of kernel, bandwidth, and more)
 
 .pull-left[
-```{r, fig.height = 2}
+```{r, fig.height = 3}
 faithful %>%
   ggplot(aes(waiting)) +
     # tighter bandwidth
-    geom_density(bw = 5)
+    geom_density(bw = 5) #<<
 ```
 ]
 
 .pull-right[
-```{r, fig.height = 2}
+```{r, fig.height = 3}
 faithful %>%
   ggplot(aes(waiting)) +
     # longer bandwidth
-    geom_density(bw = 10)
+    geom_density(bw = 10) #<<
 ```
 ]
 
@@ -136,17 +138,18 @@ most common type:
     inter-quartile range, and
   - points (or stars) beyond whiskers
 
-typically useful when there are categories in the plot
+typically useful when visualizing categories
 
-more abstraction (aggregation) than histogram or densityplot and terrible for 
-data with multiple modes
+more abstraction than histogram or densityplot 
+
+not suitable for data with multiple modes
 ]
 
 .pull-right[
-```{r, fig.height = 2, fig.cap = "Boxplot of the Old Faithful data, which fails completely in accurately describing the distribution."}
+```{r, fig.height = 3, fig.cap = "Boxplot of the Old Faithful data, which fails completely in accurately describing the distribution."}
 faithful %>%
   ggplot(aes(waiting)) +
-    geom_boxplot()
+    geom_boxplot() #<<
 ```
 ]
 
@@ -158,9 +161,9 @@ a type of density plot, often used instead of boxplot
 
 same pitfalls as with other density plots
 
-```{r, fig.width = 5, fig.height = 2.5, fig.cap = "geom_violin() does not work with a single variable, so we need y = 1 here."}
+```{r, fig.height = 3, fig.width = 6.5, fig.cap = "geom_violin() does not work with a single variable, so we need to use the trick y = 1 here."}
 faithful %>%
   ggplot(aes(waiting, y = 1)) +
-    geom_violin()
+    geom_violin() #<<
 ```
 
