@@ -1,5 +1,5 @@
 ---
-title: "Color in Visualizations"
+title: "Color"
 subtitle: "STAE04: Data Visualization"
 author: "Johan Larsson"
 institute: "The Department of Statistics, Lund University"
@@ -25,8 +25,8 @@ knitr::opts_chunk$set(
   message = FALSE,
   cache = FALSE,
   dev = "png",
-  fig.width = 5.2,
-  fig.height = 4.2,
+  fig.width = 4.8,
+  fig.height = 4.1,
   fig.align = "center",
   fig.retina = 3,
   dev.args = list(pointsize = 16),
@@ -34,6 +34,9 @@ knitr::opts_chunk$set(
 )
 
 library(tidyverse)
+library(tactile)
+library(lattice)
+library(latticeExtra)
 library(kableExtra)
 
 kable <- function(x, ...) {
@@ -47,8 +50,6 @@ BibOptions(check.entries = FALSE,
            dashed = TRUE)
 bib <- ReadBib("assets/stae04.bib")
 
-theme_set(theme_bw())
-
 if (!interactive()) {
   theme_set(theme_grey(base_size = 16))
 }
@@ -58,7 +59,7 @@ options(digits = 3)
 
 ## Color in Visualizations
 
-color is useful, but how do we choose colors appropriately?
+but how do we choose colors appropriately?
 
 need to pay attention to data type!
 
@@ -149,6 +150,8 @@ ggplot2 tries to **guess** which color palette to use
 
 ggplot2 cannot, howver, know when a variable should be mapped to a **diverging** palette
 
+--
+
 ### Applying a Color Palette in ggplot2
 
 - `scale_colour_*` for color mappings (`geom_point()`, `geom_line()` etc)
@@ -167,7 +170,7 @@ varying lightness
 ```{r, fig.width = 9, fig.height = 3.8}
 ggplot(diamonds, aes(price, fill = cut)) +
   geom_histogram(binwidth = 1000) +
-  scale_fill_ordinal()
+  scale_fill_ordinal() #<<
 ```
 
 ---
@@ -196,7 +199,7 @@ mtcars_cor %>%
              var2, 
              fill = cor)) +
   geom_tile() +
-  scale_fill_gradient2() +
+  scale_fill_gradient2() + #<<
   labs(x = NULL, y = NULL)
 ```
 ]
@@ -222,7 +225,7 @@ colors should be as distinct as possible and not signal differences in magnitude
 ggplot(msleep, aes(bodywt, sleep_total, color = vore)) +
   geom_point() +
   scale_x_log10() +
-  scale_color_discrete()
+  scale_color_discrete() #<<
 ```
 
 
@@ -233,8 +236,14 @@ ggplot(msleep, aes(bodywt, sleep_total, color = vore)) +
 .pull-left[
 red-green color blindness affects 8% of men and 0.5% of females<sup>1</sup>
 
-several different types: protanotopia, deuteranopia, protanomaly, deuteranomaly, tritanopia,
-tritanomaly
+several different types: 
+
+- protanotopia
+- deuteranopia
+- protanomaly 
+- deuteranomaly
+- tritanopia
+- tritanomaly
 ]
 
 .pull-right[
@@ -256,7 +265,7 @@ knitr::include_graphics("images/ishihara.png")
 library(colorBlindness)
 
 p <- ggplot(mpg, aes(hwy, fill = drv)) + geom_density(alpha = 0.5)
-cvdPlot(p)  
+cvdPlot(p)  #<<
 ```
 
 ---
@@ -319,7 +328,8 @@ tibble(x = rnorm(1e4),
        y = rnorm(1e4)) %>%
   ggplot(aes(x, y)) +
   geom_hex() + 
-  scale_fill_viridis_c()
+  scale_fill_viridis_c() + #<<
+  coord_fixed()
 ```
 ]
 
@@ -401,7 +411,7 @@ image(
 
 ### Greyscale
 
-color visualizations are still (sometimes) printed in greyscale; may be a good idea to
+color visualizations are still sometimes printed in greyscale; may be a good idea to
 use palettes that vary lightness
 
 ```{r, echo = FALSE, fig.width = 10, fig.height = 4, fig.cap = "The same plot in original colors and greyscale."}
@@ -416,7 +426,7 @@ cvdPlot(p, c("origin", "desaturate"))
 
 ### Aesthetics
 
-aesthetics change but are still important to pay attention to
+**subjective** and **fickle** but still important to consider
 
 beautiful visualizations will always attract more attention
 
