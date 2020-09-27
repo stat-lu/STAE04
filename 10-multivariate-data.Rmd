@@ -1,5 +1,5 @@
 ---
-title: "Visualizing Multivariate Data"
+title: "Multivariate Data"
 subtitle: "STAE04: Data Visualization"
 author: "Johan Larsson"
 institute: "The Department of Statistics, Lund University"

@@ -17,8 +17,10 @@ This page contains slides for the course STAE04: Data Visualization
 * [Multivariate Data](10-multivariate-data)
 * [Color](11-color)
 * [Big Data](12-big-data)
-* [Maps](13-maps)
-* [Animated and Interactive Visualizations](14-animated-and-interactive-visualizations)
+* [Statistical Models](13-statistical-models)
+* [Maps](14-maps)
+* [Animated and Interactive Visualizations](15-animated-and-interactive-visualizations)
+* [Wrapping Up](16-wrapping-up)
 
 ### Submission Template
 
