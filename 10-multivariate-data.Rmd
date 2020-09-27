@@ -25,8 +25,8 @@ knitr::opts_chunk$set(
   message = FALSE,
   cache = FALSE,
   dev = "png",
-  fig.width = 5.2,
-  fig.height = 4.5,
+  fig.width = 4.8,
+  fig.height = 4.1,
   fig.align = "center",
   fig.retina = 3,
   dev.args = list(pointsize = 16),
@@ -49,8 +49,6 @@ BibOptions(check.entries = FALSE,
            style = "markdown",
            dashed = TRUE)
 bib <- ReadBib("assets/stae04.bib")
-
-theme_set(theme_bw())
 
 if (!interactive()) {
   theme_set(theme_grey(base_size = 16))
@@ -156,7 +154,7 @@ mtcars <-
   rownames_to_column(mtcars, "name") %>%
   mutate_at(vars(cyl, gear), as.factor)
 
-ggplot(mtcars, aes(disp, hp, color = cyl)) +
+ggplot(mtcars, aes(disp, hp, color = cyl)) + #<<
   geom_point()
 ```
 
@@ -180,7 +178,7 @@ volcano_long <-
 ```{r fig.width = 7.5, fig.height = 7}
 # see source code for dataset
 ggplot(volcano_long, aes(longitude, latitude, fill = height)) + 
-  geom_tile() +
+  geom_tile() + #<<
   coord_fixed() # makes sense for latitude, longitude
 ```
 
@@ -190,7 +188,7 @@ ggplot(volcano_long, aes(longitude, latitude, fill = height)) +
 
 mapping a continuous variable to color in a scatter plot is less appealing
 
-```{r, fig.width = 6}
+```{r, fig.width = 6, fig.height = 4.5}
 ggplot(mtcars, aes(disp, hp, color = mpg)) +
   geom_point()
 ```
@@ -248,7 +246,7 @@ works quite well for categorical variables, but usually not preferable over colo
 mapping to line shapes is generally better than point shapes
 
 ```{r, fig.width = 6}
-ggplot(mtcars, aes(disp, hp, shape = cyl)) +
+ggplot(mtcars, aes(disp, hp, shape = cyl)) + #<<
   geom_point()
 ```
 
@@ -271,7 +269,7 @@ head(msleep, 15) %>%
              sleep_total, 
              label = name)) +
     geom_point() +
-    geom_text_repel() +
+    geom_text_repel() + #<<
     scale_x_log10()
 ```
 ]
@@ -287,7 +285,7 @@ head(msleep, 15) %>%
 
 ## Facets
 
-extremely useful for splitting datasets into small multiples on categorical variables
+splits and plots datasets in small multiples
 
 ### Wrap
 
@@ -296,7 +294,7 @@ use `facet_wrap()` when you have **one** variable to facet on.
 ```{r, fig.width = 10, fig.height = 3.4}
 ggplot(mtcars, aes(disp, hp)) +
   geom_point() +
-  facet_wrap(vars(cyl))
+  facet_wrap(vars(cyl)) #<<
 ```
 
 ---
@@ -308,19 +306,19 @@ use `facet_grid()` when you have **two** variables to facet on.
 ```{r, fig.width = 8, fig.height = 5.2}
 ggplot(mtcars, aes(disp, hp)) +
   geom_point() +
-  facet_grid(vars(cyl), vars(gear))
+  facet_grid(vars(cyl), vars(gear)) #<<
 ```
 
 ---
 
 ### Facets and Continuous Variables
 
-if you are okay with sacrificing some detail, you can facet by cutting a continuous
-variable into ordinal variables using, for instance, `cut_interval()`
+if you sacrificing some detail is OK, you can facet by transforming a continuous
+variable into an ordinal one
 
 ```{r, fig.width = 10, fig.height = 3.6}
 mtcars %>%
-  mutate(hp_cat = cut_interval(hp, 3)) %>%
+  mutate(hp_cat = cut_interval(hp, 3)) %>% #<<
   ggplot(aes(mpg, disp)) +
     geom_point() +
     facet_wrap(vars(hp_cat))
