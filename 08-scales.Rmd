@@ -17,15 +17,20 @@ output:
 ---
 
 ```{r setup, include = FALSE}
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+
 knitr::opts_chunk$set(
   echo = TRUE,
   warning = FALSE,
   message = FALSE,
   cache = FALSE,
-  dev = "svg",
-  fig.width = 3.5,
-  fig.height = 3,
-  fig.align = "center"
+  dev = "png",
+  fig.width = 4.8,
+  fig.height = 4.1,
+  fig.align = "center",
+  fig.retina = 3,
+  dev.args = list(pointsize = 16),
+  crop = TRUE
 )
 
 library(tidyverse)
@@ -45,10 +50,8 @@ BibOptions(check.entries = FALSE,
            dashed = TRUE)
 bib <- ReadBib("assets/stae04.bib")
 
-theme_set(theme_bw())
-
 if (!interactive()) {
-  theme_set(theme_grey(base_size = 14))
+  theme_set(theme_grey(base_size = 16))
 }
 
 options(digits = 3)
@@ -112,7 +115,7 @@ not always appropriate to include entire range, such as when
 
 --
 
-```{r, echo = FALSE, fig.cap = "Change in reported crimes between 2019 and 2020 in Sweden (https://bra.se).", fig.show = "hold"}
+```{r, echo = FALSE, fig.cap = "Change in reported crimes between 2019 and 2020 in Sweden (https://bra.se).", fig.show = "hold", crop = NULL}
 bra2 <- tibble(
   month = ymd(200001 + seq(100, 700, by = 100)),
   crime_change = c(7, 10, -4, -5, -3, 3, 6)
@@ -137,7 +140,7 @@ ggplot(bra2, aes(month, crime_change)) +
 
 choosing limits for color-mapped variables can also be difficult
 
-```{r, fig.cap = "Life expectancy in the US.", echo = FALSE, fig.width = 8, fig.height = 4.5}
+```{r, fig.cap = "Life expectancy in the US.", echo = FALSE, fig.width = 10, fig.height = 6}
 library(maps)
 library(mapproj)
 
@@ -169,7 +172,7 @@ ggplot(states_data, aes(map_id = State)) +
 
 choosing limits for color-mapped variables can also be difficult
 
-```{r, fig.cap = "Life expectancy in the US with other limits.", echo = FALSE, fig.width = 8, fig.height = 4.5}
+```{r, fig.cap = "Life expectancy in the US with other limits.", echo = FALSE, fig.width = 10, fig.height = 6}
 ggplot(states_data, aes(map_id = State)) +
   geom_map(aes(fill = `Life Exp`), map = states_map) +
   expand_limits(x = states_map$long, y = states_map$lat) +
@@ -182,10 +185,6 @@ ggplot(states_data, aes(map_id = State)) +
 
 ## Size
 
-.pull-left[
-
-]
-
 when mapping a variable to size, map it to **area** (not height or width)
 
 usually comes up with bubble charts
@@ -194,16 +193,15 @@ usually comes up with bubble charts
 p <- ggplot(mtcars, aes(wt, mpg, size = hp)) + geom_point()
 ```
 
-
 .pull-left[
-```{r}
-p + scale_size_area()
+```{r, fig.height = 3.5}
+p + scale_size_area() #<<
 ```
 ]
 
 .pull-right[
-```{r}
-p + scale_radius()
+```{r, fig.height = 3.5}
+p + scale_radius() #<<
 ```
 ]
 
@@ -213,7 +211,7 @@ p + scale_radius()
 ## The Lie Factor
 
 .pull-left[
-another concept introduced by Edward Tufte.
+another concept introduced by Edward Tufte
 
 $$
 \text{lie factor} = \frac{\text{effect in visualization}}{\text{size of effect in data}}
