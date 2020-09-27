@@ -1,5 +1,5 @@
 ---
-title: "Visualizing Big Data"
+title: "Big Data"
 subtitle: "STAE04: Data Visualization"
 author: "Johan Larsson"
 institute: "The Department of Statistics, Lund University"
@@ -25,8 +25,8 @@ knitr::opts_chunk$set(
   message = FALSE,
   cache = FALSE,
   dev = "png",
-  fig.width = 5.2,
-  fig.height = 4.2,
+  fig.width = 4.8,
+  fig.height = 4.1,
   fig.align = "center",
   fig.retina = 3,
   dev.args = list(pointsize = 16),
@@ -47,8 +47,6 @@ BibOptions(check.entries = FALSE,
            dashed = TRUE)
 bib <- ReadBib("assets/stae04.bib")
 
-theme_set(theme_bw())
-
 if (!interactive()) {
   theme_set(theme_grey(base_size = 16))
 }
@@ -62,7 +60,7 @@ big data: many variables **and/or** observations
 
 here we consider the case of many observations
 
-the problem with many observations is overlap
+the problem with many observations is usually **overlap**
 
 .pull-left[
 ```{r diamonds1, eval = FALSE}
@@ -154,7 +152,7 @@ and binning into a two-dimensional geometric shape
 
 ```{r, fig.width = 7, fig.height = 4.8}
 ggplot(diamonds, aes(carat, price)) +
-  geom_bin2d(bins = 60) +
+  geom_bin2d(bins = 60) + #<<
   scale_fill_distiller(palette = "Spectral")
 ```
 
@@ -167,7 +165,7 @@ to use hexagons instead, via `geom_hex()`
 
 ```{r, fig.width = 7, fig.height = 4.8}
 ggplot(diamonds, aes(carat, price)) +
-  geom_hex(bins = 60) +
+  geom_hex(bins = 60) + #<<
   scale_fill_distiller(palette = "Spectral")
 ```
 
@@ -201,7 +199,8 @@ p <- tsibble::as_tsibble(Nile) %>%
 
 .pull-left[
 ```{r}
-p + geom_smooth(method = "lm")
+p + 
+  geom_smooth(method = "lm") #<<
 ```
 ]
 
@@ -211,7 +210,7 @@ p + geom_smooth(method = "lm")
 ```{r}
 p + geom_smooth(
   method = "gam",
-  formula = y ~ poly(x, 6)
+  formula = y ~ poly(x, 6) #<<
 )
 ```
 ]
@@ -220,20 +219,20 @@ p + geom_smooth(
 
 ### 2D Density Plots
 
-two-dimensional density plots is a type of two-dimensional smoothing
+two-dimensional density plots is a type of two-dimensional **smoothing**
 
 uses a density kernel, which is sensitive to parameters
 
-```{r, fig.width = 7}
+```{r, fig.width = 8, fig.height = 5}
 ggplot(diamonds, aes(carat, price)) +
-  geom_density_2d_filled()
+  geom_density_2d_filled() #<<
 ```
 
 ---
 
 for other data a density plot may work well
 
-```{r, fig.width = 7, fig.heigt = 5.5}
+```{r, fig.width = 8, fig.height = 5}
 ggplot(faithful, aes(eruptions, waiting)) +
   geom_density2d_filled() +
   geom_point()

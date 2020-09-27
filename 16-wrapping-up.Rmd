@@ -1,5 +1,5 @@
 ---
-title: "Animated and Interactive Visualizations"
+title: "Wrapping Up"
 subtitle: "STAE04: Data Visualization"
 author: "Johan Larsson"
 institute: "The Department of Statistics, Lund University"
@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
   echo = TRUE,
   warning = FALSE,
   message = FALSE,
-  cache = TRUE,
+  cache = FALSE,
   dev = "png",
   fig.width = 5,
   fig.height = 4,
@@ -56,180 +56,45 @@ if (!interactive()) {
 options(digits = 3)
 ```
 
-## Animated Visualizations
+## Congratulations!
 
-offers an extra aesthetic that we can map
-variables to: motion
+You've learnt a lot!
 
-very useful in **presentations**
-
-animating works best when mapping to time or similar process
-
---
-
-### gganimate
-
-.pull-left-60[
-[gganimate](https://gganimate.com/) is a ggplot-based solution for producing
-animations in R
-
-you may need to download and install a
-**renderer**; we recommend [gifski](https://gif.ski/)
-]
-
-.pull-right-40[
-```{r echo = FALSE, out.width = "50%"}
-knitr::include_graphics("images/gganimate.svg")
-```
-
-]
-
-
----
-
-### Example: Housing Sales in Texas
-
-start with some data
-
-```{r}
-# aggregate over years
-tx <- select(txhousing, city, year, sales:inventory) %>%
-  group_by(city, year) %>%
-  summarize_all(mean, na.rm = TRUE)
-```
-
-.pull-left[
-start by building a basic ggplot
-
-```{r houston, eval = FALSE}
-p <- tx %>%
-  ggplot(aes(median, 
-             listings)) +
-    geom_point(alpha = 0.5)
-p
-```
-]
+- **powerful** and **modern** tools for visualization
+- multivariate, interactive, animated, and spatial visualizations
+- theoretical aspects (the grammar of graphics, color, data-ink)
 
 .pull-right[
-```{r ref.label = "houston", echo = FALSE, out.width = "100%", fig.cap = "Median sales price and numbers of listings."}
-```
-]
-
-
----
-
-### Animating the Plot
-
-adding `ease_aes()` and `transition_*()` to the plot sets up animation
-
-calling the object invokes the `animate()` function,
-which does all the heavy-lifting
-
-.pull-left[
-```{r anim1, eval = FALSE}
-library(gganimate)
-
-anim <- p +
-  transition_time(year) + #<<
-  ease_aes() #<<
-
-anim # same as animate(anim)
-```
-]
-
-.pull-right[
-```{r ref.label = "anim1", echo = FALSE, out.width = "100%"}
-```
-]
-
-
----
-
-### Labeling
-
-uses special **glue** syntax inside `labs()`
-
-```{r, out.width = "60%"}
-anim +
-  labs(title = "Year: {frame_time}")
-```
-
-
----
-
-### Finetuning the Animation
-
-use `animate()` directly for more control over animation
-
-```{r, out.width = "60%", fig.width = 4, fig.height = 4}
-anim2 <- p +
-  transition_time(year) +
-  labs(title = "Year: {frame_time}")
-
-animate(anim2, duration = 20, nframes = 150) #<<
-```
-
----
-
-## Interactive Visualizations
-
-great for most datasets, particularly complicated datasets, but can
-only really be used on webpages
-
-often useful in tandem with carefully designed static visualizations
-
-.pull-left[
-### plotly
-
-simple interactive visualizations can be achieved easily using [plotly](https://plotly.com/)
-
-two alternatives: 
-
-- call `plot_ly()` directly
-- use `ggplotly()` on a plot built in ggplot2
-
-we focus on the second alternative
-]
-
-.pull-right[
-```{r, echo = FALSE}
-knitr::include_graphics("images/plotly.png")
+```{r, out.width = "100%", echo = FALSE}
+knitr::include_graphics("images/balloons.jpg")
 ```
 ]
 
 ---
 
-```{r, fig.width = 8, fig.height = 5, eval = FALSE}
-library(plotly)
-p <- ggplot(msleep, aes(brainwt, sleep_total, color = vore, 
-                        genus = genus, 
-                        conservation = conservation)) +
-  geom_point() +
-  scale_x_log10()
-ggplotly(p) #<<
-```
+## Next Steps
 
-```{r, echo = FALSE, out.width = "83%"}
-knitr::include_graphics("videos/plotly-animation1.gif")
-```
+### ggplot2 and R
+
+- read the [ggplot2 book](https://ggplot2-book.org/)
+- [check out the many extensions to ggplot2](https://exts.ggplot2.tidyverse.org/)
+- take the red pill and read `r Citet(bib, "murrell2018")` to learn everything
+  there is to know about R graphics
+
+### Data Wrangling
+
+- datasets in the wild are seldom as well-organized; learn about wrangling with
+  data in [R for Data Science](https://r4ds.had.co.nz/)
+
+### Visualization
+
+- learn more about Edward Tufte's seminal work `r Citep(bib, "tufte2001")`
 
 ---
 
-### Shiny
+## References
 
-for more advanced interactive visualizations (beyond the scope of this course), 
-have a look at [shiny](https://shiny.rstudio.com/)
 
-```{r, echo = FALSE, out.width = "80%"}
-knitr::include_graphics("videos/shiny-animation1.gif")
+```{r, results = "asis", echo=FALSE}
+PrintBibliography(bib)
 ```
-
-
-<!-- --- -->
-
-<!-- ## References -->
-
-
-<!-- ```{r, results = "asis", echo=FALSE} -->
-<!-- PrintBibliography(bib) -->
-<!-- ``` -->

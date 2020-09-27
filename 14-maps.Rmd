@@ -25,8 +25,8 @@ knitr::opts_chunk$set(
   message = FALSE,
   cache = FALSE,
   dev = "png",
-  fig.width = 5,
-  fig.height = 4,
+  fig.width = 4.8,
+  fig.height = 4.1,
   fig.align = "center",
   fig.retina = 3,
   dev.args = list(pointsize = 16),
@@ -47,10 +47,8 @@ BibOptions(check.entries = FALSE,
            dashed = TRUE)
 bib <- ReadBib("assets/stae04.bib")
 
-theme_set(theme_grey())
-
 if (!interactive()) {
-  theme_set(theme_grey(base_size = 15))
+  theme_set(theme_grey(base_size = 16))
 }
 
 options(digits = 3)
@@ -341,12 +339,12 @@ ggplot(map_data("state"), aes(long, lat, group = group)) +
 
 networks often come up in spatial data
 
-visualizing networks using basic ggplot2 functionality is **complicated**, so we need to
-use either `ggnetworkmap()`from [GGally](https://CRAN.R-project.org/package=GGally)
-or the [ggnetwork](https://CRAN.R-project.org/package=ggnetwork) package
+cannot be easily visualized in ggplot; use `ggnetworkmap()`from [GGally](https://CRAN.R-project.org/package=GGally) instead
 
-these functions requires a network to be built first; here we use data of airports
-and flights in the US (see the source code for the rather complicated data set)
+must first construct a network 
+
+**example:** airports and flights in the US (see the source code for the rather
+complicated data set)
 
 ```{r echo = FALSE}
 # example adapted grom GGally documentation

@@ -23,10 +23,10 @@ knitr::opts_chunk$set(
   echo = TRUE,
   warning = FALSE,
   message = FALSE,
-  cache = TRUE,
+  cache = FALSE,
   dev = "png",
-  fig.width = 5,
-  fig.height = 4,
+  fig.width = 4.8,
+  fig.height = 4.1,
   fig.align = "center",
   fig.retina = 3,
   dev.args = list(pointsize = 16),
@@ -50,7 +50,7 @@ bib <- ReadBib("assets/stae04.bib")
 theme_set(theme_grey())
 
 if (!interactive()) {
-  theme_set(theme_grey(base_size = 15))
+  theme_set(theme_grey(base_size = 16))
 }
 
 options(digits = 3)
@@ -165,7 +165,6 @@ use `animate()` directly for more control over animation
 anim2 <- p +
   transition_time(year) +
   labs(title = "Year: {frame_time}")
-
 animate(anim2, duration = 20, nframes = 150) #<<
 ```
 

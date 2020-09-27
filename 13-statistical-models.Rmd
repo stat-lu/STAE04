@@ -1,5 +1,5 @@
 ---
-title: "Visualizing Statistical Models"
+title: "Statistical Models"
 subtitle: "STAE04: Data Visualization"
 author: "Johan Larsson"
 institute: "The Department of Statistics, Lund University"
@@ -25,8 +25,8 @@ knitr::opts_chunk$set(
   message = FALSE,
   cache = FALSE,
   dev = "png",
-  fig.width = 5,
-  fig.height = 4,
+  fig.width = 4.8,
+  fig.height = 4.1,
   fig.align = "center",
   fig.retina = 3,
   dev.args = list(pointsize = 16),
@@ -47,10 +47,8 @@ BibOptions(check.entries = FALSE,
            dashed = TRUE)
 bib <- ReadBib("assets/stae04.bib")
 
-theme_set(theme_bw())
-
 if (!interactive()) {
-  theme_set(theme_grey(base_size = 15))
+  theme_set(theme_grey(base_size = 16))
 }
 
 options(digits = 3)
@@ -58,7 +56,7 @@ options(digits = 3)
 
 ## Statistical Models
 
-most of our work so far: exploratory analysis
+most of our work so far: **exploratory** analysis
 
 but if we're doing analysis we often also want **diagnostic**,
 **prediction**, and **estimate plots**
@@ -96,7 +94,7 @@ from models
 library(broom)
 
 fit <- lm(mpg ~ disp, data = mtcars)
-augment(fit)
+augment(fit) #<<
 ```
 
 ```{r, echo = FALSE}
@@ -156,13 +154,13 @@ ggplot(aug,
        aes(.fitted, 
            .std.resid)) +
   geom_hline(yintercept = 0, 
-             lty = 3) +
+             lty = 2) +
   geom_point()
 ```
 ]
 
 .pull-right[
-```{r ref.label = "residualplot", echo = FALSE, fig.height = 5.2}
+```{r ref.label = "residualplot", echo = FALSE, fig.height = 4.8}
 ```
 ]
 
@@ -303,19 +301,17 @@ ggplot(aug2, aes(Education, Infant.Mortality, fill = .fitted)) +
 
 ## Tidymodels
 
-.pull-left[
+.pull-left-60[
 Check out [tidymodels](https://tidymodels.org/) if you want to
 learn more about statistical modeling inside the tidyverse.
 ]
 
-.pull-right[
-```{r, echo = FALSE, out.width = "55%"}
+.pull-right-40[
+```{r, echo = FALSE, out.width = "70%"}
 knitr::include_graphics("images/tidymodels.png")
 ```
 
 ]
-
-
 
 
 <!-- --- -->
