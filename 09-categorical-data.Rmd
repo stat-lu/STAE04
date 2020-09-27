@@ -1,5 +1,5 @@
 ---
-title: "Visualizing Categorical Data"
+title: "Categorical Data"
 subtitle: "STAE04: Data Visualization"
 author: "Johan Larsson"
 institute: "The Department of Statistics, Lund University"
@@ -17,15 +17,20 @@ output:
 ---
 
 ```{r setup, include = FALSE}
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+
 knitr::opts_chunk$set(
   echo = TRUE,
   warning = FALSE,
   message = FALSE,
   cache = FALSE,
-  dev = "svg",
-  fig.width = 3.5,
-  fig.height = 3,
-  fig.align = "center"
+  dev = "png",
+  fig.width = 4.8,
+  fig.height = 4.1,
+  fig.align = "center",
+  fig.retina = 3,
+  dev.args = list(pointsize = 16),
+  crop = TRUE
 )
 
 library(tidyverse)
@@ -45,10 +50,8 @@ BibOptions(check.entries = FALSE,
            dashed = TRUE)
 bib <- ReadBib("assets/stae04.bib")
 
-theme_set(theme_bw())
-
 if (!interactive()) {
-  theme_set(theme_grey(base_size = 14))
+  theme_set(theme_grey(base_size = 16))
 }
 
 options(digits = 3)
@@ -56,7 +59,7 @@ options(digits = 3)
 
 ## Visualizing Categorical Data
 
-visualizing categorical data usually comes down to visualizing proportions
+visualizing categorical data usually comes down to visualizing **proportions**
 
 ```{r, echo = FALSE, fig.cap = "A 'scatter plot' of categorical data; not very appealing.", fig.width = 10, fig.height = 5, dev = "png", dpi = 200}
 library(tidyverse)
@@ -76,12 +79,12 @@ ggplot2 has **limited** capabilities for visualizing categorical data
 
 intuitive and common: easily understood
 
-```{r, fig.width = 5, fig.height = 2.8, fig.cap = "Happiness ratings from the GSS in the US."}
+```{r, fig.width = 6, fig.height = 3.2, fig.cap = "Happiness ratings from the GSS in the US."}
 library(productplots) # for happy data set
 happy <- drop_na(happy)
 
 ggplot(happy, aes(happy)) +
-  geom_bar()
+  geom_bar() #<<
 ```
 
 ---
@@ -91,9 +94,9 @@ ggplot(happy, aes(happy)) +
 good when counts are what matters and group sizes are important, but hard to judge within
 categories
 
-```{r, fig.cap = "A grouped barchart.", fig.width = 8}
+```{r, fig.width = 10}
 ggplot(happy, aes(degree, fill = happy)) +
-  geom_bar(position = "dodge")
+  geom_bar(position = "dodge") #<<
 ```
 
 ---
@@ -103,9 +106,9 @@ ggplot(happy, aes(degree, fill = happy)) +
 same use case as grouped barcharts, but easier to compare within categories whilst
 harder to compare between
 
-```{r, fig.cap = "A stacked barchart.", fig.width = 8}
+```{r, fig.width = 10}
 ggplot(happy, aes(degree, fill = happy)) +
-  geom_bar() # position = "stack" is the default
+  geom_bar() # position = "stack" is the default #<<
 ```
 
 ---
@@ -114,9 +117,9 @@ ggplot(happy, aes(degree, fill = happy)) +
 
 easy to compare both between and within categories but lose information on category size
 
-```{r, fig.cap = "A stacked bar chart. Y axis unit is now proportions within each category.", fig.width = 8}
+```{r, fig.width = 10}
 ggplot(happy, aes(degree, fill = happy)) +
-  geom_bar(position = "fill") +
+  geom_bar(position = "fill") + #<<
   ylab("Proportion")
 ```
 
@@ -129,9 +132,9 @@ the width of bars
 
 need to use another package for this: [productplots](https://CRAN.R-project.org/package=productplots) or [ggmosaic](https://CRAN.R-project.org/package=ggmosaic), or [vcd](https://CRAN.R-project.org/package=vcd)
 
-```{r, fig.width = 8}
+```{r, fig.width = 10}
 library(productplots)
-prodplot(happy, ~ happy + degree) +
+prodplot(happy, ~ happy + degree) + #<<
   aes(fill = happy) +
   theme(legend.position = "none") # remove legend
 ```
@@ -142,8 +145,8 @@ prodplot(happy, ~ happy + degree) +
 
 choice of mappings with categorical data is important
 
-```{r, fig.cap = "The proportional stacked bar chart with a different mapping.", fig.width = 8}
-ggplot(happy, aes(happy, fill = degree)) +
+```{r, fig.cap = "The proportional stacked bar chart with a different mapping.", fig.width = 10, fig.height = 3.8}
+ggplot(happy, aes(happy, fill = degree)) + #<<
   geom_bar(position = "fill", col = 1) +
   ylab("Proportion")
 ```
@@ -159,7 +162,7 @@ suitable when there are large differences between categories
 again need to use a new package: [waffle](https://CRAN.R-project.org/package=waffle)
 
 
-```{r, echo = FALSE, fig.width = 8, fig.height = 3, fig.cap = "A waffle plot of the happiness data. Every square represents 100 people. The code is quite complicated (see the source code for this slide)."}
+```{r, echo = FALSE, fig.width = 10, fig.height = 6, fig.cap = "A waffle plot of the happiness data. Every square represents 100 people. The code is quite complicated (see the source code)."}
 # devtools::install_github("hrbrmstr/waffle")
 library(waffle)
 
@@ -228,7 +231,7 @@ packages [vcd](https://CRAN.R-project.org/package=vcd) and
 [vcdExtra](https://CRAN.R-project.org/package=vcdExtra) offer lots of functionality
 
 
-```{r, echo = FALSE, fig.width = 4, fig.height = 4, fig.cap = "A plot from the vcd package."}
+```{r, echo = FALSE, fig.width = 4.7, fig.height = 4.7, fig.cap = "A plot from the vcd package."}
 library(vcd)
 UCB <- aperm(UCBAdmissions[, , 1:4], c(2, 1, 3))
 names(dimnames(UCB)) <- c("Sex", "Admit?", "Department")
