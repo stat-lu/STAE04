@@ -1,5 +1,5 @@
 ---
-title: "Two-Dimensional Visualizations"
+title: "Two Variables"
 subtitle: "STAE04: Data Visualization"
 author: "Johan Larsson"
 institute: "The Department of Statistics, Lund University"
@@ -17,15 +17,20 @@ output:
 ---
 
 ```{r setup, include = FALSE}
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+
 knitr::opts_chunk$set(
   echo = TRUE,
   warning = FALSE,
   message = FALSE,
   cache = FALSE,
-  dev = "svg",
-  fig.width = 3.5,
-  fig.height = 3,
-  fig.align = "center"
+  dev = "png",
+  fig.width = 5,
+  fig.height = 4.3,
+  fig.align = "center",
+  fig.retina = 3,
+  dev.args = list(pointsize = 16),
+  crop = TRUE
 )
 
 library(tidyverse)
@@ -45,10 +50,8 @@ BibOptions(check.entries = FALSE,
            dashed = TRUE)
 bib <- ReadBib("assets/stae04.bib")
 
-theme_set(theme_bw())
-
 if (!interactive()) {
-  theme_set(theme_grey(base_size = 14))
+  theme_set(theme_grey(base_size = 16))
 }
 
 options(digits = 3)
@@ -91,7 +94,7 @@ ggplot(swiss,
 
 understanding patterns is key to being able to visualize data effectively
 
-```{r, fig.width = 5, fig.height = 5, echo = FALSE}
+```{r, fig.width = 8, fig.height = 6.5, echo = FALSE}
 set.seed(1453)
 
 n <- 100
@@ -127,7 +130,7 @@ a good visualization should describe the variation in the data
 ]
 
 .pull-right-60[
-```{r, echo = FALSE, fig.height = 2.6, fig.width = 4.5}
+```{r, echo = FALSE, fig.height = 3.2, fig.width = 5.5}
 d <- tibble(x = 1:100,
             low_variance = x + rnorm(100, 0, 4),
             high_variance = x + rnorm(100, 0, 20))
@@ -143,7 +146,7 @@ pivot_longer(d, -x) %>%
 --
 
 .pull-left-60[
-```{r, echo = FALSE, fig.height = 2.6, fig.width = 4.5}
+```{r, echo = FALSE, fig.height = 3.5, fig.width = 5.5}
 d <- tibble(x = 1:100,
             y = rnorm(100, 0, x))
 
@@ -156,19 +159,17 @@ ggplot(d, aes(x, y)) +
 sometimes variation has a pattern of itself
 ]
 
-
-
 ---
 
 ## Time
 
-time has a specific order, so the line geom is often natural
+time has a specific order, which makes the line geom a natural choice
 
 always place time on the horizontal (x) axis
 
-```{r, fig.cap = "Median unemployment duration in the US.", fig.width = 6, fig.height = 2.7}
+```{r, fig.cap = "Median unemployment duration in the US.", fig.width = 9, fig.height = 3}
 ggplot(economics, aes(date, uempmed)) +
-  geom_line() +
+  geom_line() + #<<
   xlab("Time") +
   ylab("Unemployment duration")
 ```
@@ -180,11 +181,11 @@ ggplot(economics, aes(date, uempmed)) +
 often useful to use points and lines together when measurements
 are taken at irregular intervals or seldom
 
-```{r, fig.cap = "Weight of a chick over time.", fig.width = 4}
+```{r, fig.cap = "Weight of a chick over time.", fig.width = 6, fig.height = 3.3}
 filter(ChickWeight, Chick == 5) %>%
   ggplot(aes(Time, weight)) +
-  geom_point() +
-  geom_line()
+  geom_point() + #<<
+  geom_line() #<<
 ```
 
 
@@ -195,7 +196,7 @@ filter(ChickWeight, Chick == 5) %>%
 categorical variables (factors) can of course be used
 as the second dimension
 
-```{r, fig.cap = "Boxplot of total sleep duration for different mammals."}
+```{r, fig.cap = "Boxplot of total sleep duration for different mammals.", fig.width = 7}
 ggplot(msleep, aes(vore, sleep_total)) +
   geom_boxplot()
 ```
@@ -207,7 +208,7 @@ ggplot(msleep, aes(vore, sleep_total)) +
 pay attention to whether or not the factor is **ordered**
 
 .pull-left[
-```{r, echo = FALSE, fig.height = 4}
+```{r, echo = FALSE, fig.height = 6}
 mutate(OrchardSprays, treatment = fct_shuffle(treatment)) %>%
   ggplot(aes(treatment, decrease)) +
   geom_boxplot()
@@ -217,7 +218,7 @@ mutate(OrchardSprays, treatment = fct_shuffle(treatment)) %>%
 --
 
 .pull-right[
-```{r, echo = FALSE, fig.height = 4}
+```{r, echo = FALSE, fig.height = 6}
 ggplot(OrchardSprays, aes(treatment, decrease)) +
   geom_boxplot()
 ```
@@ -228,9 +229,9 @@ ggplot(OrchardSprays, aes(treatment, decrease)) +
 ## Discrete Data
 
 a problem when one (or both) variables are discrete (or categorical)
-is that they might overlap
+is that they might **overlap**
 
-a simply solution is to use opacity (`alpha`)
+simple solution: **opacity** (`alpha`)
 
 .pull-left[
 ```{r}
@@ -244,7 +245,7 @@ ggplot(mpg, aes(cty, hwy)) +
 .pull-right[
 ```{r}
 ggplot(mpg, aes(cty, hwy)) +
-  geom_point(alpha = 0.2) 
+  geom_point(alpha = 0.2) #<<
 ```
 ]
 
@@ -254,10 +255,10 @@ ggplot(mpg, aes(cty, hwy)) +
 
 for some variables, it is more natural to study them on a different scale
 
-other times it is simply convenient (more compact)
+other times it is simply **convenient** (more compact)
 
 .pull-left[
-```{r, fig.height = 2.7}
+```{r, fig.height = 3.5}
 ggplot(msleep, 
        aes(brainwt, 
            sleep_total)) +
@@ -269,7 +270,7 @@ ggplot(msleep,
 --
 
 .pull-right[
-```{r, fig.height = 2.7}
+```{r, fig.height = 3.5}
 ggplot(msleep, 
        aes(brainwt, 
            sleep_total)) +
