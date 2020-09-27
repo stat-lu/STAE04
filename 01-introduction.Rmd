@@ -29,9 +29,6 @@ knitr::opts_chunk$set(
 )
 
 library(tidyverse)
-library(tactile)
-library(lattice)
-library(latticeExtra)
 library(kableExtra)
 
 kable <- function(x, ...) {
@@ -44,8 +41,6 @@ BibOptions(check.entries = FALSE,
            style = "markdown",
            dashed = TRUE)
 bib <- ReadBib("assets/stae04.bib")
-
-theme_set(theme_bw())
 
 if (!interactive()) {
   theme_set(theme_grey(base_size = 14))
