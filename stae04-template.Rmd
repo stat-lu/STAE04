@@ -241,13 +241,6 @@ Authoring your documents using R Markdown facilitates reproducibility. Because y
 need to supply all the code used to produce your paper in the `.Rmd` file, this
 makes it much easier for other people to re-run your analysis and use your code.
 
-# Submissions
-
-In this course, you will use R Markdown for all your assignment submissions. For each
-of these you will need to submit both the `.Rmd` source file as well
-as the knitted `.pdf` file. Documents from office packages (such as Microsoft Office)
-will not be accepted.
-
 # Learning More About R Markdown
 
 If you want to learn more about R Markdown, we recommend the 
