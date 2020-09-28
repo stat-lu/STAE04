@@ -25,7 +25,7 @@ class: middle, center, title-slide
 ## Animated Visualizations
 
 offers an extra aesthetic that we can map
-variables to: motion
+variables to
 
 very useful in **presentations**
 
@@ -119,8 +119,9 @@ uses special **glue** syntax inside `labs()`
 
 
 ```r
-anim +
-  labs(title = "Year: {frame_time}")
+anim2 &lt;- anim +
+* labs(title = "Year: {frame_time}")
+anim2
 ```
 
 &lt;img src="15-animated-and-interactive-visualizations_files/figure-html/unnamed-chunk-5-1.gif" width="60%" style="display: block; margin: auto;" /&gt;
@@ -128,15 +129,12 @@ anim +
 
 ---
 
-### Finetuning the Animation
+### Finetuning
 
 use `animate()` directly for more control over animation
 
 
 ```r
-anim2 &lt;- p +
-  transition_time(year) +
-  labs(title = "Year: {frame_time}")
 *animate(anim2, duration = 20, nframes = 150)
 ```
 

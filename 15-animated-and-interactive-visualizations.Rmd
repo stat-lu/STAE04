@@ -59,7 +59,7 @@ options(digits = 3)
 ## Animated Visualizations
 
 offers an extra aesthetic that we can map
-variables to: motion
+variables to
 
 very useful in **presentations**
 
@@ -150,21 +150,19 @@ anim # same as animate(anim)
 uses special **glue** syntax inside `labs()`
 
 ```{r, out.width = "60%"}
-anim +
-  labs(title = "Year: {frame_time}")
+anim2 <- anim +
+  labs(title = "Year: {frame_time}") #<<
+anim2
 ```
 
 
 ---
 
-### Finetuning the Animation
+### Finetuning
 
 use `animate()` directly for more control over animation
 
-```{r, out.width = "60%", fig.width = 4, fig.height = 4}
-anim2 <- p +
-  transition_time(year) +
-  labs(title = "Year: {frame_time}")
+```{r, out.width = "60%"}
 animate(anim2, duration = 20, nframes = 150) #<<
 ```
 

@@ -92,6 +92,20 @@ knitr::include_graphics("images/balloons.jpg")
 
 ---
 
+## Course Evaluation
+
+**Please** fill out the course evaluation!
+
+Your feedback helps us to develop and improve this course for future students like you.
+
+<br><br><br><br>
+```{r, echo = FALSE, fig.align = "right", out.width = "65%"}
+knitr::include_graphics("images/survey.jpg")
+```
+
+
+---
+
 ## References
 
 
