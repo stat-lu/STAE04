@@ -59,7 +59,7 @@ options(digits = 3)
 
 ## Data-Ink
 
-always consider how you're spending **ink** in a visualization
+Consider how you are spending the **ink** in a visualization.
 
 data-ink `r Citep(bib, "tufte2001")`: the ink used to draw data
 
@@ -94,8 +94,6 @@ knitr::include_graphics("images/tufte.png")
 
 ## Above All Else Show the Data
 
-a golden rule: data should be the focus of any visualization
-
 ```{r, echo = FALSE, fig.cap = "William Playfair, The Commercial and Political Atlas (1786). Public domain.", out.width = "80%"}
 knitr::include_graphics("images/playfair-england-usa.jpg")
 ```
@@ -103,8 +101,6 @@ knitr::include_graphics("images/playfair-england-usa.jpg")
 ---
 
 ## Above All Else Show the Data
-
-a golden rule: data should be the focus of any visualization
 
 ```{r, echo = FALSE, fig.cap = "William Playfair, The Commercial and Political Atlas (1786). Public domain.", out.width = "80%"}
 knitr::include_graphics("images/playfair-nordic-england.jpg")
@@ -114,9 +110,9 @@ knitr::include_graphics("images/playfair-nordic-england.jpg")
 
 ## Maximize the Data-Ink Ratio
 
-all ink on a plot should be there for a good reason
+Non-data-ink may distract your audience from what really matters: the data.
 
-maximizing the data-ink (within reason) is a good rule-of-thumb
+Maximizing the data-ink (within reason) is a good rule-of-thumb.
 
 .pull-left[
 ```{r, echo = FALSE, fig.cap = "low data-ink ratio", fig.height = 4.5}
@@ -162,7 +158,8 @@ ggplot(mpg2, aes(cyl, fill = cyl)) +
 .pull-right[
 ```{r, fig.cap = "no redundancy", echo = FALSE, fig.height = 4.5}
 ggplot(mpg2, aes(cyl)) +
-  geom_point(stat = "count")
+  geom_point(stat = "count") +
+  lims(y = c(0, 83))
 ```
 ]
 

@@ -58,14 +58,14 @@ options(digits = 3)
 
 most of our work so far: **exploratory** analysis
 
-but if we're doing analysis we often also want **diagnostic**,
+but for analysis we often also want **diagnostic**,
 **prediction**, and **estimate plots**
 
 --
 
 .pull-left[
 
-for very simple models, `geom_smooth()` may be sufficient
+For very simple models, `geom_smooth()` may be sufficient.
 
 ```{r cars, eval = FALSE}
 ggplot(cars, 
@@ -85,10 +85,10 @@ ggplot(cars,
 
 ## Broom
 
-more complicated models usually call for more control
+More complicated models usually call for more control.
 
 [broom](https://broom.tidymodels.org/) is a great tool for generating **tidy** output
-from models
+from models.
 
 ```{r, eval = FALSE}
 library(broom)
@@ -112,6 +112,7 @@ augment(fit) %>%
 ## Case Study: Fertility in Switzerland
 
 ```{r}
+# dichotomize the Catholic variable
 swiss2 <- 
   mutate(
     swiss,
@@ -138,9 +139,9 @@ glance(fit) %>%
 
 ### Diagnostic Plots
 
-visualizations are great for diagnosing models
+Visualizations are great for diagnosing models!
 
-for `lm()` models usually get by fine with standard `plot()` method
+for `lm()` models usually need only standard `plot()` method
 
 .pull-left[
 #### Residual Plot
@@ -168,9 +169,9 @@ ggplot(aug,
 
 ### Coefficient Plots
 
-(parametric) models estimate parameters: linear regression fits return **coefficients**
+Models often estimate parameters: linear regression fits return **coefficients**.
 
-use `broom::tidy()` to extract summary statistics
+Use `broom::tidy()` to extract summary statistics from the fit.
 
 ```{r, eval = FALSE}
 tidy(fit, conf.int = TRUE)
@@ -184,7 +185,7 @@ tidy(fit, conf.int = TRUE) %>%
 
 ---
 
-it is easy to pipe the `broom::tidy()` output into ggplot2 to create coefficient
+easy to pipe the `broom::tidy()` output into ggplot2 to create coefficient
 plots
 
 ```{r, fig.height = 3.8, fig.width = 7}
@@ -204,7 +205,7 @@ alternative: use `GGally::ggcoef()` directly on `fit`
 
 first need to create a table of values to predict for
 
-`tidyr::expand()` generates combinations of variables in dataset
+`tidyr::expand()` generates combinations of variables in dataset.
 
 ```{r}
 new_data <-
@@ -226,7 +227,7 @@ head(new_data, 4) %>%
 
 ---
 
-augment new data with predictions from model using `broom::augment()`
+Augment new data with predictions from the model using `broom::augment()`.
 
 ```{r}
 aug <- augment(fit, newdata = new_data, se_fit = TRUE)
@@ -257,7 +258,7 @@ ggplot(aug, aes(Education, .fitted,
 
 ### Predictions Across Two Numeric Variables
 
-heatmaps (`geom_tile()`) allow us to vary one more variable
+Heatmaps (`geom_tile()`) allow us to vary one more variable.
 
 ```{r}
 # create some new data to predict on
@@ -290,12 +291,12 @@ ggplot(aug2, aes(Education, Infant.Mortality, fill = .fitted)) +
 
 ## Good Practices
 
-- start by tyding your data
-- explore the data with visualizations (and other summaries)
-- spend ample time visualizing model diagnostics and predictions
-- use graphics **liberally** when presenting models
-- visualizations are easier to read than tables, but sometimes 
-  the exact numbers are also important
+- Start by tyding your data.
+- Explore the data with visualizations (and other summaries)
+- Spend ample time visualizing model diagnostics and predictions.
+- Use graphics **liberally** when presenting models.
+- Visualizations are easier to read than tables, but sometimes 
+  the exact numbers are also important.
   
 --
 

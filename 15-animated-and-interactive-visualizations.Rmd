@@ -63,7 +63,7 @@ variables to
 
 very useful in **presentations**
 
-animating works best when mapping to time or similar process
+Animating works best when mapping to time or similar process.
 
 --
 
@@ -71,10 +71,10 @@ animating works best when mapping to time or similar process
 
 .pull-left-60[
 [gganimate](https://gganimate.com/) is a ggplot-based solution for producing
-animations in R
+animations in R.
 
-you may need to download and install a
-**renderer**; we recommend [gifski](https://gif.ski/)
+You may need to download and install a
+**renderer**; we recommend [gifski](https://gif.ski/).
 ]
 
 .pull-right-40[
@@ -89,7 +89,7 @@ knitr::include_graphics("images/gganimate.svg")
 
 ### Example: Housing Sales in Texas
 
-start with some data
+Start with some data.
 
 ```{r}
 # aggregate over years
@@ -99,7 +99,7 @@ tx <- select(txhousing, city, year, sales:inventory) %>%
 ```
 
 .pull-left[
-start by building a basic ggplot
+Then build a basic ggplot.
 
 ```{r houston, eval = FALSE}
 p <- tx %>%
@@ -120,10 +120,10 @@ p
 
 ### Animating the Plot
 
-adding `ease_aes()` and `transition_*()` to the plot sets up animation
+Adding `ease_aes()` and `transition_*()` to the plot sets up the animation.
 
-calling the object invokes the `animate()` function,
-which does all the heavy-lifting
+Calling the object invokes the `animate()` function,
+which does all the heavy-lifting.
 
 .pull-left[
 ```{r anim1, eval = FALSE}
@@ -158,9 +158,9 @@ anim2
 
 ---
 
-### Finetuning
+### Fine-tuning
 
-use `animate()` directly for more control over animation
+Use `animate()` directly for more control over the animation.
 
 ```{r, out.width = "60%"}
 animate(anim2, duration = 20, nframes = 150) #<<
@@ -178,14 +178,14 @@ often useful in tandem with carefully designed static visualizations
 .pull-left[
 ### plotly
 
-simple interactive visualizations can be achieved easily using [plotly](https://plotly.com/)
+Simple interactive visualizations can be achieved easily using [plotly](https://plotly.com/).
 
 two alternatives: 
 
 - call `plot_ly()` directly
 - use `ggplotly()` on a plot built in ggplot2
 
-we focus on the second alternative
+We focus on the second alternative.
 ]
 
 .pull-right[
@@ -214,8 +214,8 @@ knitr::include_graphics("videos/plotly-animation1.gif")
 
 ### Shiny
 
-for more advanced interactive visualizations (beyond the scope of this course), 
-have a look at [shiny](https://shiny.rstudio.com/)
+For more advanced interactive visualizations (beyond the scope of this course), 
+have a look at [shiny](https://shiny.rstudio.com/).
 
 ```{r, echo = FALSE, out.width = "80%"}
 knitr::include_graphics("videos/shiny-animation1.gif")

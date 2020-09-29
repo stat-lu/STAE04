@@ -25,13 +25,12 @@ class: middle, center, title-slide
 ## Associations
 
 .pull-left[
-two-dimensional plots show **associations**: how does `\(x\)` relate to `\(y\)`?
+how does `\(x\)` relate to `\(y\)`?
 
-visualizing two dimensions is usually **straightforward**, particularly when both
-variables are continuous
+straightforward when both variables are continuous.
 
-scatter plots (`geom_point()`) are the bread and butter of visualizations of
-two continuous variables
+Scatter plots are the bread and butter of visualizations of
+two continuous variables.
 
 
 ```r
@@ -39,7 +38,7 @@ library(tidyverse)
 ggplot(swiss, 
        aes(Examination, 
            Fertility)) +
-  geom_point()
+* geom_point()
 ```
 
 ]
@@ -55,7 +54,7 @@ ggplot(swiss,
 
 ## Patterns
 
-understanding patterns is key to being able to visualize data effectively
+Understanding patterns is key to being able to visualize data effectively.
 
 &lt;img src="07-two-variables_files/figure-html/unnamed-chunk-3-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
@@ -64,7 +63,7 @@ understanding patterns is key to being able to visualize data effectively
 ## Variation
 
 .pull-left-40[
-a good visualization should describe the variation in the data
+A good visualization should describe the variation in the data.
 ]
 
 .pull-right-60[
@@ -78,16 +77,16 @@ a good visualization should describe the variation in the data
 ]
 
 .pull-right-40[
-sometimes variation has a pattern of itself
+Sometimes there is a pattern to the variation.
 ]
 
 ---
 
 ## Time
 
-time has a specific order, which makes the line geom a natural choice
+Ttime has a specific order, which makes the line geom a natural choice.
 
-always place time on the horizontal (x) axis
+Always place time on the horizontal (x) axis.
 
 
 ```r
@@ -106,7 +105,7 @@ ggplot(economics, aes(date, uempmed)) +
 
 ## Geoms and Time
 
-often useful to use points and lines together when measurements
+often useful to combine points and lines when measurements
 are taken at irregular intervals or seldom
 
 
@@ -127,8 +126,8 @@ filter(ChickWeight, Chick == 5) %&gt;%
 
 ## Categorical Variables
 
-categorical variables (factors) can of course be used
-as the second dimension
+Categorical variables (factors) can be used
+as the second dimension.
 
 
 ```r
@@ -145,7 +144,7 @@ ggplot(msleep, aes(vore, sleep_total)) +
 
 ## Ordered Factors
 
-pay attention to whether or not the factor is **ordered**
+Pay attention to whether or not the factor is **ordered**.
 
 .pull-left[
 &lt;img src="07-two-variables_files/figure-html/unnamed-chunk-9-1.png" width="360" style="display: block; margin: auto;" /&gt;
@@ -161,8 +160,8 @@ pay attention to whether or not the factor is **ordered**
 
 ## Discrete Data
 
-a problem when one (or both) variables are discrete (or categorical)
-is that they might **overlap**
+A problem when one (or both) variables are discrete (or categorical)
+is that they might **overlap**.
 
 simple solution: **opacity** (`alpha`)
 
@@ -192,9 +191,9 @@ ggplot(mpg, aes(cty, hwy)) +
 
 ## Scales
 
-for some variables, it is more natural to study them on a different scale
+For some variables, it is more natural to study them on a non-standard scale
 
-other times it is simply **convenient** (more compact)
+Other times it is simply **convenient** (more compact).
 
 .pull-left[
 
@@ -203,7 +202,7 @@ ggplot(msleep,
        aes(brainwt, 
            sleep_total)) +
   geom_point() +
-  scale_y_continuous()
+* scale_y_continuous()
 ```
 
 &lt;img src="07-two-variables_files/figure-html/unnamed-chunk-13-1.png" width="360" style="display: block; margin: auto;" /&gt;
@@ -218,20 +217,48 @@ ggplot(msleep,
        aes(brainwt, 
            sleep_total)) +
   geom_point() +
-  scale_x_log10()
+* scale_x_log10()
 ```
 
 &lt;img src="07-two-variables_files/figure-html/unnamed-chunk-14-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
+---
+
+## Pairs Plots
+
+plots the pairwise associations of several variables
+
+complicated in ggplot2 (requires **pivoting** and **facets**)
+
+The [GGally](https://ggobi.github.io/ggally) package &lt;a name=cite-emerson2013&gt;&lt;/a&gt;([Emerson, Green, Schloerke, Crowley, Cook, Hofmann, and Wickham, 2013](https://www.tandfonline.com/doi/ref/10.1080/10618600.2012.694762))
+presents a simpler approach.
+
+---
 
 
 
 
+```r
+library(GGally)
+ggpairs(mpg, columns = c("displ", "drv", "cty", "hwy"))
+```
+
+&lt;img src="images/ggally.png" width="85%" style="display: block; margin: auto;" /&gt;
 
 
+---
 
+## References
 
+&lt;a name=bib-emerson2013&gt;&lt;/a&gt;[Emerson, J. W, W. A. Green, B. Schloerke,
+et al.](#cite-emerson2013) (2013). "The Generalized Pairs Plot". In:
+_Journal of Computational and Graphical Statistics_ 22.1, pp. 79-91.
+ISSN: 1061-8600. DOI:
+[10.1080/10618600.2012.694762](https://doi.org/10.1080%2F10618600.2012.694762).
+URL:
+[https://www.tandfonline.com/doi/ref/10.1080/10618600.2012.694762](https://www.tandfonline.com/doi/ref/10.1080/10618600.2012.694762)
+(visited on sep. 19, 2020).
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

@@ -101,7 +101,7 @@ ggplot(diamonds,
 
 ## Facets
 
-sometimes it's enough to split data into facets
+sometimes enough to split data into facets
 
 ```{r, fig.width = 10, fig.height = 5}
 ggplot(diamonds, aes(carat, price)) +
@@ -113,16 +113,15 @@ ggplot(diamonds, aes(carat, price)) +
 
 ## Bin-Summarize or Smooth
 
-the bin-summarize-smooth framework `r Citep(bib, "wickham2013a")` is a principled
-methodology to handle large data
+The bin-summarize-smooth framework `r Citep(bib, "wickham2013a")` is a principled
+methodology to handle large data.
 
-**binning** is the process of grouping values into *bins*; **summarizing** is the
-act of computing a summary statistics (count, mean) inside each bean
+**Binning** is the process of grouping values into *bins*; **summarizing** is the
+act of computing a summary statistics (count, mean) inside each bean.
 
-**smoothing** smooths out noisy data, revealing hard-to-see patterns
+**Smoothing** smooths out noisy data, revealing hard-to-see patterns.
 
-we've already encountered binning for one variable: histograms, but they don't work with
-two-dimensional data
+already encountered binning for one variable: histograms
 
 ---
 
@@ -147,7 +146,7 @@ ggplot(trees, aes(index, value)) + geom_line(alpha = 0.2) +
 
 ### Two-Dimensional Binning
 
-a type of two-dimensional histogram, mapping counts to color intead of height
+a type of two-dimensional histogram, mapping counts to color instead of height
 and binning into a two-dimensional geometric shape
 
 ```{r, fig.width = 7, fig.height = 4.8}
@@ -173,9 +172,9 @@ ggplot(diamonds, aes(carat, price)) +
 
 ## Smoothing
 
-smoothing is a powerful transformation for noisy data
+powerful transformation for noisy data
 
-smoothing is equivalent to applying a statistical model to the data
+equivalent to applying a statistical model to the data
 
 ```{r, fig.width = 10, fig.height = 4}
 ggplot(trees, aes(index, value)) +
@@ -188,7 +187,7 @@ ggplot(trees, aes(index, value)) +
 
 ### Smoothers are Sensitive
 
-as a thumb rule use only smoothers that you understand
+thumb rule: stick with smoothers that you understand
 
 ```{r, echo = FALSE}
 p <- tsibble::as_tsibble(Nile) %>%
@@ -219,7 +218,7 @@ p + geom_smooth(
 
 ### 2D Density Plots
 
-two-dimensional density plots is a type of two-dimensional **smoothing**
+Two-dimensional density plots is a type of two-dimensional **smoothing**.
 
 uses a density kernel, which is sensitive to parameters
 
@@ -230,7 +229,7 @@ ggplot(diamonds, aes(carat, price)) +
 
 ---
 
-for other data a density plot may work well
+for other data, a density plot may work well
 
 ```{r, fig.width = 8, fig.height = 5}
 ggplot(faithful, aes(eruptions, waiting)) +
@@ -238,7 +237,7 @@ ggplot(faithful, aes(eruptions, waiting)) +
   geom_point()
 ```
 
-hexagonal binning is in general a **safer bet**
+Hexagonal binning is in general a **safer bet**.
 
 ---
 

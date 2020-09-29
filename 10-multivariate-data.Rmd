@@ -147,7 +147,7 @@ update(p[c(1, 1, 1)],
 
 ## Color
 
-color is often a good choice, especially with categorical variables
+Color is often a good choice, especially with categorical variables.
 
 ```{r, fig.height = 3.8}
 mtcars <- 
@@ -178,7 +178,7 @@ volcano_long <-
 ```{r fig.width = 7.5, fig.height = 7}
 # see source code for dataset
 ggplot(volcano_long, aes(longitude, latitude, fill = height)) + 
-  geom_tile() + #<<
+  geom_tile() +
   coord_fixed() # makes sense for latitude, longitude
 ```
 
@@ -186,7 +186,7 @@ ggplot(volcano_long, aes(longitude, latitude, fill = height)) +
 
 ### Scatter Plots
 
-mapping a continuous variable to color in a scatter plot is less appealing
+Mapping a continuous variable to color in a scatter plot is less appealing.
 
 ```{r, fig.width = 6, fig.height = 4.5}
 ggplot(mtcars, aes(disp, hp, color = mpg)) +
@@ -197,7 +197,7 @@ ggplot(mtcars, aes(disp, hp, color = mpg)) +
 
 ## Size
 
-mapping to size only makes sense for continuous variables
+Mapping to size only makes sense for continuous variables!
 
 .pull-left-40[
 ### Area
@@ -241,7 +241,7 @@ ggplot(troops,
 
 ## Shape
 
-works quite well for categorical variables, but usually not preferable over color
+works OK for categorical variables, but usually not preferable over color
 
 mapping to line shapes is generally better than point shapes
 
@@ -301,7 +301,7 @@ ggplot(mtcars, aes(disp, hp)) +
 
 ### Grid
 
-use `facet_grid()` when you have **two** variables to facet on.
+Use `facet_grid()` when you have **two** variables to facet on.
 
 ```{r, fig.width = 8, fig.height = 5.2}
 ggplot(mtcars, aes(disp, hp)) +
@@ -313,8 +313,8 @@ ggplot(mtcars, aes(disp, hp)) +
 
 ### Facets and Continuous Variables
 
-if you sacrificing some detail is OK, you can facet by transforming a continuous
-variable into an ordinal one
+If sacrificing detail is OK, you can facet by transforming a continuous
+variable into an ordinal one.
 
 ```{r, fig.width = 10, fig.height = 3.6}
 mtcars %>%
@@ -326,42 +326,10 @@ mtcars %>%
 
 ---
 
-## Pairs Plots
-
-plot pairs of variables in a grid, plotting the joint distributions of
-every pair of variables
-
-pairs plots of scatter plots (a scatter plot matrix) can be
-accomplished with ggplot2 by **pivoting** and **facets**
-
-the [GGally](https://ggobi.github.io/ggally) package `r Citep(bib, "emerson2013")`
-presents a cleaner approach
-
----
-
-```{r, echo = FALSE, eval = FALSE}
-library(GGally)
-ragg::agg_png("images/ggally.png", width = 1028, height = 900)
-theme_set(theme_grey(base_size = 16))
-ggpairs(mpg, columns = c("displ", "drv", "cty", "hwy"))
-dev.off()
-```
-
-```{r, eval = FALSE}
-library(GGally)
-ggpairs(mpg, columns = c("displ", "drv", "cty", "hwy"))
-```
-
-```{r, echo = FALSE, out.width = "85%"}
-knitr::include_graphics("images/ggally.png")
-```
-
----
-
 ## Combining Our Tools
 
-putting together these building blocks allows us to create interesting and complex
-visualizations
+Putting together these building blocks allows us to create interesting and complex
+visualizations.
 
 ```{r, fig.width = 10, fig.height = 4}
 tail(mtcars, 15) %>%
@@ -371,12 +339,3 @@ tail(mtcars, 15) %>%
     facet_wrap(vars(gear))
 ```
 
-
----
-
-## References
-
-
-```{r, results = "asis", echo=FALSE}
-PrintBibliography(bib)
-```

@@ -86,7 +86,7 @@ background-size: contain
 
 ---
 
-## Everything in R is an object
+## Everything in R is an Object
 
 use the `&lt;-` operator to assign values from the right-hand to the left-hand
 side
@@ -119,7 +119,7 @@ y
 
 ---
 
-## Data classes in R
+## Data Classes in R
 
 represents the type of storage
 
@@ -141,7 +141,7 @@ are not (very) important for us
 
 ---
 
-## Data structures in R
+## Data Structures in R
 
 objects of the various **data classes** may be stored into
 **data structures**, such as
@@ -157,19 +157,15 @@ objects of the various **data classes** may be stored into
 
 class: center, middle
 
-
-```r
-knitr::include_graphics("images/data-structures.svg")
-```
-
 &lt;img src="images/data-structures.svg" width="90%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 ## Vectors
 
-all elements must be of the same type. usually created with
-`c()` function
+all elements must be of the same type
+
+can be constructed using `c()`
 
 
 ```r
@@ -206,7 +202,7 @@ c(1, "3", TRUE)      # mix (converted to character)
 
 ---
 
-## Accessing elements in vectors
+## Accessing Elements in Vectors
 
 access with `[` operator
 
@@ -274,7 +270,7 @@ A[1, ]   # first row, A[, 2] accesses second column
 
 ---
 
-## Data frames
+## Data Frames
 
 like matrices, but columns may have different classes
 
@@ -363,20 +359,20 @@ my_function(1, 3)
 
 --
 
-- `x` and `y` are **arguments** of the function
+- `x` and `y` are the **arguments**
 
 --
 
-- `x + 2*y` is **body** of the function
+- `x + 2*y` is the **body**
 
 --
 
-- last line of the function is returned unless `return()`
-  is used somewhere inside the function
+- the last line of the function decides what the function returns,
+  unless `return()` is used somewhere inside the function
   
 ---
 
-## Arguments in a function
+## Arguments
 
 Arguments can be specified either by **name** or by **location**.
 
@@ -417,34 +413,30 @@ my_other_function(1)
 
 ---
 
-## Functions in this course
+## Functions in This Course
 
-- understanding of functions is vital to understanding R
-
---
-
-- in this course, however, we will not be writing our own functions
+- We won't be writing our own function in this course.
 
 --
 
-- important to understand how to
+- But it is important to understand how to
   * call functions,
   * read function documentation, and
   * figure out what a function's default arguments imply.
 
 ---
 
-## Getting help
+## Getting Help
 
-- learn how to read object documentation, particularly for functions
+- Learn how to read object documentation, particularly for functions.
   * `F1` shortcut in R Studio
   * `help(function)` or `?function` in console
   
-- each problem you run into has usually been encountered (and solved)
-  by many others
-  * the course discussion board
-  * [stack overflow](https://stackoverflow.com/) (tag `r`) or 
-    a search engine
+- Most problems you run into have been encountered (and solved)
+  by others. Use
+  * the course discussion board, 
+  * [stack overflow](https://stackoverflow.com/) (tag `r`), or 
+  * a search engine.
     
 
     </textarea>

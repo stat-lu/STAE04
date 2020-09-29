@@ -74,7 +74,7 @@ ggplot2 has **limited** capabilities for visualizing categorical data
 
 ## Barcharts
 
-intuitive and common: easily understood
+simple and readable
 
 ```{r, fig.width = 6, fig.height = 3.2, fig.cap = "Happiness ratings from the GSS in the US."}
 library(productplots) # for happy data set

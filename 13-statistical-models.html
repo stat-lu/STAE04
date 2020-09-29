@@ -28,14 +28,14 @@ class: middle, center, title-slide
 
 most of our work so far: **exploratory** analysis
 
-but if we're doing analysis we often also want **diagnostic**,
+but for analysis we often also want **diagnostic**,
 **prediction**, and **estimate plots**
 
 --
 
 .pull-left[
 
-for very simple models, `geom_smooth()` may be sufficient
+For very simple models, `geom_smooth()` may be sufficient.
 
 
 ```r
@@ -57,10 +57,10 @@ ggplot(cars,
 
 ## Broom
 
-more complicated models usually call for more control
+More complicated models usually call for more control.
 
 [broom](https://broom.tidymodels.org/) is a great tool for generating **tidy** output
-from models
+from models.
 
 
 ```r
@@ -193,9 +193,9 @@ glance(fit)
 
 ### Diagnostic Plots
 
-visualizations are great for diagnosing models
+Visualizations are great for diagnosing models!
 
-for `lm()` models usually get by fine with standard `plot()` method
+for `lm()` models usually need only standard `plot()` method
 
 .pull-left[
 #### Residual Plot
@@ -223,9 +223,9 @@ ggplot(aug,
 
 ### Coefficient Plots
 
-(parametric) models estimate parameters: linear regression fits return **coefficients**
+Models often estimate parameters: linear regression fits return **coefficients**.
 
-use `broom::tidy()` to extract summary statistics
+Use `broom::tidy()` to extract summary statistics from the fit.
 
 
 ```r
@@ -305,7 +305,7 @@ tidy(fit, conf.int = TRUE)
 
 ---
 
-it is easy to pipe the `broom::tidy()` output into ggplot2 to create coefficient
+easy to pipe the `broom::tidy()` output into ggplot2 to create coefficient
 plots
 
 
@@ -328,7 +328,7 @@ alternative: use `GGally::ggcoef()` directly on `fit`
 
 first need to create a table of values to predict for
 
-`tidyr::expand()` generates combinations of variables in dataset
+`tidyr::expand()` generates combinations of variables in dataset.
 
 
 ```r
@@ -387,7 +387,7 @@ new_data &lt;-
 
 ---
 
-augment new data with predictions from model using `broom::augment()`
+Augment new data with predictions from the model using `broom::augment()`.
 
 
 ```r
@@ -487,7 +487,7 @@ ggplot(aug, aes(Education, .fitted,
 
 ### Predictions Across Two Numeric Variables
 
-heatmaps (`geom_tile()`) allow us to vary one more variable
+Heatmaps (`geom_tile()`) allow us to vary one more variable.
 
 
 ```r
@@ -527,12 +527,12 @@ ggplot(aug2, aes(Education, Infant.Mortality, fill = .fitted)) +
 
 ## Good Practices
 
-- start by tyding your data
-- explore the data with visualizations (and other summaries)
-- spend ample time visualizing model diagnostics and predictions
-- use graphics **liberally** when presenting models
-- visualizations are easier to read than tables, but sometimes 
-  the exact numbers are also important
+- Start by tyding your data.
+- Explore the data with visualizations (and other summaries)
+- Spend ample time visualizing model diagnostics and predictions.
+- Use graphics **liberally** when presenting models.
+- Visualizations are easier to read than tables, but sometimes 
+  the exact numbers are also important.
   
 --
 

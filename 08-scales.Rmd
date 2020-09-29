@@ -59,7 +59,7 @@ options(digits = 3)
 
 ## Scales and Ranges
 
-scales are vital in how we understand a visualization
+Choosing appropriate scales can make or break a visualization!
 
 must be **knowledgeable** about what the data represent
 
@@ -138,7 +138,7 @@ ggplot(bra2, aes(month, crime_change)) +
 
 ## Scales and Limits when using Color
 
-choosing limits for color-mapped variables can also be difficult
+Choosing limits for color-mapped variables can also be problematic!
 
 ```{r, fig.cap = "Life expectancy in the US.", echo = FALSE, fig.width = 10, fig.height = 6}
 library(maps)
@@ -170,7 +170,7 @@ ggplot(states_data, aes(map_id = State)) +
 
 ## Scales and Limits when using Color
 
-choosing limits for color-mapped variables can also be difficult
+Choosing limits for color-mapped variables can also be problematic!
 
 ```{r, fig.cap = "Life expectancy in the US with other limits.", echo = FALSE, fig.width = 10, fig.height = 6}
 ggplot(states_data, aes(map_id = State)) +
@@ -185,7 +185,7 @@ ggplot(states_data, aes(map_id = State)) +
 
 ## Size
 
-when mapping a variable to size, map it to **area** (not height or width)
+When mapping a variable to size, map it to **area** (not height or width).
 
 usually comes up with bubble charts
 

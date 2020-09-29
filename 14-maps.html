@@ -26,14 +26,14 @@ class: middle, center, title-slide
 
 ## Maps
 
-data in the wild is often **spatial** in nature
+Data in the wild is often **spatial** in nature.
 
-basic functionality for working with maps is available directly in **ggplot2**
+Basic functionality for working with maps is available directly in **ggplot2**.
 
-for more advanced functionality, we need to involve other packages (and ggplot in fact
-relies on some of them for features such as map projections)
+For more advanced functionality, we need to involve other packages (and ggplot in fact
+relies on some of them for features such as map projections).
 
-it's typically a good idea to go for a minimalist theme when mapping
+typically a good idea to go for a minimalist theme when mapping
 
 
 ```r
@@ -47,9 +47,9 @@ theme_set(theme_void())
 
 ## Simple Maps
 
-`map_data()` converts various objects to data that ggplot can use and also 
+`map_data()` converts various objects to data that ggplot can use and 
 offers a simple interface to the [maps](https://CRAN.R-project.org/package=maps)
-package
+package.
 
 
 ```r
@@ -65,17 +65,17 @@ ggplot(world, aes(long, lat, group = group)) +
 
 ## Spatial Data
 
-maps are nice in and by themselves, but what we're really looking for
-is to visualize some data
+Maps are nice in and by themselves, but what we're really looking for
+is to visualize some data.
 
 .pull-left[
-spatial data comes in different forms:
+Spatial data comes in different forms:
 
 - vector (polygon) data
 - point (coordinate) data
 - raster data
 
-these different types of data can (and often need to be) combined
+These different types of data can (and often need to be) combined.
 ]
 
 .pull-right[
@@ -192,7 +192,7 @@ usa_arr &lt;- left_join(usa, arr)
 
 ### Choropleths
 
-mapping to fill color produces a **choropleth**
+Mapping to fill color produces a **choropleth**.
 
 
 ```r
@@ -269,7 +269,7 @@ airports &lt;- read_tsv(
 
 ---
 
-a possibility is just to plot the points
+one possibility: just plot the points
 
 
 ```r
@@ -300,7 +300,7 @@ ggplot() +
 
 ### Adding Layers
 
-points do not always suffice by themselves in revealing data patterns
+Points do not always suffice by themselves in revealing patterns.
 
 
 ```r
@@ -355,10 +355,10 @@ p +
 
 ## Raster Data
 
-raster data is common in many areas, such as street map or terrain data
+Raster data is common in many areas, such as street map or terrain data.
 
-the [ggmap](https://CRAN.R-project.org/package=ggmap) package pulls raster map data from
-[Stamen Maps](http://maps.stamen.com) and [Google Maps](https://maps.google.com)
+The [ggmap](https://CRAN.R-project.org/package=ggmap) package pulls raster map data from
+[Stamen Maps](http://maps.stamen.com) and [Google Maps](https://maps.google.com).
 
 .pull-left[
 
@@ -434,13 +434,13 @@ This example was adapted from &lt;https://github.com/dkahle/ggmap/&gt;.
 
 ## Geocoding
 
-geocoding converts text (addresses, landmarks) into **coordinates**
+Geocoding converts text (addresses, landmarks) into **coordinates**.
 
 `ggmap::geocode()`: interface to Google Maps or [the Data Science Toolkit](http://www.datasciencetoolkit.org/)
 
 
 ```r
-wh &lt;- geocode("the white house", source = "dsk")
+*wh &lt;- geocode("the white house", source = "dsk")
 ggplot(map_data("state"), aes(long, lat, group = group)) +
   geom_polygon(col = "white") +
   geom_point(x = wh$lon, y = wh$lat, col = "red", size = 4) +
@@ -454,7 +454,7 @@ ggplot(map_data("state"), aes(long, lat, group = group)) +
 
 ## Networks
 
-networks often come up in spatial data
+Networks are common in spatial data.
 
 cannot be easily visualized in ggplot; use `ggnetworkmap()`from [GGally](https://CRAN.R-project.org/package=GGally) instead
 
@@ -496,21 +496,21 @@ class: center, middle
 
 ## Projections
 
-the only truly accurate representation of the earth is as a **sphere**
+The only truly accurate representation of the earth is as a **sphere**.
 
-we need to **project** this spherical surface onto a plane
+We need to **project** this spherical surface onto a plane.
 
 .pull-left[
-for **large-scale** maps, this inevitably leads to **distortions**
-in one (or several) of the following
+For **large-scale** maps, this inevitably leads to **distortions**
+in one (or several) of the following aspects:
 
 - areas
 - shapes
 - directions
 - distances
 
-there exists a plethora of map projections, which all try to preserve some of
-these features at the expense of others
+There is a plethora of map projections, which all preserve some of
+these features at the expense of others.
 ]
 
 .pull-right[
@@ -592,8 +592,8 @@ world_map + coord_map("gall", lat0 = 0, xlim = c(-180, 180))
 
 ### More Projections
 
-see &lt;https://en.wikipedia.org/wiki/List_of_map_projections&gt; for an exhaustive
-list of different map projections
+See &lt;https://en.wikipedia.org/wiki/List_of_map_projections&gt; for an exhaustive
+list of different map projections.
 
 &lt;div class="figure" style="text-align: center"&gt;
 &lt;img src="images/projection-waterman.png" alt="The Waterman Butterfly Projection. A compromise projection." width="90%" /&gt;
@@ -606,16 +606,16 @@ list of different map projections
 
 ### Other Packages
 
-there is a plethora of packages in R that deal with spatial data, many with more
-functionality than ggplot2
+There is a large collection of packages in R that deal with spatial data, many with more
+functionality than ggplot2.
 
-see [the CRAN task view on spatial data](https://cran.r-project.org/web/views/Spatial.html)
-for a comprehensive run-down on these packages and their functionality
+See [the CRAN task view on spatial data](https://cran.r-project.org/web/views/Spatial.html)
+for a comprehensive run-down on these packages and their functionality.
 
 ### Where to go Next
 
-if you want to read more about mapping with ggplot2, we recommend
-the [Maps chapter in the ggplot2 book](https://ggplot2-book.org/maps.html)
+If you want to read more about mapping with ggplot2, we recommend
+the [Maps chapter in the ggplot2 book](https://ggplot2-book.org/maps.html).
 
 
 &lt;!-- --- --&gt;

@@ -76,19 +76,19 @@ knitr::include_graphics("images/balloons.jpg")
 
 ### ggplot2 and R
 
-- read the [ggplot2 book](https://ggplot2-book.org/)
-- [check out the many extensions to ggplot2](https://exts.ggplot2.tidyverse.org/)
-- take the red pill and read `r Citet(bib, "murrell2018")` to learn everything
-  there is to know about R graphics
+- Read the [ggplot2 book](https://ggplot2-book.org/).
+- Check out the [many extensions to ggplot2](https://exts.ggplot2.tidyverse.org/)
+- Take the red pill and read `r Citet(bib, "murrell2018")` to learn everything
+  there is to know about R graphics.
 
 ### Data Wrangling
 
-- datasets in the wild are seldom as well-organized; learn about wrangling with
-  data in [R for Data Science](https://r4ds.had.co.nz/)
+- Datasets in the wild are seldom as well-organized; learn about wrangling with
+  data in [R for Data Science](https://r4ds.had.co.nz/).
 
 ### Visualization
 
-- learn more about Edward Tufte's seminal work `r Citep(bib, "tufte2001")`
+- Learn more about Edward Tufte's seminal work `r Citep(bib, "tufte2001")`.
 
 ---
 

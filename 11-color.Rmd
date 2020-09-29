@@ -56,7 +56,7 @@ options(digits = 3)
 
 ## Color in Visualizations
 
-but how do we choose colors appropriately?
+How do we choose colors appropriately?
 
 need to pay attention to data type!
 

@@ -22,7 +22,7 @@ class: middle, center, title-slide
 
 
 
-## One-Dimensional Visualizations 
+## Visualizing a Single Variable
 
 best place to start: continuous or discrete one-dimensional data
 
@@ -30,7 +30,7 @@ often need **statistical transformation** or **position adjustment**
 
 --
 
-dotplots (`geom_dotplot()`) are great for small and discrete data
+Dotplots are great for small and discrete data.
 
 
 ```r
@@ -51,10 +51,10 @@ ggplot(faithful, aes(waiting)) +
 ## Histograms
 
 .pull-left[
-for larger datasets it is often better to
-use a statistical transformation
+For larger datasets it is often better to
+use a statistical transformation.
 
-histogram accomplish this by **binning** and **summarizing** (counting)
+Histograms accomplish this by **binning** and **summarizing** (counting).
 
 **caution:** choice of bins may introduce bias
 ]
@@ -121,7 +121,7 @@ most common type:
     inter-quartile range, and
   - points (or stars) beyond whiskers
 
-typically useful when visualizing categories
+useful when visualizing categories or many variables at once
 
 more abstraction than histogram or densityplot 
 
@@ -161,6 +161,24 @@ faithful %&gt;%
 &lt;img src="05-one-variable_files/figure-html/unnamed-chunk-6-1.png" alt="geom_violin() does not work with a single variable, so we need to use the trick y = 1 here." width="468" /&gt;
 &lt;p class="caption"&gt;geom_violin() does not work with a single variable, so we need to use the trick y = 1 here.&lt;/p&gt;
 &lt;/div&gt;
+
+---
+
+## Several Variables at Once
+
+boxplots and violin plots are useful for visualizing multiple
+variables at once
+
+need to first transform data into **long** format
+
+
+```r
+*pivot_longer(mpg, c(displ, cty, hwy)) %&gt;%
+  ggplot(aes(name, value)) +
+    geom_boxplot()
+```
+
+&lt;img src="05-one-variable_files/figure-html/unnamed-chunk-7-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

@@ -60,20 +60,19 @@ options(digits = 3)
 ## Associations
 
 .pull-left[
-two-dimensional plots show **associations**: how does $x$ relate to $y$?
+How does $x$ relate to $y$?
 
-visualizing two dimensions is usually **straightforward**, particularly when both
-variables are continuous
+straightforward when both variables are continuous
 
-scatter plots (`geom_point()`) are the bread and butter of visualizations of
-two continuous variables
+Scatter plots are the bread and butter of visualizations of
+two continuous variables.
 
 ```{r, eval = FALSE}
 library(tidyverse)
 ggplot(swiss, 
        aes(Examination, 
            Fertility)) +
-  geom_point()
+  geom_point() #<<
 ```
 
 ]
@@ -92,7 +91,7 @@ ggplot(swiss,
 
 ## Patterns
 
-understanding patterns is key to being able to visualize data effectively
+Understanding patterns is key to being able to visualize data effectively.
 
 ```{r, fig.width = 8, fig.height = 6.5, echo = FALSE}
 set.seed(1453)
@@ -126,7 +125,7 @@ ggplot(d_long, aes(x, value, group = name)) +
 ## Variation
 
 .pull-left-40[
-a good visualization should describe the variation in the data
+A good visualization should describe the variation in the data.
 ]
 
 .pull-right-60[
@@ -156,16 +155,16 @@ ggplot(d, aes(x, y)) +
 ]
 
 .pull-right-40[
-sometimes variation has a pattern of itself
+Sometimes there is a pattern to the variation.
 ]
 
 ---
 
 ## Time
 
-time has a specific order, which makes the line geom a natural choice
+Ttime has a specific order, which makes the line geom a natural choice.
 
-always place time on the horizontal (x) axis
+Always place time on the horizontal (x) axis.
 
 ```{r, fig.cap = "Median unemployment duration in the US.", fig.width = 9, fig.height = 3}
 ggplot(economics, aes(date, uempmed)) +
@@ -178,7 +177,7 @@ ggplot(economics, aes(date, uempmed)) +
 
 ## Geoms and Time
 
-often useful to use points and lines together when measurements
+often useful to combine points and lines when measurements
 are taken at irregular intervals or seldom
 
 ```{r, fig.cap = "Weight of a chick over time.", fig.width = 6, fig.height = 3.3}
@@ -193,8 +192,8 @@ filter(ChickWeight, Chick == 5) %>%
 
 ## Categorical Variables
 
-categorical variables (factors) can of course be used
-as the second dimension
+Categorical variables (factors) can be used
+as the second dimension.
 
 ```{r, fig.cap = "Boxplot of total sleep duration for different mammals.", fig.width = 7}
 ggplot(msleep, aes(vore, sleep_total)) +
@@ -205,7 +204,7 @@ ggplot(msleep, aes(vore, sleep_total)) +
 
 ## Ordered Factors
 
-pay attention to whether or not the factor is **ordered**
+Pay attention to whether or not the factor is **ordered**.
 
 .pull-left[
 ```{r, echo = FALSE, fig.height = 6}
@@ -228,8 +227,8 @@ ggplot(OrchardSprays, aes(treatment, decrease)) +
 
 ## Discrete Data
 
-a problem when one (or both) variables are discrete (or categorical)
-is that they might **overlap**
+A problem when one (or both) variables are discrete (or categorical)
+is that they might **overlap**.
 
 simple solution: **opacity** (`alpha`)
 
@@ -253,9 +252,9 @@ ggplot(mpg, aes(cty, hwy)) +
 
 ## Scales
 
-for some variables, it is more natural to study them on a different scale
+For some variables, it is more natural to study them on a non-standard scale
 
-other times it is simply **convenient** (more compact)
+Other times it is simply **convenient** (more compact).
 
 .pull-left[
 ```{r, fig.height = 3.5}
@@ -263,7 +262,7 @@ ggplot(msleep,
        aes(brainwt, 
            sleep_total)) +
   geom_point() +
-  scale_y_continuous()
+  scale_y_continuous() #<<
 ```
 ]
 
@@ -275,15 +274,45 @@ ggplot(msleep,
        aes(brainwt, 
            sleep_total)) +
   geom_point() +
-  scale_x_log10()
+  scale_x_log10() #<<
 ```
 ]
 
+---
+
+## Pairs Plots
+
+plots the pairwise associations of several variables
+
+complicated in ggplot2 (requires **pivoting** and **facets**)
+
+The [GGally](https://ggobi.github.io/ggally) package `r Citep(bib, "emerson2013")`
+presents a simpler approach.
+
+---
+
+```{r, echo = FALSE, eval = FALSE}
+library(GGally)
+ragg::agg_png("images/ggally.png", width = 1028, height = 900)
+theme_set(theme_grey(base_size = 16))
+ggpairs(mpg, columns = c("displ", "drv", "cty", "hwy"))
+dev.off()
+```
+
+```{r, eval = FALSE}
+library(GGally)
+ggpairs(mpg, columns = c("displ", "drv", "cty", "hwy"))
+```
+
+```{r, echo = FALSE, out.width = "85%"}
+knitr::include_graphics("images/ggally.png")
+```
 
 
+---
 
+## References
 
-
-
-
-
+```{r, results = "asis", echo=FALSE}
+PrintBibliography(bib)
+```
