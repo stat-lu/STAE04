@@ -180,6 +180,27 @@ need to first transform data into **long** format
 
 &lt;img src="05-one-variable_files/figure-html/unnamed-chunk-7-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
+---
+
+### Facets
+
+mostly used to visualize **small multiples** by splitting the plot into facets on a 
+categorical variable
+
+but can also be used to visualize multiple variables at once
+
+for this use case, it is normally good to set `scales = "free"`
+
+
+```r
+pivot_longer(mpg, c(displ, cty, hwy)) %&gt;%
+  ggplot(aes(value)) +
+    geom_histogram(bins = 10) +
+*   facet_wrap("name", scales = "free")
+```
+
+&lt;img src="05-one-variable_files/figure-html/unnamed-chunk-8-1.png" width="648" style="display: block; margin: auto;" /&gt;
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

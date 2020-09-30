@@ -182,3 +182,21 @@ pivot_longer(mpg, c(displ, cty, hwy)) %>% #<<
     geom_boxplot()
 ```
 
+---
+
+### Facets
+
+mostly used to visualize **small multiples** by splitting the plot into facets on a 
+categorical variable
+
+but can also be used to visualize multiple variables at once
+
+for this use case, it is normally good to set `scales = "free"`
+
+```{r fig.width = 9, fig.height = 3}
+pivot_longer(mpg, c(displ, cty, hwy)) %>%
+  ggplot(aes(value)) +
+    geom_histogram(bins = 10) +
+    facet_wrap("name", scales = "free") #<<
+```
+
