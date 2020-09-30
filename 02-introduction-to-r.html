@@ -161,7 +161,7 @@ class: center, middle
 
 ---
 
-## Vectors
+### Vectors
 
 all elements must be of the same type
 
@@ -202,7 +202,7 @@ c(1, "3", TRUE)      # mix (converted to character)
 
 ---
 
-## Accessing Elements in Vectors
+### Accessing Elements in Vectors
 
 access with `[` operator
 
@@ -231,7 +231,7 @@ x[c(1, 2)] # or x[1:2]
 
 ---
 
-## Matrices
+### Matrices
 
 create matrices with `matrix()`, `cbind()`, and `rbind()`
 
@@ -270,7 +270,7 @@ A[1, ]   # first row, A[, 2] accesses second column
 
 ---
 
-## Data Frames
+### Data Frames
 
 like matrices, but columns may have different classes
 
@@ -310,7 +310,7 @@ d$x    # same as above!
 
 ---
 
-## Lists
+### Lists
 
 a collection of objects of **any kind** (of any dimensions)
 
@@ -372,7 +372,7 @@ my_function(1, 3)
   
 ---
 
-## Arguments
+### Arguments
 
 Arguments can be specified either by **name** or by **location**.
 
@@ -413,7 +413,7 @@ my_other_function(1)
 
 ---
 
-## Functions in This Course
+### Functions in This Course
 
 - We won't be writing our own function in this course.
 
@@ -423,6 +423,39 @@ my_other_function(1)
   * call functions,
   * read function documentation, and
   * figure out what a function's default arguments imply.
+
+---
+
+## Packages
+
+more than 16,000 packages on [CRAN](https://cran.r-project.org/web/packages/)
+
+easy to install!
+
+
+```r
+install.packages("ggplot2")
+```
+
+load the package by calling `library()`
+
+
+```r
+library(ggplot2)
+```
+
+--
+
+even more packages available via [bioconductor](https://www.bioconductor.org) and
+git repositories on [github](https://github.com/) and similar sites
+
+
+```r
+# install.packages("remotes")
+remotes::install_github("hrbrmstr/waffle")
+```
+
+but in this course we will **only** use CRAN packages
 
 ---
 
