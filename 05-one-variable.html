@@ -189,14 +189,14 @@ categorical variable
 
 but can also be used to visualize multiple variables at once
 
-for this use case, it is normally good to set `scales = "free"`
+for this use case, it is normally good to set `scales = "free_x"`
 
 
 ```r
 pivot_longer(mpg, c(displ, cty, hwy)) %&gt;%
   ggplot(aes(value)) +
     geom_histogram(bins = 10) +
-*   facet_wrap("name", scales = "free")
+*   facet_wrap("name", scales = "free_x")
 ```
 
 &lt;img src="05-one-variable_files/figure-html/unnamed-chunk-8-1.png" width="648" style="display: block; margin: auto;" /&gt;
