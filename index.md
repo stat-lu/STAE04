@@ -24,7 +24,7 @@ This page contains slides for the course STAE04: Data Visualization
 
 ### Submission Template
 
-* [Submission Template and Introduction to R Markdown](stae04-template.Rmd)
+* [Submission Template and Introduction to R Markdown](https://raw.githubusercontent.com/stat-lu/STAE04/master/stae04-template.Rmd)
 
 ### Source code
 
