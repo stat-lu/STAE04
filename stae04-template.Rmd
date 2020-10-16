@@ -63,14 +63,13 @@ If you are here for the introduction, simply open this file in R Studio and keep
 
 ## Installation
 
-To get started, you are going to need two packages: **rmarkdown** and **knitr**.
+To get started, you are going to need two packages: **rmarkdown** and **knitr**. Run the following line of code to install these now. If you are currently in the R Studio editor when you read this, you can simply highlight the text and hit `Ctrl/Cmd + Enter` or put the cursor inside the code chunk below and hit `Ctrl/Cmd + Shift + Enter` to run the command (and install the packages).
 
 ```{r, eval = FALSE}
 install.packages(c("rmarkdown", "knitr"))
 ```
 
-You will also need a distribution of LaTeX. Installing LaTeX can be installed easily using the **tinytex** package (if you don't already have LaTeX installed). Do so right now by calling the following lines of code. If you are currently in the R Studio editor when you read this, you can simply highlight the text and hit `Ctrl/Cmd + Enter` or put the cursor inside the code chunk below and hit `Ctrl/Cmd + Shift + Enter`.
-
+You will also need a distribution of LaTeX. Installing LaTeX can be installed easily using the **tinytex** package (if you don't already have LaTeX installed). Do so right now by calling the following lines of code. 
 ```{r, eval = FALSE}
 install.packages("tinytex")
 tinytex::install_tinytex()
@@ -178,7 +177,7 @@ ggplot(msleep, aes(brainwt, sleep_rem)) +
 
 As you can see, we've started the code chunk with ` ```{r} ` and ended it with ` ``` `. Everything in between will be treated as R code, just as if you would have written in in an R script of the R terminal. When you compile this document all this code will be run and if it produces any output (text, plot, tables) then that output will make it into the final document.
 
-You can control many settings by changing the parameters in the header of the code chunk. In the following chunk we've changed the width and height of the figure as well as added a caption to the figure. These are settings that will be **incredibly** useful to you during the course.
+You can control many settings via the header of the code chunk (the content between `{` and `}` in the first line of the code chunk). In the following chunk we've changed the width and height of the figure as well as added a caption to the figure. These are settings that will be **incredibly** useful to you during the course.
 
 ```{r brain-figure, fig.cap = "Brain weight and REM sleep duration for mammals.", fig.width = 4, fig.height = 1.5}
 ggplot(msleep, aes(brainwt, sleep_rem)) +
