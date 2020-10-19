@@ -186,7 +186,7 @@ ggplot(msleep, aes(brainwt, sleep_rem)) +
   labs(x = "Brain Weight (kg)", y = "REM Sleep (hours)")
 ```
 
-There are a few other settings that will also come in handy: `include`, `eval`, `results`, and `echo`.
+There are a few other settings that will also come in handy: `include`, `eval`, `results`, `fig.show`, and `echo`.
 
 `echo`
 : Setting `echo = TRUE` means that the code in your code chunk will be included in
@@ -200,11 +200,13 @@ There are a few other settings that will also come in handy: `include`, `eval`, 
   at all. This is often useful when you want to show how something is done (like
   installing a package) but don't want to do this every time you knitr your document.
   
-`results`
-: Setting `results = "hide"` means that the results generated from the code won't make
-  it into the output (your pdf report). This is sometimes useful if you want to run
+`results` and `fig.show`
+: Setting either of these to `"hide"` means that the results generated from the code won't make
+  it into the output (your pdf report); uses `results = "hide"` if you want to suppress
+  code results and `fig.show = "hide"` if you want to suppress plots. 
+  This is sometimes useful if you want to run
   code interactively but not have it end up in your output. It can also be useful
-  if the code you run produces output as a side-effect.
+  if the code you run produces output as a side-effect. 
 
 `include`
 : Setting `include = FALSE` mean that the code will be evaluated but neither the output
