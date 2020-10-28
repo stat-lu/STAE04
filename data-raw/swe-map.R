@@ -7,8 +7,8 @@ tmp <-
   as_tibble(swemaps::map_kn) %>%
   select(region_code = lnkod,
          region_name = lnnamn,
-         municipalty_code = knkod,
-         municipalty_name = knnamn,
+         municipality_code = knkod,
+         municipality_name = knnamn,
          group,
          x = ggplot_long,
          y = ggplot_lat) %>%

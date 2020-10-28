@@ -9,25 +9,12 @@ tmp <- read_excel(
   skip = 10
 )
 
-# # convert coordinates to latitude, longitude
-# sweref99tm <-
-#   CRS("+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-# wgs84 <- CRS("+proj=longlat +datum=WGS84 +no_defs")
-#
-# coords_sweref <- cbind(tmp$`y-koordinat Sweref 99TM`, tmp$`x-koordinat  Sweref 99TM`)
-#
-# temp <- SpatialPoints(coords_sweref, proj4string = sweref99tm)
-# coords <- spTransform(temp, wgs84)
-
 tmp2 <-
-  #as_tibble(coords) %>%
-  #rename(lat = coords.x1, lon = coords.x2) %>%
-  #bind_cols(tmp) %>%
   tmp %>%
   select(region_code = Länskod,
          region_name = Länsnamn,
-         municipalty_code = Kommunkod,
-         municipalty_name = Kommunnamn,
+         municipality_code = Kommunkod,
+         municipality_name = Kommunnamn,
          city_code = Tätortskod,
          city_name = Tätortsbeteckning,
          population_2015 = "Folkmängd 2015-12-31",

@@ -1,4 +1,4 @@
-region_code,region_name,municipalty_code,municipalty_name,city_code,city_name,x,y,year,population,population_density
+region_code,region_name,municipality_code,municipality_name,city_code,city_name,x,y,year,population,population_density
 01,Stockholms län,0114,Upplands Väsby,T0450,Båtbyggartorp och Harva,661300,6600708,2015,NA,NA
 01,Stockholms län,0114,Upplands Väsby,T0450,Båtbyggartorp och Harva,661300,6600708,2018,207,440
 01,Stockholms län,0114,Upplands Väsby,T0236,Löwenströmska lasarettet,664782,6603912,2015,636,937
