@@ -9,6 +9,7 @@ tmp <-
          region_name = lnnamn,
          municipality_code = knkod,
          municipality_name = knnamn,
+         piece,
          group,
          x = ggplot_long,
          y = ggplot_lat) %>%
