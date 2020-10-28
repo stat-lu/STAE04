@@ -10,8 +10,8 @@ tmp <-
          municipalty_code = knkod,
          municipalty_name = knnamn,
          group,
-         lon = leaflet_long,
-         lat = leaflet_lat) %>%
+         x = ggplot_long,
+         y = ggplot_lat) %>%
   mutate(region_code = str_trunc(region_code, 2, "left", ""))
 
 write_csv(tmp, "data/swe-map.csv")
