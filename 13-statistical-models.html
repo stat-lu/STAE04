@@ -4,7 +4,7 @@
     <title>Statistical Models</title>
     <meta charset="utf-8" />
     <meta name="author" content="Johan Larsson" />
-    <script src="libs/header-attrs-2.3/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.4/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <script src="libs/kePrint-0.0.1/kePrint.js"></script>
     <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
@@ -138,6 +138,7 @@ fit &lt;- lm(mpg ~ disp, data = mtcars)
 
 
 ```r
+# dichotomize the Catholic variable
 swiss2 &lt;- 
   mutate(
     swiss,
