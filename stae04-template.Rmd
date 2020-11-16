@@ -8,7 +8,7 @@ papersize: a4
 geometry: margin=4cm
 colorlinks: true
 output: 
-  rmarkdown::pdf_document:
+  pdf_document:
     number_sections: true
 references:
 - id: wickham2010
@@ -159,12 +159,13 @@ Images can be added with syntax similar to the one for links, with the text insi
 
 ```{r}
 download.file(
-  "https://upload.wikimedia.org/wikipedia/commons/2/29/Minard.png",
-  "minard.png"
+  "https://imgs.xkcd.com/comics/scientific_paper_graph_quality.png",
+  "xkcd.png",
+  mode = "wb"
 )
 ```
 
-![Here is Charle's Minard famous Napoleon chart, for instance. (Public domain.)](minard.png)
+![Including the image is then simply a matter of using square brackets and parentheses (<https://xkcd.com/1945/>).](xkcd.png){width=250px}
 
 ### Footnotes
 
@@ -250,7 +251,7 @@ rnorm(5)
 rnorm(5)
 ```
 
-```{r include = FALSE}
+```{r include = FALSE, results = "show"}
 # this code will be evaluated but nothing will show in the output
 rnorm(5)
 ```
