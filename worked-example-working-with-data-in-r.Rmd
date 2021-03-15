@@ -354,7 +354,33 @@ draw conclusions about cars from Canada based on only seven observations.
 
 # Missing Data
 
+Missing data is an issue that is prevalent in much of the real-life data
+that you may encounter, particularly when it comes to data involving
+people. Dealing with missing data is an important topic but, as we said in
+the introduction, it is a topic that lies mostly 
+outside the scope of this course. We recommend that you always take time
+to consider the reasons for why data may be missing and also to 
+include missing data in your visualizations (instead of simply removing it).
 
+What you do need to know, however, is that missing data (coded as `NA` in R)
+may interfere with your work in R. Let's say that you're working with
+sleep data on mammals using the `msleep` dataset from **gplot2**, and want
+to compute the mean number of hours in REM sleep:
+
+```{r}
+mean(msleep$sleep_rem)
+```
+
+The result here, `NA`, is a result of the presence of `NA` values in 
+the column `sleep_rem` in `msleep` and this behavior is actually the default
+for the vast majority of operations in R. To deal with this, you have
+two options: 1) remove the observations with `NA` values from the data
+set using `na_drop()` or 2) set `na.rm = TRUE` in the call to `mean()`.
+
+The second option is usually the best choice here, since it means that
+you can still keep the `NA` values around when you want to produce
+visualizations, but in this course we'll simply sometimes do `na_drop()` to
+make working with the datasets a little bit smoother.
 
 # The Pipe Operator
 
