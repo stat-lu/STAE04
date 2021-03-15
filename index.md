@@ -32,6 +32,6 @@ This page contains slides for the course STAE04: Data Visualization
 
 ### Source code
 
-The source code for all of the slides can be found at <https://github.com/stat-lu/STAE04>.
+The source code for all of the matieral here can be found at <https://github.com/stat-lu/STAE04>.
 
 
