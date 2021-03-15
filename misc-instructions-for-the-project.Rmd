@@ -1,5 +1,5 @@
 ---
-title: "Project"
+title: "Instructions for the Project"
 output:
   html_document:
     self_contained: false
