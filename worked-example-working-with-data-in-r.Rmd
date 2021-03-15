@@ -1,0 +1,331 @@
+---
+title: "Worked Example: Working with Data in R"
+author: "Johan Larsson"
+#date: "9/4/2020"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: united
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  cache = FALSE,
+  fig.align = "center",
+  dev = "png"
+)
+options(scipen = 999)
+```
+
+# Installing Tidyverse
+
+If you haven't done so yet, you need to install the tidyverse collection
+of packages. To do so, simply call the following line. 
+(Note that this will install several R-packages and
+take a lot of time if you haven't already installed these packages.)
+
+```{r, eval = FALSE}
+install.packages("tidyverse")
+```
+
+If you already have **tidyverse** installed, make sure that all of your packages
+are up to date, either by calling 
+
+```{r, eval = FALSE}
+update.packages(ask = FALSE) # ask = FALSE is to avoid being prompted
+```
+
+or by going to the **Packages** tab in the lower-right R Studio window and clicking
+on **Update**.
+
+# Importing Data into R
+
+R is extremely versatile when it comes to handling data of different
+formats and types. Much of this functionality is made available via R-packages,
+which let you import data into R from Microsoft Excel, Stata, SAS, or SPSS files in 
+addition to standard file types such as comma-separated files (`.csv`)
+and tab-separated files (`.tsv`). In this course, most of the data sets we use will be 
+available directly through R and R packages, but knowing how to import data directly is a 
+useful skill.^[And this might very well come in handy for your project, where you will
+choose your data yourself.]
+
+First we need to find some data to import. Download the US Cars datasets
+from [this link](https://raw.githubusercontent.com/stat-lu/STAE04/master/data/us_cars.csv)
+by right-clicking and choosing *save link as...*; store the dataset in a 
+folder called `data` in your current working directory (base directory).
+
+Now we load this dataset into R via the **readr** package (part of tidyverse). This
+is a comma-separated file (note the file extension), so we use the `read_csv()`
+function^[There is a `read_csv2()` function as well, which is for semicolon-separated
+data.]
+
+```{r}
+library(tidyverse)
+us_cars <- read_csv(file.path("data", "us_cars.csv"))
+```
+
+When you call `read_csv()`, the **readr** package helpfully prints a message to your console
+with information about how the columns in the dataset were formatted when you
+imported the data. Take a look at this information and see if everything looks okay.
+
+## Glimpsing our Data
+
+Whenever you start working with new data, always start by taking a look at the
+data in raw form. The best first step is usually just to print the data to the
+console or by calling `head()` (to see the first few lines).
+
+```{r}
+us_cars
+```
+
+If you want to see more rows of the data than are printed by default, try to call
+`print()` with the `n` argument set to the number of rows you want, or use
+`head()` in the same way. 
+
+Another useful function, particularly when there are many columns in the dataset,
+is `glimpse()`. 
+
+```{r}
+glimpse(us_cars)
+```
+
+# Data Wrangling
+
+## Pivoting
+
+One of the most important data wrangling tools when it comes to data visualization
+is *pivoting*, which can be used to transform messy data into tidy data, which in
+turn will make visualization much easier for us.
+
+Let's see what this can entail by looking at a simple dataset, `table2` from 
+the **tidyr** package, which contains information on Tuberculosis cases 
+in a few countries from 1999 and 2000.
+
+```{r}
+table2
+```
+
+This data is *not* tidy---but why not? Take a moment to consider this for yourself
+before moving on.
+
+Did you figure it out? The problem is that `cases` and `population` are two
+different variables but don't have their own separate columns. To fix this, we need
+to reshape the data by pivoting it to a wider form using `pivot_wider()`. Before you
+continue, take a look at the documentation for the function by calling `help(pivot_wider)`
+(or `?pivot_wilder`) in R and see if you can make sense of the documentation.
+
+The function has many arguments, but we really only need to concern ourselves with
+`data`, `names_from`, and `values_from`. `names_from` should contain the
+column that stores the names of the variables we want to pivot, while `values_from`
+should contain those variables' values. Putting this together, we get
+
+```{r}
+table2_tidy <- 
+  pivot_wider(
+    table2,
+    names_from = "type",
+    values_from = "count"
+  )
+
+table2_tidy
+```
+
+Now it's easy to visualize this data!
+
+```{r, fig.cap = "Tubercolosis caes in Afghanistan, Brazil, and China in 1999 and 2000."}
+ggplot(table2_tidy, aes(year, cases, fill = country)) +
+  geom_col(position = "dodge")
+```
+
+Sometimes it's necessary to pivot in the other direction: from wide to long, in which
+case we need to use `pivot_longer()` instead. `pivot_longer()` is exactly
+the inverse of `pivot_wider()`. Just like you did for `pivot_wider()`, read the
+documentation for `pivot_longer()` and then see if you can figure out by yourself
+how to pivot `table2_tidy` back into `table2`.
+
+When we use `pivot_longer()` we need to tell R what columns we want to stack, which
+we do through the `cols` argument. Here we simply specify the
+names of the columns (cases and population), and then use `names_to` and `values_to`
+with whatever names we think are appropriate.
+
+```{r}
+table2_messy <-
+  pivot_longer(
+    table2_tidy,
+    cols = c("cases", "population"),
+    names_to = "type",
+    values_to = "count"
+  )
+```
+
+## Manipulating Data
+
+In the tidyverse vocabulary, *filtering* refers to the process of selecting a 
+subset of rows (observations if the data is tidy) from your dataset, whereas
+*selecting* means selecting a subset of columns (variables if the data is tidy).
+We use the aptly named `filter()` and `select()` respectively for these tasks.
+
+### Filtering
+
+`filter()` is used on a dataset (tidyverse functions typically always
+take data as its first argument) together with a number of logical expression
+that specify which rows to keep in the dataset. Recall that a logical expression
+is a binary expression that relates the left-hand side to the right-hand side
+in some way, for instance to check equality or inequality, like so:
+
+```{r}
+c(1, 2, 3) < c(0.2, 0.5, 3.8)
+1:3 == 3:1
+c("a", "b", "c") %in% c("a", "c")
+```
+
+Let's say that we only wanted to look at cars from Tennessee from years 
+2015 and onward, for instance. Then we can use `filter()` in the following way.
+
+```{r}
+filter(us_cars, state == "tennessee", year >= 2015)
+```
+
+### Selecting
+
+If you think of filtering as slicing a dataset horizontally, `select()` does the opposite,
+slicing a dataset *vertically*, by dropping a subset of the columns. The 
+interface is similar to `filter()`'s. You begin with the data and then
+through various arguments select which columns you want to keep.
+
+There is a plethora of possibilities when it comes to `select()`. We'll try to cover some
+of the most common ones here, but see the documentation for `select()` if you
+want to learn more.
+
+The simplest option is simply to list the columns you want to keep.
+
+```{r}
+select(us_cars, brand, "model") # notice that you may omit quotation marks
+```
+
+It's actually possible to even change the names of the columns when using select,
+simply by using a `value = name` pair, like this:
+
+```{r}
+select(us_cars, vintage = vin, "price in dollars" = price)
+```
+
+If you instead want to drop a particular column, you just preface it with `-` or `!`.
+
+```{r}
+select(us_cars, !brand, -model)
+```
+
+Notice that, when you only have negative indexing, the function assumes that you want
+to keep all of the remaining columns.
+
+It can, however, be tedious to manually select every column, in which case you may
+use the `:` operator to specify a range instead.
+
+```{r}
+select(us_cars, title_status:state)
+```
+
+Finally, it can sometimes be useful to match columns by name in some way, for instance
+if a number of columns that you want to contains a specific word. To be able to
+do this, **tidyr** provides a set of helper functions, such as
+
+* `starts_with()`,
+* `ends_with()`, and
+* `contains()`.
+
+The manual entry for `select()` contains several examples using these helper
+functions, as does the individual entries for each function. 
+
+Consider taking a little time to play around with `select()` and its helper
+functions on the `us_cars` dataset. 
+
+### Mutating
+
+Frequently when visualizing data you will want to transform that data in some way.
+Perhaps you're more interested in the proportion than a number, want to convert a value
+to a different unit or you just need to change the names of some factor variables.
+In this cases, `mutate()` is your best friend.
+
+Let's start by example. Say that we want to convert the price of the cars
+in the `us_cars` dataset to Swedish kronor instead. Here's how to do this:
+
+```{r}
+mutate(us_cars, price = price*8.92)
+```
+
+In this instance we simply overwrote the `price` variable with a new value,
+but mutate can also be used to create new variables.
+
+```{r}
+mutate(us_cars, price_sek = price*8.92)
+```
+
+Inside `mutate()`, you can basically use any operation that would work on a
+typical vector in R. You can, for instance, convert between different vector types,
+or use arbitrary functions (as long as they return a new vector).
+
+```{r}
+mutate(
+  us_cars,
+  year = as.integer(year),          # convert year from a double to an integer,
+  state = toupper(state),           # capitalize state names
+  price = round(price, -2),         # round to hundreds
+  brand = fct_lump_prop(brand, 0.1) # lump together low-frequent brands
+) 
+```
+
+## Grouping, Mutating, and Summarizing
+
+Another common operation in data-visualization is to group and summarize data. This is
+useful when you want to visualize a summary statistic, rather than the raw data. Before
+taking this route in data visualization, however, make it a habit to ask yourself
+whether this aggregation is needed. If you are able to craft a visualization where you
+showcase **all** your data without sacrificing the communicative properties of
+the visualization, then this is always the better alternative.
+
+### Grouping
+
+To group data using the tidyverse methodology, we use `group_by()` (from **dplyr**).
+This is a very simple function. You simply list all the variables (columns) that
+you want to group by. Let's group the `us_cars` dataset by country (USA or Canada).
+
+```{r}
+group_by(us_cars, country)
+```
+
+Okay, so not much happened! If you look closely, however, you'll see that this
+tibble is now **grouped**---but what does this mean? Well, the truth is that
+grouping is only useful when combined with functions that modify the data, most
+prominently `summarize()` (or `summarise()`).
+
+### Summarizing
+
+`summarize()` takes a dataset---usually a *grouped* dataset---and a set of
+functions that should take a vector as input and return a summary statistics, such as
+
+* `mean()`,
+* `median()`,
+* `sum()`, or
+* `quantile(..., probs = 0.25)`.
+
+Let's see how this looks in practice. We'll compute the median and mean prices
+of cars in USA and Canada.
+
+```{r}
+us_cars_grouped <- group_by(us_cars, country)
+
+summarize(
+  us_cars_grouped, 
+  median_price = median(price), 
+  mean_price = mean(price)
+)
+```
+
+Great
