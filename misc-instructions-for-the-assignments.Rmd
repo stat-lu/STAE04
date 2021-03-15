@@ -1,40 +1,68 @@
 ---
-title: "Assignment and Project Instructions"
+title: "Instructions for the Assignments"
 author: "Johan Larsson"
-date: ""
-output: html_document
+#date: "9/4/2020"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: united
+    highlight: tango
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,
-                      cache = TRUE,
-                      message = FALSE,
-                      warning = FALSE,
-                      fig.width = 4,
-                      fig.height = 3.6)
+
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  cache = FALSE,
+  fig.align = "center",
+  fig.width = 5,
+  fig.height = 4,
+  dev = "png"
+)
+options(scipen = 999)
 ```
 
-## Instructions
+# Instructions
 
 For each assignment, as well as for the project, you need to hand in a `.pdf` report. 
 This report should be a written 
 response to the tasks given in the assignment. It should respond to all the questions in 
 the assignment in a **clear** and **succinct** manner.
 
-### Format
+## Workflow: Two Approaches
 
-We **strongly** recommend that you use R Markdown to author your report. If you do, please use the [submission template](https://raw.githubusercontent.com/stat-lu/STAE04/master/stae04-template.Rmd)
-that we have provided for you. To use the template, go to the link, and either
+There are two approaches you can take when you write your report. The first
+of these is to use R Markdown; the second is to write your report
+in a WYSIWYG (what you see is what you get) software such as
+Libre Office, Google Docs, or Microsoft Word.
 
-- right click anywhere on the page, select *save page as* to save the `.Rmd` file to
-  your hard drive, and open the file in R Studio, or
-- click `File -> New File -> R Markdown -> Create Empty Document` and copy-paste the 
-  contents of the [page](https://raw.githubusercontent.com/stat-lu/STAE04/master/stae04-template.Rmd) 
-  into the editor.
+### R Markdown
 
-This template also serves as an introduction to R Markdown. To get started, simply open the document in R Studio and read through the code.
+If you want to go down this road, start by downloading
+the submission template that we have provided for you by
+running the following code,
 
-If you prefer to use a WYSIWYG (what you see is what you get) editor such as Libre Office, Google Docs, or Microsoft Word, you will likely want to either use `ggplot2::ggsave()` or the built-in export utility in the plot pane of R Studio to save your plots to your hard drive and then input them manually into your document. Here is a simple example of how to do this:
+```{r}
+download.file(
+  "https://raw.githubusercontent.com/stat-lu/STAE04/master/stae04-template.Rmd",
+  "stae04-template.Rmd" # replace this if you want to
+)
+```
+
+which will download and save the file to your working directory.
+
+The template also serves as an introduction to R Markdown. To get started, 
+simply open the document in R Studio and read through the code and text.
+
+### WYSIWYG
+
+If you prefer to use a WYSIWYG, you will likely want to either 
+use `ggplot2::ggsave()` or the built-in export utility in the plot pane of 
+R Studio to save your plots to your hard drive and then input them manually 
+into your document. Here is a simple example of how to do this:
 
 ```{r, eval = FALSE}
 library(ggplot2)
@@ -45,48 +73,100 @@ ggplot(mpg, aes(cty, hwy)) +
 ggsave("filename.png", width = 3, height = 2.3)
 ```
 
-If you choose to work with a WYSIWYG editor, we recommend that you use a single `.R` file for each assignment. If you use R Markdown, you will only need a `.Rmd` file for each assignment.
+## Detailed Requirements
 
-### Detailed Requirements
+### Writing
 
-Please pay attention to the following:
+Your report does not need to be verbose but it must be **clear** and 
+**coherent**. Use full sentences and describe the steps you take and code you've
+included.
 
-- Your report does not need to be verbose but it must be **clear** and **coherent**. Use full
-  sentences and describe the steps you take and code you've included.
-- Any figures you include should have descriptive labels and captions (use `fig.cap` in
-  your code chunk headers if you're using R Markdown). See [The Anatomy of a Plot](https://canvas.education.lu.se/courses/5769/pages/the-anatomy-of-a-plot) for
-  examples and more instruction on how to format your figures.
-- Only include code when you are **instructed** to do so. When you do include code, please
-  avoid having it escape into the margin by using multiple lines to separate code. 
-  Good code style is not a requirement in this course but is nevertheless good practice.
-  It might be a good idea to conform to a style guide such as
-  [the tidyverse style guide](https://style.tidyverse.org/).
+### Figures
+
+Any figures you include should have descriptive labels and captions. If you
+are using R Markdown, please use the `fig.cap` argument in the R Markdown
+chunk header to provide a caption. Also make use of `fig.width` and `fig.height`
+to control the size of the figures. A code chunk for a figure might look
+something like this:
+
+````
+```{r, fig.cap = "Engine displacement and number of cylinders for 38 popular models of cars from <https://fueleconomy.gov>.", fig.width = 4.2, fig.height = 3.7}`r ''`
+library(tidyverse)
+
+mpg %>%
+  ggplot(aes(cyl, displ)) +
+  geom_point() +
+  labs(x = "Number of Cylinders",
+       y = "Engine Displacement")
+```
+````
+
+```{r, fig.cap = "Engine displacement and number of cylinders for 38 popular models of cars from <https://fueleconomy.gov>.", echo = FALSE}
+library(tidyverse)
+
+mpg %>%
+  ggplot(aes(cyl, displ)) +
+  geom_point() +
+  labs(x = "Number of Cylinders",
+       y = "Engine Displacement")
+```
+
+If you use a WYSIWYG editor, you need to first import your images
+into the editor and then right-click on them and choose `Insert Caption` (or 
+some similar command). **Don't use `ggtitle()`, `labs(title = ...)`.**
+
+See [The Anatomy of a Plot](https://canvas.education.lu.se/courses/5769/pages/the-anatomy-of-a-plot) for
+examples and more instruction on how to format your figures.
+
+### Code
+
+Only include code when you are **instructed** to do so. When you do include 
+code, please
+avoid having it escape into the margin by using multiple lines to separate code. 
+Good code style is not a requirement in this course but is nevertheless good 
+practice. It might be a good idea to conform to a style guide such as
+[the tidyverse style guide](https://style.tidyverse.org/). R Studio
+can also format code for you if you select it and hit `Cmd/Ctrl + Alt + a`.
   
-### Peer Review and Examination
+## Peer Review and Examination
 
-For each assignment you will need to peer review **three other reports**. To complete the reviews, you need to fill out the **rubric** associated with the assignment and add a general comment on the submission. In addition, we also encourage you to provide **annotated feedback** using the integrated tools in Canvas. Please see [this page](https://community.canvaslms.com/t5/Student-Guide/How-do-I-submit-a-peer-review-to-an-assignment/ta-p/293) to read more about peer-reviewing in canvas.
+For each assignment you will need to peer review **three other reports**. To
+complete the reviews, you need to fill out the **rubric** associated with the
+assignment and add a general comment on the submission. In addition, we also
+encourage you to provide **annotated feedback** using the integrated tools in
+Canvas. Please see
+[this page](https://community.canvaslms.com/t5/Student-Guide/How-do-I-submit-a-peer-review-to-an-assignment/ta-p/293) to read more about peer-reviewing in canvas.
 
 Finally, please remember to provide **constructive** feedback.
 
-#### You have one week to complete your peer review!
+### You have one week to complete your peer review!
 
-If you have not completed your peer review within one week past the deadline, you will **fail the assignment**. There is unfortunately 
-no way in Canvas to create a deadline for the peer reviews, so you have to keep track
-of this deadline manually.
+If you have not completed your peer review within one week past the deadline, 
+you will **fail the assignment**. 
 
-#### Grading
+### Grading
 
-The assignments and project will be graded by an instructor or teaching assistant as **pass** or **fail**. To pass the course, **you need to pass each assignment**. If you fail any assignment (or the project), you will get an additional chance to hand in these after the conclusion of the course.
+The assignments and project will be graded by an instructor or teaching 
+assistant as **pass** or **fail**. To pass the course, 
+**you need to pass each assignment**. If you fail any assignment (or the 
+project), you will get an additional chance to hand in these after the 
+conclusion of the course.
 
 ### Hints
 
-- Functions in the tidyverse are well-documented. Students who are successful at these
-  assignments often make good use of the help files for the various function (in RStudio
-  simply place the cursor on the function name and hit F1).
+- Functions in the tidyverse are well-documented. Students who are successful 
+  at theseassignments often make good use of the help files for the various 
+  functions. (In RStudio simply place the cursor on the function name and hit
+  F1).
 - To run code in R Studio inside a R Markdown document, highlight the code and
-  hit `CTRL/CMD+Enter`. (There is no need to copy it directly into the terminal.)
-- To create a code chunk in your R Markdown document, use the shortcut `CTRL/CMD+ALT+I`.
-- If you want code in your R Markdown document to appear inside your final report, use
-  `echo = TRUE` in the header of the code chunk.
-- The size of figures can be controlled using the `fig.width` and `fig.height` options
-  in the code header (if you use R Markdown).
+  hit `Ctrl/Cmd + Enter`. (There is no need to copy it directly into 
+  the terminal.)
+- To create a code chunk in your R Markdown document, use the shortcut 
+  `Ctrl/Cmd + Alt + i`.
+- If you want code in your R Markdown document to appear inside your final 
+  report, use `echo = TRUE` in the header of the code chunk.
+- The size of figures can be controlled using the `fig.width` and `fig.height`
+  options in the code header (if you use R Markdown) and the `width` and
+  `height` arguments in `ggsave()` if you use a WYSIWYG editor. **Please don't
+  resize the images inside the editor**, which will risk making the annotation
+  in the visualization hard to read.
