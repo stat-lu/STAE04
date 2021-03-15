@@ -22,6 +22,10 @@ This page contains slides for the course STAE04: Data Visualization
 * [Animated and Interactive Visualizations](15-animated-and-interactive-visualizations)
 * [Wrapping Up](16-wrapping-up)
 
+### Worked Examples
+
+* [Working with Data in R](worked-example-working-with-data-in-r)
+
 ### Submission Template
 
 * [Submission Template and Introduction to R Markdown](https://raw.githubusercontent.com/stat-lu/STAE04/master/stae04-template.Rmd)
