@@ -32,6 +32,12 @@ This page contains slides for the course STAE04: Data Visualization
 
 * [Submission Template and Introduction to R Markdown](https://raw.githubusercontent.com/stat-lu/STAE04/master/stae04-template.Rmd)
 
+### Miscellaneous
+
+* [Getting Started with R and R Studio](misc-getting-started-with-r-and-rstudio)
+* [The Anatomy of a Plot](misc-the-anatomy-of-a-plot)
+* [Project Description](misc-project-description)
+
 ### Source code
 
 The source code for all of the matieral here can be found at <https://github.com/stat-lu/STAE04>.
