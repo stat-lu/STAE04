@@ -18,6 +18,8 @@ knitr::opts_chunk$set(
   warning = FALSE,
   cache = FALSE,
   fig.align = "center",
+  fig.width = 5,
+  fig.height = 4,
   dev = "png"
 )
 options(scipen = 999)
@@ -155,7 +157,7 @@ table2_tidy
 
 Now it's easy to visualize this data!
 
-```{r, fig.cap = "Tubercolosis caes in Afghanistan, Brazil, and China in 1999 and 2000."}
+```{r, fig.cap = "Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000."}
 ggplot(table2_tidy, aes(year, cases, fill = country)) +
   geom_col(position = "dodge")
 ```
