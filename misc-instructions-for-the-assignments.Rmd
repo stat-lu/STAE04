@@ -79,7 +79,9 @@ ggsave("filename.png", width = 3, height = 2.3)
 
 Your report does not need to be verbose but it must be **clear** and 
 **coherent**. Use full sentences and describe the steps you take and code you've
-included.
+included. Prefer a walk-through approach rather than question: answer format. 
+Someone who has not seen the assignment instructions should (reasonably well)
+be able to read your report.
 
 ### Figures
 
