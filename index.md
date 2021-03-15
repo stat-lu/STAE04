@@ -26,7 +26,7 @@ This page contains slides for the course STAE04: Data Visualization
 
 * [R](worked-example-r)
 * [Working with Data in R](worked-example-working-with-data-in-r)
-* [ggplot2](worked-example-ggplot2)
+* [First Steps with ggplot2](worked-example-first-steps-with-ggplot2)
 
 ### Submission Template
 

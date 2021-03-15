@@ -1,5 +1,5 @@
 ---
-title: "Worked Example: ggplot2"
+title: "Worked Example: First Steps with ggplot2"
 author: "Johan Larsson"
 #date: "9/4/2020"
 output: 
