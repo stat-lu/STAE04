@@ -55,10 +55,26 @@ available directly through R and R packages, but knowing how to import data dire
 useful skill.^[And this might very well come in handy for your project, where you will
 choose your data yourself.]
 
-First we need to find some data to import. Download the US Cars datasets
-from [this link](https://raw.githubusercontent.com/stat-lu/STAE04/master/data/us_cars.csv)
-by right-clicking and choosing *save link as...*; store the dataset in a 
-folder called `data` in your current working directory (base directory).
+First we need to find some data to import. Download the US Cars dataset
+that we have provided in the git repository for the course. The
+data is available [here](https://raw.githubusercontent.com/stat-lu/STAE04/master/data/us_cars.csv)
+(this link will not work if you're browsing this page from
+inside Canvas). Alternatively, you can call following lines of code to
+download the dataset
+
+```{r}
+# check that we have a data folder in our working directory, and if not create
+# one
+if (!dir.exists("data")) {
+  dir.create("data")
+}
+
+# download the dataset to data/us_cars.csv
+download.file(
+  "https://raw.githubusercontent.com/stat-lu/STAE04/master/data/us_cars.csv",
+  file.path("data", "us_cars.csv")
+)
+```
 
 Now we load this dataset into R via the **readr** package (part of tidyverse). This
 is a comma-separated file (note the file extension), so we use the `read_csv()`
@@ -72,7 +88,8 @@ us_cars <- read_csv(file.path("data", "us_cars.csv"))
 
 When you call `read_csv()`, the **readr** package helpfully prints a message to your console
 with information about how the columns in the dataset were formatted when you
-imported the data. Take a look at this information and see if everything looks okay.
+imported the data. Take a look at this information---does everything look
+okay?
 
 ## Glimpsing our Data
 
@@ -324,8 +341,184 @@ us_cars_grouped <- group_by(us_cars, country)
 summarize(
   us_cars_grouped, 
   median_price = median(price), 
-  mean_price = mean(price)
+  mean_price = mean(price),
+  number_of_cars = n() # captures the size of the group
 )
 ```
 
-Great
+Perfect! Note the use of the `n()` function that counts the number of
+observations in each group. In this case, it highlights the problem that
+can occur when we group, summarize, and plot, namely, that we lose information
+about the size of the groups. In this case, it would not be pertinent to
+draw conclusions about cars from Canada based on only seven observations.
+
+# Missing Data
+
+
+
+# The Pipe Operator
+
+The pipe operator, `%>%`, is a staple in data science workflows because
+it makes the process of managing data much more managable, modular, and
+intuitive. The pipe operator can be hard to get to grips with at first, but
+once you do, you will never want to go back.
+
+The pipe operator takes an object on its left-hand side (or line above)
+and *pipes* it through to an object (almost exclusively a function) on the
+right-hand side. The object on the left-hand side will enter
+the function on the right hand side as *the first argument of that function*,
+replacing (pushing back) any other argument that's already there.
+
+Let's say that we have the following function, `my_frac()`, which takes
+arguments `x` and `y` and returns `x/y`.
+
+```{r}
+my_frac <- function(x, y) {
+  x / y
+}
+```
+
+Now we can use this function on two numbers, like so:
+
+```{r}
+my_frac(2, 5)
+```
+
+If we were to do this with the pipe operator instead, it would look like this:
+
+```{r}
+# use the pipe operator
+2 %>% my_frac(5) # equivalent to my_frac(2, 5)
+
+# or we can do
+2 %>%
+  my_frac(5)
+```
+
+You're probably thinking that this doesn't seem very useful at all, given
+that we've now spent more code to accomplish exactly what `my_frac()`
+already accomplished very well without the pipe. Where the pipe operator 
+comes into its own, however, is when we need to chain multiple functions.
+
+## Case Study using Pipes
+
+Let's say that we want to take our `us_cars` dataset and perform a set of
+options, namely:
+
+1. filter out all cars that are black,
+2. group cars by `state`, 
+3. compute the mean mileage per state,
+4. sort the states by mean mileage, and
+5. plot a simple bar plots of state versus mean mileage.
+
+There are more or less three ways to do this: 
+
+1. use intermediary objects,
+2. use function composition, or
+3. use pipes.
+
+### Intermediate Objects
+
+To solve this by storing temporary objects, here's what we would do:
+
+```{r}
+black_cars <- filter(us_cars, color == "black")
+black_cars_groupedby_states <- group_by(black_cars, state)
+black_cars_state_mileage <-
+  summarize(black_cars_groupedby_states, mean_mileage = mean(mileage))
+arrange(black_cars_state_mileage, mean_mileage)
+```
+
+The largest downside to this approach is that you're cluttering
+the workspace with names of intermediary objects that you need to keep track of
+and name with meaningful names, or alternatively name by incrementing a 
+counter such as `cars1`, `cars2`, etc. This latter approach is actually 
+what you'll often end up doing, and (at least for me) often leads to 
+mixing up the counters and ending up with the wrong results.
+
+Storing intermediate results is sometimes precisely the right way to go
+about this, especially when you will later use the intermediary result,
+but in this case it leads to code that is hard to read and manage.
+
+### Function Composition
+
+An alternative is to use composite functions for our call. The code
+above then looks like this
+
+```{r}
+arrange(
+  summarize(
+    group_by(
+      filter(us_cars, color == "black"),
+      state
+    ),
+    mean_mileage = mean(mileage)
+  ),
+  mean_mileage
+)
+```
+
+Code like this is incredibly hard to manage (and read). Simply keeping
+track of which argument belongs to which function is strenuous. Imagine that
+you want to swap order of one of these operations, or add another step
+somewhere. 
+
+### Pipes
+
+With pipes, we get the following result:
+
+```{r}
+us_cars %>%
+  filter(color == "black") %>%
+  group_by(state) %>%
+  summarize(mean_mileage = mean(mileage)) %>%
+  arrange(mean_mileage)
+```
+
+The code is clean and expressive. If we want to with the order of the steps
+or add another, it's only a matter of adding or removing a row of the
+code. On top of that, you don't need to name any intermediate objects (but
+remember that doing so is sometimes exactly what you want).
+
+The **tidyverse** is designed specifically with the pipe operator in mind.
+The reason that it works so well with the tidyverse is that virtually every
+function in the tidyverse takes a dataset as the first argument, so
+piping together functions like this becomes very natural.This is not always 
+the case, however, and other functions and packages don't
+necessarily abide by this principle.
+
+If you want to mix tidyverse functions with functions from packages
+that work differently, you can still do this with pipes, but then need
+to use the special `.`  argument, which is a placeholder for the
+object that you are piping.
+
+One use case is when you want to fit a statistical model, for instance a
+linear regression. You typically do this with the `lm()` function in R, but
+this function has a formula object as its first argument, so won't work
+out-of-the box if we want to pipe a dataset into the function. Instead
+what you then need to do is this:
+
+```{r}
+us_cars %>%
+  filter(color == "black") %>%
+  lm(price ~ mileage, data = .)
+```
+
+Here we've specifically named the `data`-argument and supplied it with the
+argument `.`, which will tell `lm()` to use the filtered `us_cars` dataset
+as input to `data`.
+
+Finally, please note that the pipe operator is not (yet^[R will actually soon
+get a native version of the pipe operator, `|>`! See
+<https://developer.r-project.org/blosxom.cgi/R-devel/NEWS/2020/12/04#n2020-12-04>])
+part of the base R distribution. It is, however, included via all
+of the tidyverse packages, so simply calling `library(tidyverse)` or 
+`library(dplyr)` will get you access to it. Or you can call `library(magrittr)`,
+which is the package that is *actually* responsible for the operator.
+
+If you want to read more about pipes, we recommend you take a look
+at [the piping section](https://r4ds.had.co.nz/pipes.html) of 
+the R for Data Science book.
+
+Have fun piping in the tidyverse!
+
