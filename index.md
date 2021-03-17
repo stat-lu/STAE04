@@ -37,6 +37,7 @@ This page contains slides for the course STAE04: Data Visualization
 * [Getting Started with R and R Studio](misc-getting-started-with-r-and-rstudio)
 * [The Anatomy of a Plot](misc-the-anatomy-of-a-plot)
 * [Instructions for the Assignments](misc-instructions-for-the-assignments)
+* [Feedback and History of Changes](feedback-and-changes)
 
 ### Source code
 
