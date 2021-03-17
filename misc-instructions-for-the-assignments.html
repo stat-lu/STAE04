@@ -1611,8 +1611,9 @@ div.tocify {
 <p>If you want to go down this road, start by downloading the submission template that we have provided for you by running the following code,</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">download.file</span>(</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>  <span class="st">&quot;https://raw.githubusercontent.com/stat-lu/STAE04/master/stae04-template.Rmd&quot;</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>  <span class="st">&quot;stae04-template.Rmd&quot;</span> <span class="co"># replace this if you want to</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>)</span></code></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>  <span class="st">&quot;stae04-template.Rmd&quot;</span>, <span class="co"># replace this if you want to</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>  <span class="dt">mode =</span> <span class="st">&quot;wb&quot;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>)</span></code></pre></div>
 <p>which will download and save the file to your working directory.</p>
 <p>The template also serves as an introduction to R Markdown. To get started, simply open the document in R Studio and read through the code and text.</p>
 <div id="pros" class="section level4">
@@ -1704,7 +1705,7 @@ Engine displacement and number of cylinders for 38 popular models of cars from <
 <div id="hints" class="section level2">
 <h2>Hints</h2>
 <ul>
-<li>Functions in the tidyverse are well-documented. Students who are successful at theseassignments often make good use of the help files for the various functions. (In RStudio simply place the cursor on the function name and hit F1).</li>
+<li>Functions in the tidyverse are well-documented. Students who are successful at these assignments often make good use of the help files for the various functions. (In RStudio simply place the cursor on the function name and hit F1).</li>
 <li>To run code in R Studio inside a R Markdown document, highlight the code and hit <code>Ctrl/Cmd + Enter</code>. (There is no need to copy it directly into the terminal.)</li>
 <li>To create a code chunk in your R Markdown document, use the shortcut <code>Ctrl/Cmd + Alt + i</code>.</li>
 <li>If you want code in your R Markdown document to appear inside your final report, use <code>echo = TRUE</code> in the header of the code chunk.</li>

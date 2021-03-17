@@ -74,7 +74,8 @@ if (!dir.exists("data")) {
 # download the dataset to data/us_cars.csv
 download.file(
   "https://raw.githubusercontent.com/stat-lu/STAE04/master/data/us_cars.csv",
-  file.path("data", "us_cars.csv")
+  file.path("data", "us_cars.csv"),
+  mode = "wb"
 )
 ```
 

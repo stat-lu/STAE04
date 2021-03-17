@@ -48,7 +48,8 @@ running the following code,
 ```{r}
 download.file(
   "https://raw.githubusercontent.com/stat-lu/STAE04/master/stae04-template.Rmd",
-  "stae04-template.Rmd" # replace this if you want to
+  "stae04-template.Rmd", # replace this if you want to
+  mode = "wb"
 )
 ```
 
