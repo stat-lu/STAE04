@@ -1600,14 +1600,14 @@ div.tocify {
 </div>
 
 
-<div id="ggplot2" class="section level2">
-<h2>ggplot2</h2>
+<div id="ggplot2" class="section level1">
+<h1>ggplot2</h1>
 <p>ggplot2 is part of the <strong>tidyverse</strong> so you can simply call</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse) </span></code></pre></div>
 <p>to load ggplot2.</p>
 </div>
-<div id="ggplot" class="section level2">
-<h2><code>ggplot()</code></h2>
+<div id="ggplot" class="section level1">
+<h1><code>ggplot()</code></h1>
 <p>The main function of ggplot is the <code>ggplot()</code> function. It has two main arguments that you need to be aware of:</p>
 <dl>
 <dt><code>data</code></dt>
@@ -1618,8 +1618,8 @@ div.tocify {
 </dd>
 </dl>
 <p>When calling <code>ggplot()</code> we typically won’t call these arguments by their name and instead simply supply them in order.</p>
-<div id="data" class="section level3">
-<h3><code>data</code></h3>
+<div id="data" class="section level2">
+<h2><code>data</code></h2>
 <p>The <code>data</code> argument obviously needs a dataset and this should usually come in the form of a <code>data.frame</code> or a <code>tibble</code>. Let’s starts with a very simple data set, <code>cars</code>, that contains only two variables: speed and stopping distance of 50 different cars.</p>
 <p>Before doing anything else, always take a little time to look at bit of the data. If the dataset has relatively few variables (less than ten), the <code>head()</code> function is usually your best option; it simply displays the first few rows of the data.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">head</span>(cars)</span></code></pre></div>
@@ -1633,8 +1633,8 @@ div.tocify {
 <p>The second argument of <code>heads()</code> decides how many rows to show. Modify this value to show the first 10 cars of the dataset.</p>
 <p><code>glimpse()</code> is very useful when you have more variables (since it is more compact). Call <code>glimpse()</code> on <code>cars</code> and notice that it lists the variables in a table along with the first values of each variable.</p>
 </div>
-<div id="mapping" class="section level3">
-<h3><code>mapping</code></h3>
+<div id="mapping" class="section level2">
+<h2><code>mapping</code></h2>
 <p>The <code>mapping</code> argument should be supplied with a call to the <code>aes()</code> function that lists the mappings between variables in your data and aesthetics of the plot. Which aesthetics you choose to map to depends on what geoms you intend to use. But for now, let’s assume that we want to map speed, <code>speed</code>, to the x axis, and stopping distance, <code>dist</code>, to the y axis. To do so, we simply use <code>aes(x = speed, y = dist)</code> as the input to the <code>mapping</code> argument. Because the first two arguments of <code>aes()</code> are <code>x</code> and <code>y</code>, we can do without calling them explicitly.</p>
 <p>Let’s put this together:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">ggplot</span>(cars, <span class="kw">aes</span>(speed, dist))</span></code></pre></div>
@@ -1642,8 +1642,8 @@ div.tocify {
 <p>Why does this result in a blank canvas? After all, we did tell ggplot to map speed to the x axis and stopping distance to the y axis?</p>
 <p>The answer is that we still haven’t told ggplot2 which layers we want to use.</p>
 </div>
-<div id="layers" class="section level3">
-<h3>Layers</h3>
+<div id="layers" class="section level2">
+<h2>Layers</h2>
 <p>The aesthetic mapping is not enough by itself, we also need a layer to display our data. In <strong>ggplot2</strong>, we accomplish this by (literally) adding layers to the output of <code>ggplot()</code>. There are several ways to construct layers in ggplot, but the simplest and most common approach is to use the functions named <code>geom_*()</code> (such as <code>geom_point()</code>).</p>
 <p>The fact that these functions are called <code>geom_*()</code> is actually a bit of a misnomer, given that the output of the function provides all the necessary components of the layered grammar of graphics.</p>
 <p>To provide a layer with the point geom to the plot, you simply need to call the following lines.</p>
@@ -1657,8 +1657,8 @@ div.tocify {
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_rect</span>()</span></code></pre></div>
 <p>Well that didn’t work, but why not? Well, the reason is simply that <code>geom_rect()</code> uses the rectangle geom and a rectangle needs more aesthetics that just x and y coordinates.</p>
 </div>
-<div id="aesthetics" class="section level3">
-<h3>Aesthetics</h3>
+<div id="aesthetics" class="section level2">
+<h2>Aesthetics</h2>
 <p>Look at the documentation of the <code>geom_point()</code> function. Under <strong>Aesthetics</strong> we can see that this layer understands the following aesthetics:</p>
 <ul>
 <li><strong>x</strong></li>

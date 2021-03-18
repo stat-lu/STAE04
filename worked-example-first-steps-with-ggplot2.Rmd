@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 options(scipen = 999)
 ```
 
-## ggplot2
+# ggplot2
 
 ggplot2 is part of the **tidyverse** so you can simply call
 
@@ -35,7 +35,7 @@ library(tidyverse)
 
 to load ggplot2. 
 
-## `ggplot()`
+# `ggplot()`
 
 The main function of ggplot is the `ggplot()` function. It has two main arguments that you need to be aware of:
 
@@ -47,7 +47,7 @@ The main function of ggplot is the `ggplot()` function. It has two main argument
 
 When calling `ggplot()` we typically won't call these arguments by their name and instead simply supply them in order.
 
-### `data`
+## `data`
 
 The `data` argument obviously needs a dataset and this should usually come in the form of a `data.frame` or a `tibble`. Let's starts with a very simple data set, `cars`, that contains only two variables: speed and stopping distance of 50 different cars.
 
@@ -61,7 +61,7 @@ The second argument of `heads()` decides how many rows to show. Modify this valu
 
 `glimpse()` is very useful when you have more variables (since it is more compact). Call `glimpse()` on `cars` and notice that it lists the variables in a table along with the first values of each variable.
 
-### `mapping`
+## `mapping`
 
 The `mapping` argument should be supplied with a call to the `aes()` function that lists the mappings between variables in your data and aesthetics of the plot. Which aesthetics you choose to map to depends on what geoms you intend to use. But for now, let's assume that we want to map speed, `speed`, to the x axis, and stopping distance, `dist`, to the y axis. To do so, we simply use `aes(x = speed, y = dist)` as the input to the `mapping` argument. Because the first two arguments of `aes()` are `x` and `y`, we can do without calling them explicitly. 
 
@@ -75,7 +75,7 @@ Why does this result in a blank canvas? After all, we did tell ggplot to map spe
 
 The answer is that we still haven't told ggplot2 which layers we want to use.
 
-### Layers
+## Layers
 
 The aesthetic mapping is not enough by itself, we also need a layer to display our data. In **ggplot2**, we accomplish this by (literally) adding layers to the output of `ggplot()`. There are several ways to construct layers in ggplot, but the simplest and most common approach is to use the functions named `geom_*()` (such as `geom_point()`).
 
@@ -101,7 +101,7 @@ ggplot(cars, aes(speed, dist)) +
 
 Well that didn't work, but why not? Well, the reason is simply that `geom_rect()` uses the rectangle geom and a rectangle needs more aesthetics that just x and y coordinates.
 
-### Aesthetics
+## Aesthetics
 
 Look at the documentation of the `geom_point()` function. Under **Aesthetics** we can see that this layer understands the following aesthetics:
 
