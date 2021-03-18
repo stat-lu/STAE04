@@ -19,7 +19,7 @@ This page contains slides for the course STAE04: Data Visualization
 * [Big Data](12-big-data) ([source](https://github.com/stat-lu/STAE04/blob/master/12-big-data.Rmd))
 * [Statistical Models](13-statistical-models) ([source](https://github.com/stat-lu/STAE04/blob/master/13-statistical-models.Rmd))
 * [Maps](14-maps) ([source](https://github.com/stat-lu/STAE04/blob/master/14-maps.Rmd))
-* [Animated and Interactive Visualizations](15-animated-and-interactive-visualizations) ([source](https://github.com/stat-lu/STAE04/blob/master/16-animated-and-interactive-visualizations.Rmd))
+* [Animated and Interactive Visualizations](15-animated-and-interactive-visualizations) ([source](https://github.com/stat-lu/STAE04/blob/master/15-animated-and-interactive-visualizations.Rmd))
 * [Wrapping Up](16-wrapping-up)
 
 ### Worked Examples
