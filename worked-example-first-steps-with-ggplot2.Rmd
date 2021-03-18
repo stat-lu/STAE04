@@ -129,3 +129,8 @@ ggplot(cars, aes(speed, dist)) +
 Take some time to play around with the various aesthetics. Switch geom and try to flip the axes. Can you figure out what the `stroke` aesthetic does?
 
 It might be worth noting that some of the aesthetics used here have synonyms that you will likely come across every now and then, for instance `cex = size`, `col = color = colour`, and `pch = shape`, which are mostly due to compatibility with the base R distribution.
+
+# Source Code
+
+The source code for this document is available at
+<https://github.com/stat-lu/STAE04/blob/master/worked-example-first-steps-with-ggplot2.Rmd>.

@@ -551,3 +551,7 @@ the R for Data Science book.
 
 Have fun piping in the tidyverse!
 
+# Source Code
+
+The source code for this document is available at
+<https://github.com/stat-lu/STAE04/blob/master/worked-example-working-with-data-in-r.Rmd>.

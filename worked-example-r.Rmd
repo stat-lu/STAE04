@@ -25,13 +25,13 @@ knitr::opts_chunk$set(
 options(scipen = 999)
 ```
 
-## Overview
+# Overview
 
 Let's get started working with R. In this worked example, we will learn how
 to install and use packages in R as well as perform some basic operations on
 vectors, matrices, and data frames.
 
-## Objects in R
+# Objects in R
 
 When you start an R session, you enter into an **environment** that stores
 objects that you can access via their **names**. You can populate this environment
@@ -54,7 +54,7 @@ name in the console.
 the_meaning_of_life
 ```
 
-### Vectors
+## Vectors
 
 Vectors are one-dimensional arrays which store objects. Vectors can be created from
 functions or directly using, for instance, the `c()` function. Each vector can only
@@ -84,7 +84,7 @@ c(1, 10) * 2
 c(NA, 3.123, pi)^2 # pi is an object that's always available
 ```
 
-### Special Values
+## Special Values
 
 `NA` is a special value used to denote missing data. There is also another type
 of value called `NULL`, which is exactly what is sounds like: nothing.
@@ -143,7 +143,7 @@ following way.
 x[-1]
 ```
 
-### Matrices
+## Matrices
 
 Matrices are two-dimensional arrays. Just like vectors, they can only contain a single type
 of values.
@@ -169,7 +169,7 @@ m[1, ]
 m[, 2]
 ```
 
-### Data Frames
+## Data Frames
 
 Data frames look a lot like matrices except they allow each column to have a different
 type. Most of the data that you will encounter in this course will be
@@ -191,9 +191,9 @@ d$a
 d$b
 ```
 
-## Packages
+# Packages
 
-### Installing Packages
+## Installing Packages
 
 One of R's strengths is the wide-ranging package ecosystem it sports. 
 One package that we will use a lot during this course is **ggplot2**. If you don't
@@ -209,7 +209,7 @@ with ggplot2, which includes other packages. If this is the first time you
 run R, you might also be prompted to choose a CRAN mirror. A good default choice
 is `"https://cloud.r-project.org"`.
 
-### Using Packages
+## Using Packages
 
 To use a package in R, you can call the `library(<package-name>)` function, after which
 all of that packages functions---and possibly also its datasets---will be 
@@ -234,9 +234,9 @@ ggplot2::ggplot(mpg, aes(cty, hwy)) +
 ```
 
 
-## Functions
+# Functions
 
-### Function Basics
+## Function Basics
 
 As we said in the lecture, you will use functions **a lot** throughout this course (
 although you won't write your own). Therefore, you really need to understand
@@ -297,7 +297,7 @@ To only supply `b`, you have to name the argument.
 f2(b = 1)
 ```
 
-### Vectorization
+## Vectorization
 
 Many functions in R are **vectorized**, which means that you can apply the
 function across an entire vector (or column of a matrix) without 
@@ -322,9 +322,9 @@ simply modify the entire vector in place by calling
 d$age <- d$age * 365
 ```
 
-## Errors and Warnings
+# Errors and Warnings
 
-### Errors
+## Errors
 
 We have already shown a few lines of code that when run produces **errors**. Errors
 notify you that something has gone wrong, and this always happens when calling
@@ -336,7 +336,7 @@ why). Error messages can, however, be rather cryptic. The best advice, if you
 don't understand what's going on, is to simply search for the error message ad verbatim
 in your favorite search engine. Chances are that someone else has been there before.
 
-### Warnings
+## Warnings
 
 You may also occasionally receive **warnings**. Warnings indicate that something
 may not have gone as planned but that the problem hasn't been fatal enough to
@@ -352,9 +352,9 @@ running the code?
 c(3, 2, 1) * c(1, 2)
 ```
 
-## Conditional Statements
+# Conditional Statements
 
-### Basic Conditional Operators
+## Basic Conditional Operators
 
 Conditional statements are very useful when it comes to data science, particularly
 for filtering observations based on the values of a given variable. Conditionals
@@ -403,7 +403,7 @@ c("a", "b", "a") == "a"
 1:5 != 3
 ```
 
-### The `%in%` Operator
+## The `%in%` Operator
 
 Another, very useful, conditional operator is `%in%`. It checks if the left-hand
 side of the operator is inside the right-hand side. Observe the following example.
@@ -422,7 +422,7 @@ d$diet %in% c("vegan", "vegetarian")
 
 This will come in handy for us later on in the course.
 
-### Documentation
+# Documentation
 
 The easiest way to understand how a function works, what it returns, 
 what arguments it has and what they mean, as well as what the default argument
@@ -437,3 +437,7 @@ pane of R Studio. It is also possible to use `help(<function-name>)` or
 help(mean) # or ?mean
 ```
 
+# Source Code
+
+The source code for this document is available at
+<https://github.com/stat-lu/STAE04/blob/master/worked-example-r.Rmd>.
