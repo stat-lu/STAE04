@@ -218,10 +218,12 @@ filter(Arthritis_summarized, Treatment == "Treated") %>%
   labs(fill = "Improvement")
 ```
 
-This looks like a waffle chart, but there's a lot of superfluous information
+This looks kind of 
+like a waffle chart, but there's a lot of superfluous information
 that we'd rather get rid off. Thankfully, **waffle** provides the 
 helpful `theme_enhance_waffle()` function for this. Moreover we probably
-prefer the symbols (rectangles) to be squares rather than rectangles, which
+prefer the symbols (rectangles) to be squares rather than rectangles---it's
+supposed to look like a waffle after all, right?---which
 we can accomplish by forcing the coordinate system to be isometric using
 `coord_equal()`. Finally, it will look more aesthetically pleasing if we
 swap the black line color for white, increase their width slightly, and
@@ -253,6 +255,10 @@ ggplot(Arthritis_summarized, aes(fill = Improved, values = Count)) +
   theme_enhance_waffle() +
   labs(fill = "Improvement")
 ```
+
+If you want to make other types of pictograms (with other glyphs instead
+of squares), be sure to check out the examples over at
+<https://github.com/hrbrmstr/waffle>.
 
 # Euler Diagrams
 
