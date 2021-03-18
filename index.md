@@ -28,6 +28,7 @@ This page contains slides for the course STAE04: Data Visualization
 * [Working with Data in R](worked-example-working-with-data-in-r)
 * [First Steps with ggplot2](worked-example-first-steps-with-ggplot2)
 * [Two Variables](worked-example-two-variables)
+* [Arthritis](worked-example-arthritis)
 
 ### Submission Template
 
