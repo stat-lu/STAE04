@@ -36,7 +36,6 @@ load the package and take a `glimpse()` at the data.
 ```{r}
 # install.packages("vcd") # if you haven't installed it yet
 library(vcd)
-
 library(tidyverse)
 
 glimpse(Arthritis)
