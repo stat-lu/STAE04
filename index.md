@@ -5,7 +5,7 @@
 
 This page contains slides for the course STAE04: Data Visualization
 
-* [Introduction](01-introduction)
+* [Introduction](01-introduction) ([source](https://github.com/stat-lu/STAE04/blob/master/01-introduction.Rmd))
 * [Introduction to R](02-introduction-to-r)
 * [Working with Data in R](03-working-with-data-in-r)
 * [The Grammar of Graphics and ggplot2](04-the-grammar-of-graphics-and-ggplot2)
