@@ -29,6 +29,8 @@ This page contains slides for the course STAE04: Data Visualization
 * [First Steps with ggplot2](worked-example-first-steps-with-ggplot2)
 * [Two Variables](worked-example-two-variables)
 * [Arthritis](worked-example-arthritis)
+* [Plants](worked-example-plants)
+* [Chile Plebiscite](worked-example-chile-plebiscite)
 
 ### Submission Template
 
