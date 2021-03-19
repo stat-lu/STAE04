@@ -199,4 +199,4 @@ variables in the dataset too.
 ## Source Code
 
 The source code for this document is available at 
-<https://github.com/stat-lu/STAE04/blob/master/worked-example-two-variables.Rmd>.
+<https://github.com/stat-lu/STAE04/blob/master/worked-example-airquality.Rmd>.
