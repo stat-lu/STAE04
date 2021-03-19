@@ -26,7 +26,7 @@ options(scipen = 999)
 ```
 
 
-# Arthrithis
+## Arthrithis
 
 In this worked example we will be working with data from a treatment trial
 for Arthritis. The data comes from the 
@@ -45,7 +45,7 @@ Notice that `Improved` is helpfully formatted as an ordinal (ordered)
 variable already, which is going to help ggplot to choose the correct
 color palettes for us.
 
-# Bar Charts
+## Bar Charts
 
 Let's start with a simple bar chart to see how many people were allocated
 to the two treatment arms.
@@ -57,7 +57,7 @@ ggplot(Arthritis, aes(Treatment)) +
   geom_bar()
 ```
 
-## Was the Treatment Effective?
+### Was the Treatment Effective?
 
 Now for something more interesting. Let's try to look at how well the treatment
 seems to have worked. We start with a stacked bar chart.
@@ -112,7 +112,7 @@ aesthetic, so that ggplot knows which category to compute proportions within.
 This strategy can be used with many other layer functions (`geom_*()` functions)
 in ggplot.
 
-# Mosaic Plots
+## Mosaic Plots
 
 In the lecture we also encountered mosaic plots, which are proportional
 bar charts that map, not only the height of the bars, but also the
@@ -152,7 +152,7 @@ it is the *relative* size that we show. If we want the actual *counts* in
 the outer category, we still need to add additional plots or provide
 this information in text.]
 
-# Waffle Plots
+## Waffle Plots
 
 Waffle plots are easy-to-read visualizations that are actually quite uncommon
 in statistical visualizations but much more prevalent in media outlets such as 
@@ -260,7 +260,7 @@ If you want to make other types of pictograms (with other glyphs instead
 of squares), be sure to check out the examples over at
 <https://github.com/hrbrmstr/waffle>.
 
-# Euler Diagrams
+## Euler Diagrams
 
 Euler diagrams are used to visualize relationships between sets. Most of
 you have probably encountered Venn diagrams during in your first
@@ -363,7 +363,7 @@ plot(fit_organisms_ellipses, quantities = TRUE)
 ```
 
 
-# Source Code
+## Source Code
 
 The source code for this document is available at
 <https://github.com/stat-lu/STAE04/blob/master/worked-example-arthritis.Rmd>.
