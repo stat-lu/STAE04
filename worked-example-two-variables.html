@@ -1600,8 +1600,8 @@ div.tocify {
 </div>
 
 
-<div id="air-quality" class="section level1">
-<h1>Air Quality</h1>
+<div id="air-quality" class="section level2">
+<h2>Air Quality</h2>
 <p>As soon as you’re faced with two numeric variables, your first instinct should always be to want to put them on a scatter plot. One such situation could arise with a dataset like the <code>airquality</code> dataset, which consists of air quality measurements from New York, in May to September 1973.</p>
 <p>The variables in this dataset are</p>
 <dl>
@@ -1649,8 +1649,8 @@ Ozone and solar radiation from September to May in New York.
 \text{ozone} = \frac{c}{\text{wind speed}}
 \]</span> for some choice of a constant <span class="math inline">\(c\)</span>.</p>
 <p>Take some time to plot the associations between <code>Ozone</code>, <code>Solar.R</code>, <code>Wind</code>, and <code>Temp</code> and try to think about what kind of patterns (if any) it is you see.</p>
-<div id="longitudinal-data" class="section level2">
-<h2>Longitudinal Data</h2>
+<div id="longitudinal-data" class="section level3">
+<h3>Longitudinal Data</h3>
 <p>This data is longitudinal in nature so it seems reasonable to want to see how these measures vary across time. First, however, we need to convert the day and month variables into a single variable representing time. Here we use the handy <code>make_date()</code> function from the <strong>lubridate</strong> package.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">library</span>(lubridate)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a></span>
@@ -1700,8 +1700,8 @@ Air quality (ozone levels) in 1973.
 </p>
 </div>
 <p>Despite this missing data, it seems quite clear that the air quality takes a turn for the worse during the summer months.</p>
-<div id="air-pollution-across-the-week" class="section level3">
-<h3>Air Pollution Across the Week</h3>
+<div id="air-pollution-across-the-week" class="section level4">
+<h4>Air Pollution Across the Week</h4>
 <p>One thing that is currently missing from the visualization but would shed additional light on the relationships is the relationship between air pollution and the type of day, that is, whether it is a weekday or a weekend. A possible solution for this might be to color the weekend days differently, but here we’ll instead use the grid and axis ticks to display this information by specifying scales with <code>scale_x_date()</code> and using <code>&quot;weeks&quot;</code> as input to the <code>minor_breaks</code> argument.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>p3 &lt;-<span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">scale_x_date</span>(<span class="dt">minor_breaks =</span> <span class="st">&quot;weeks&quot;</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>p3</span></code></pre></div>
@@ -1741,8 +1741,8 @@ Air pollution across weekdays from May to June in 1973.
 </div>
 </div>
 </div>
-<div id="source-code" class="section level1">
-<h1>Source Code</h1>
+<div id="source-code" class="section level2">
+<h2>Source Code</h2>
 <p>The source code for this document is available at <a href="https://github.com/stat-lu/STAE04/blob/master/worked-example-two-variables.Rmd" class="uri">https://github.com/stat-lu/STAE04/blob/master/worked-example-two-variables.Rmd</a>.</p>
 </div>
 

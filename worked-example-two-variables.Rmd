@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 options(scipen = 999)
 ```
 
-# Air Quality
+## Air Quality
 
 As soon as you're faced with two numeric variables, your first instinct should
 always be to want to put them on a scatter plot. One such situation could arise
@@ -91,7 +91,7 @@ Take some time to plot the associations between `Ozone`, `Solar.R`, `Wind`,
 and `Temp` and try to think about what kind of patterns (if any) it is you
 see.
 
-## Longitudinal Data
+### Longitudinal Data
 
 This data is longitudinal in nature so it seems reasonable to want to
 see how these measures vary across time. First, however, we need to
@@ -142,7 +142,7 @@ p2
 Despite this missing data, it seems quite clear that the air quality takes
 a turn for the worse during the summer months. 
 
-### Air Pollution Across the Week
+#### Air Pollution Across the Week
 
 One thing that is currently
 missing from the visualization but would shed additional light on the
@@ -196,7 +196,7 @@ air quality over the weekends, at least in terms of the median.
 Take some time to visualize the relationships between time and the other
 variables in the dataset too.
 
-# Source Code
+## Source Code
 
 The source code for this document is available at 
 <https://github.com/stat-lu/STAE04/blob/master/worked-example-two-variables.Rmd>.
