@@ -1,5 +1,5 @@
 ---
-title: "Worked Example: Two Variables"
+title: "Worked Example: Air Quality"
 author: "Johan Larsson"
 #date: "9/4/2020"
 output: 
@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 options(scipen = 999)
 ```
 
-## Air Quality
+## Air Quality in New York
 
 As soon as you're faced with two numeric variables, your first instinct should
 always be to want to put them on a scatter plot. One such situation could arise
