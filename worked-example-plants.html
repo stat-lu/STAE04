@@ -1609,6 +1609,8 @@ div.tocify {
 A specimen of Echinochloa crus-galli.
 </p>
 </div>
+<div id="data" class="section level3">
+<h3>Data</h3>
 <p>The data we are going to look at is available in the <code>CO2</code> dataset from <strong>datasets</strong> (a package part of the base R distribution). There are five variables:</p>
 <dl>
 <dt><code>Plant</code></dt>
@@ -1628,6 +1630,9 @@ A specimen of Echinochloa crus-galli.
 </dd>
 </dl>
 <p>The goal of the experiment was to investigate who carbon dioxide uptake is affected based on the ambient carbon dioxide concentration (<code>conc</code>), the origin of the plant <code>Type</code>, and <code>Treatment</code> (whether the plant was chilled overnight before the experiment started or not).</p>
+</div>
+<div id="simple-scatter-plot" class="section level3">
+<h3>Simple Scatter Plot</h3>
 <p>Let’s start basic and just look at a scatter plot of the uptake and ambient concentration. We’ll of course put uptake on the y axis, and concentration on the x axis. Before we get started, we’ll also rename some of the variables so that we get decent axis labels by default and change <code>Plant</code> from ordered to unordered (since the variable obviously isn’t ordinal). We’ll call the new dataset <code>co2</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
@@ -1647,6 +1652,9 @@ A specimen of Echinochloa crus-galli.
 CO2 uptake and ambient CO2 concentration.
 </p>
 </div>
+</div>
+<div id="adding-lines" class="section level3">
+<h3>Adding Lines</h3>
 <p>Just using the point geom here is not a good design choice, however, since our data is in fact <em>matched</em> given that the observations belong to specific plants (and there are multiple measurements for each plant). There are several ways to show this. We could for instance use color, facets, or simply a line geom with mappings to the group aesthetic to fix this. We try the latter option here, but feel free to experiment with the other ideas as well.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">ggplot</span>(co2, <span class="kw">aes</span>(Concentration, Uptake, <span class="dt">group =</span> Plant)) <span class="op">+</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
@@ -1658,6 +1666,9 @@ Ambient CO2 concentration and uptake for 12 plants in different conditions and f
 </p>
 </div>
 <p>Higher concentrations of CO2 clearly lead to higher uptake of the same, which of course isn’t surprising at all. What kind of relationship would you say this is? Take a moment to think about that.</p>
+</div>
+<div id="does-overnight-cooling-matter" class="section level3">
+<h3>Does Overnight Cooling Matter?</h3>
 <p>We’ve yet to involve the other aspects of the experiment in our visualization, however, so let’s do that now. We begin by adding the cooling condition by mapping it to color. Also note that we here have a natural color mapping (blue to the cool condition), which we of course will take advantage of.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">ggplot</span>(co2, <span class="kw">aes</span>(Concentration, Uptake, <span class="dt">group =</span> Plant, <span class="dt">color =</span> Treatment)) <span class="op">+</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
@@ -1669,6 +1680,9 @@ Ambient CO2 concentration and uptake for 12 plants in different conditions and f
 Ambient CO2 concentration and uptake for 12 plants under two different treatments (chilled overnight before the experiment or not).
 </p>
 </div>
+</div>
+<div id="plant-origin" class="section level3">
+<h3>Plant Origin</h3>
 <p>It looks like uptake generally is improved in the non-chilled arm of the experiment but that there are two clear clusters here. Let’s see if the origin of the plants might serve to explain this bi-modal distribution.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">ggplot</span>(co2, <span class="kw">aes</span>(Concentration, Uptake, <span class="dt">group =</span> Plant, <span class="dt">color =</span> Treatment)) <span class="op">+</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
@@ -1682,6 +1696,12 @@ Ambient CO2 concentration and uptake for 12 plants under two different treatment
 </p>
 </div>
 <p>Yes, indeed it looks like the origin of the plants explain this exactly. We of course know that Mississippi is a much warmer state than Quebec is, so perhaps it makes sense that we see this adaptation in the plants in Quebec.</p>
+<p>This example demonstrates how important it is to explore multivariate relationships, effectively <em>conditioning</em> your visualizations on some of the variables.</p>
+</div>
+</div>
+<div id="source-code" class="section level2">
+<h2>Source Code</h2>
+<p>The source code for this document is available at <a href="https://github.com/stat-lu/STAE04/blob/master/worked-example-plants.Rmd" class="uri">https://github.com/stat-lu/STAE04/blob/master/worked-example-plants.Rmd</a>.</p>
 </div>
 
 
