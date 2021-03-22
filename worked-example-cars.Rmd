@@ -512,18 +512,20 @@ remember that doing so is sometimes exactly what you want).
 The **tidyverse** is designed specifically with the pipe operator in mind.
 The reason that it works so well with the tidyverse is that virtually every
 function in the tidyverse takes a dataset as the first argument, so
-piping together functions like this becomes very natural.This is not always 
-the case, however, and other functions and packages don't
-necessarily abide by this principle.
+piping together functions like this becomes very natural. The base R
+functions and many other packages out there don't 
+necessarily abide by this principle, however, so make sure you know
+what your functions are doing when you're using pipes or you may
+end up with unexpected (and undesirable) consequences.
 
 If you want to mix tidyverse functions with functions from packages
 that work differently, you can still do this with pipes, but then need
 to use the special `.`  argument, which is a placeholder for the
 object that you are piping.
 
-One use case is when you want to fit a statistical model, for instance a
+One use case for this is fitting a statistical model, for instance a
 linear regression. You typically do this with the `lm()` function in R, but
-this function has a formula object as its first argument, so won't work
+this function takes a formula object as its first argument, so won't work
 out-of-the box if we want to pipe a dataset into the function. Instead
 what you then need to do is this:
 
