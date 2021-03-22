@@ -32,6 +32,7 @@ This page contains slides for the course STAE04: Data Visualization
 * [Plants](worked-example-plants)
 * [Chile Plebiscite](worked-example-chile-plebiscite)
 * [Heavy Metal](worked-example-heavy-metal)
+* [Gapminder](worked-example-gapminder)
 
 ### Submission Template
 
