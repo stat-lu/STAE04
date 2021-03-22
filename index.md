@@ -24,8 +24,8 @@ This page contains slides for the course STAE04: Data Visualization
 
 ### Worked Examples
 
-* [R](worked-example-r)
-* [Working with Data in R](worked-example-working-with-data-in-r)
+* [Hello, World!](worked-example-hello-world)
+* [Cars](worked-example-cars)
 * [First Steps with ggplot2](worked-example-first-steps-with-ggplot2)
 * [Air Quality](worked-example-airquality)
 * [Arthritis](worked-example-arthritis)
