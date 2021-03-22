@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 options(scipen = 999)
 ```
 
-# Gapminder
+## Gapminder
 
 Do you remember the animated plots we produced in the introductory 
 lecture for this course based on the Gapminder Hans Rosling
@@ -36,7 +36,7 @@ animated visualization?
 In this worked example, we'll work out how to 
 reproduce that plot as both an animated an interactive visualization.
 
-# Animated Visualization
+## Animated Visualization
 
 The dataset that we'll use is available via the 
 [gapminder](https://CRAN.R-project.org/package=gapminder) package. So go
@@ -194,7 +194,7 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, color = country)) +
   ease_aes("cubic-in-out")
 ```
 
-## Interactive Gapminder Visualization
+## Interactive Visualization
 
 Interactive visualizations can be really effective, particularly when
 we want to visualize a complicated dataset such as this one.
