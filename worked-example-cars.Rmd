@@ -1,5 +1,5 @@
 ---
-title: "Worked Example: Working with Data in R"
+title: "Worked Example: Cars"
 author: "Johan Larsson"
 #date: "9/4/2020"
 output: 
@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 options(scipen = 999)
 ```
 
-# Installing Tidyverse
+## Installing Tidyverse
 
 If you haven't done so yet, you need to install the tidyverse collection
 of packages. To do so, simply call the following line. 
@@ -46,7 +46,7 @@ update.packages(ask = FALSE) # ask = FALSE is to avoid being prompted
 or by going to the **Packages** tab in the lower-right R Studio window and clicking
 on **Update**.
 
-# Importing Data into R
+## Importing Data into R
 
 R is extremely versatile when it comes to handling data of different
 formats and types. Much of this functionality is made available via R-packages,
@@ -94,7 +94,7 @@ with information about how the columns in the dataset were formatted when you
 imported the data. Take a look at this information---does everything look
 okay?
 
-## Glimpsing our Data
+### Taking a Glimpse
 
 Whenever you start working with new data, always start by taking a look at the
 data in raw form. The best first step is usually just to print the data to the
@@ -115,9 +115,9 @@ is `glimpse()`.
 glimpse(us_cars)
 ```
 
-# Data Wrangling
+## Wrangling
 
-## Pivoting
+### Pivoting
 
 One of the most important data wrangling tools when it comes to data visualization
 is *pivoting*, which can be used to transform messy data into tidy data, which in
@@ -184,14 +184,14 @@ table2_messy <-
   )
 ```
 
-## Manipulating Data
+### Manipulation
 
 In the tidyverse vocabulary, *filtering* refers to the process of selecting a 
 subset of rows (observations if the data is tidy) from your dataset, whereas
 *selecting* means selecting a subset of columns (variables if the data is tidy).
 We use the aptly named `filter()` and `select()` respectively for these tasks.
 
-### Filtering
+#### Filtering
 
 `filter()` is used on a dataset (tidyverse functions typically always
 take data as its first argument) together with a number of logical expression
@@ -212,7 +212,7 @@ Let's say that we only wanted to look at cars from Tennessee from years
 filter(us_cars, state == "tennessee", year >= 2015)
 ```
 
-### Selecting
+#### Selecting
 
 If you think of filtering as slicing a dataset horizontally, `select()` does the opposite,
 slicing a dataset *vertically*, by dropping a subset of the columns. The 
@@ -266,7 +266,7 @@ functions, as does the individual entries for each function.
 Consider taking a little time to play around with `select()` and its helper
 functions on the `us_cars` dataset. 
 
-### Mutating
+#### Mutating
 
 Frequently when visualizing data you will want to transform that data in some way.
 Perhaps you're more interested in the proportion than a number, want to convert a value
@@ -301,7 +301,7 @@ mutate(
 ) 
 ```
 
-## Grouping, Mutating, and Summarizing
+### Grouping, Mutating, and Summarizing
 
 Another common operation in data-visualization is to group and summarize data. This is
 useful when you want to visualize a summary statistic, rather than the raw data. Before
@@ -310,7 +310,7 @@ whether this aggregation is needed. If you are able to craft a visualization whe
 showcase **all** your data without sacrificing the communicative properties of
 the visualization, then this is always the better alternative.
 
-### Grouping
+#### Grouping
 
 To group data using the tidyverse methodology, we use `group_by()` (from **dplyr**).
 This is a very simple function. You simply list all the variables (columns) that
@@ -325,7 +325,7 @@ tibble is now **grouped**---but what does this mean? Well, the truth is that
 grouping is only useful when combined with functions that modify the data, most
 prominently `summarize()` (or `summarise()`).
 
-### Summarizing
+#### Summarizing
 
 `summarize()` takes a dataset---usually a *grouped* dataset---and a set of
 functions that should take a vector as input and return a summary statistics, such as
@@ -355,7 +355,7 @@ can occur when we group, summarize, and plot, namely, that we lose information
 about the size of the groups. In this case, it would not be pertinent to
 draw conclusions about cars from Canada based on only seven observations.
 
-# Missing Data
+## Missing Data
 
 Missing data is an issue that is prevalent in much of the real-life data
 that you may encounter, particularly when it comes to data involving
@@ -385,7 +385,7 @@ you can still keep the `NA` values around when you want to produce
 visualizations, but in this course we'll simply sometimes do `na_drop()` to
 make working with the datasets a little bit smoother.
 
-# The Pipe Operator
+## Pipes
 
 The pipe operator, `%>%`, is a staple in data science workflows because
 it makes the process of managing data much more managable, modular, and
@@ -429,7 +429,7 @@ that we've now spent more code to accomplish exactly what `my_frac()`
 already accomplished very well without the pipe. Where the pipe operator 
 comes into its own, however, is when we need to chain multiple functions.
 
-## Case Study using Pipes
+### Case Study using Pipes
 
 Let's say that we want to take our `us_cars` dataset and perform a set of
 options, namely:
@@ -446,7 +446,7 @@ There are more or less three ways to do this:
 2. use function composition, or
 3. use pipes.
 
-### Intermediate Objects
+#### Intermediate Objects
 
 To solve this by storing temporary objects, here's what we would do:
 
@@ -469,7 +469,7 @@ Storing intermediate results is sometimes precisely the right way to go
 about this, especially when you will later use the intermediary result,
 but in this case it leads to code that is hard to read and manage.
 
-### Function Composition
+#### Function Composition
 
 An alternative is to use composite functions for our call. The code
 above then looks like this
@@ -492,7 +492,7 @@ track of which argument belongs to which function is strenuous. Imagine that
 you want to swap order of one of these operations, or add another step
 somewhere. 
 
-### Pipes
+#### Pipes
 
 With pipes, we get the following result:
 
@@ -551,7 +551,7 @@ the R for Data Science book.
 
 Have fun piping in the tidyverse!
 
-# Source Code
+## Source Code
 
 The source code for this document is available at
 <https://github.com/stat-lu/STAE04/blob/master/worked-example-working-with-data-in-r.Rmd>.

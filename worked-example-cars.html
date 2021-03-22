@@ -12,7 +12,7 @@
 <meta name="author" content="Johan Larsson" />
 
 
-<title>Worked Example: Working with Data in R</title>
+<title>Worked Example: Cars</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1594,22 +1594,22 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Worked Example: Working with Data in R</h1>
+<h1 class="title toc-ignore">Worked Example: Cars</h1>
 <h4 class="author">Johan Larsson</h4>
 
 </div>
 
 
-<div id="installing-tidyverse" class="section level1">
-<h1>Installing Tidyverse</h1>
+<div id="installing-tidyverse" class="section level2">
+<h2>Installing Tidyverse</h2>
 <p>If you haven’t done so yet, you need to install the tidyverse collection of packages. To do so, simply call the following line. (Note that this will install several R-packages and take a lot of time if you haven’t already installed these packages.)</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
 <p>If you already have <strong>tidyverse</strong> installed, make sure that all of your packages are up to date, either by calling</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">update.packages</span>(<span class="dt">ask =</span> <span class="ot">FALSE</span>) <span class="co"># ask = FALSE is to avoid being prompted</span></span></code></pre></div>
 <p>or by going to the <strong>Packages</strong> tab in the lower-right R Studio window and clicking on <strong>Update</strong>.</p>
 </div>
-<div id="importing-data-into-r" class="section level1">
-<h1>Importing Data into R</h1>
+<div id="importing-data-into-r" class="section level2">
+<h2>Importing Data into R</h2>
 <p>R is extremely versatile when it comes to handling data of different formats and types. Much of this functionality is made available via R-packages, which let you import data into R from Microsoft Excel, Stata, SAS, or SPSS files in addition to standard file types such as comma-separated files (<code>.csv</code>) and tab-separated files (<code>.tsv</code>). In this course, most of the data sets we use will be available directly through R and R packages, but knowing how to import data directly is a useful skill.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <p>First we need to find some data to import. Download the US Cars dataset that we have provided in the git repository for the course. The data is available <a href="https://raw.githubusercontent.com/stat-lu/STAE04/master/data/us_cars.csv">here</a> (this link will not work if you’re browsing this page from inside Canvas). Alternatively, you can call following lines of code to download the dataset</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="co"># check that we have a data folder in our working directory, and if not create</span></span>
@@ -1628,8 +1628,8 @@ div.tocify {
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>us_cars &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">file.path</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;us_cars.csv&quot;</span>))</span></code></pre></div>
 <p>When you call <code>read_csv()</code>, the <strong>readr</strong> package helpfully prints a message to your console with information about how the columns in the dataset were formatted when you imported the data. Take a look at this information—does everything look okay?</p>
-<div id="glimpsing-our-data" class="section level2">
-<h2>Glimpsing our Data</h2>
+<div id="taking-a-glimpse" class="section level3">
+<h3>Taking a Glimpse</h3>
 <p>Whenever you start working with new data, always start by taking a look at the data in raw form. The best first step is usually just to print the data to the console or by calling <code>head()</code> (to see the first few lines).</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>us_cars</span></code></pre></div>
 <pre><code>## # A tibble: 2,499 x 12
@@ -1665,10 +1665,10 @@ div.tocify {
 ## $ condition    &lt;chr&gt; &quot;10 days left&quot;, &quot;6 days left&quot;, &quot;2 days left&quot;, &quot;22 hours l…</code></pre>
 </div>
 </div>
-<div id="data-wrangling" class="section level1">
-<h1>Data Wrangling</h1>
-<div id="pivoting" class="section level2">
-<h2>Pivoting</h2>
+<div id="wrangling" class="section level2">
+<h2>Wrangling</h2>
+<div id="pivoting" class="section level3">
+<h3>Pivoting</h3>
 <p>One of the most important data wrangling tools when it comes to data visualization is <em>pivoting</em>, which can be used to transform messy data into tidy data, which in turn will make visualization much easier for us.</p>
 <p>Let’s see what this can entail by looking at a simple dataset, <code>table2</code> from the <strong>tidyr</strong> package, which contains information on Tuberculosis cases in a few countries from 1999 and 2000.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>table2</span></code></pre></div>
@@ -1726,11 +1726,11 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a>    <span class="dt">values_to =</span> <span class="st">&quot;count&quot;</span></span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a>  )</span></code></pre></div>
 </div>
-<div id="manipulating-data" class="section level2">
-<h2>Manipulating Data</h2>
+<div id="manipulation" class="section level3">
+<h3>Manipulation</h3>
 <p>In the tidyverse vocabulary, <em>filtering</em> refers to the process of selecting a subset of rows (observations if the data is tidy) from your dataset, whereas <em>selecting</em> means selecting a subset of columns (variables if the data is tidy). We use the aptly named <code>filter()</code> and <code>select()</code> respectively for these tasks.</p>
-<div id="filtering" class="section level3">
-<h3>Filtering</h3>
+<div id="filtering" class="section level4">
+<h4>Filtering</h4>
 <p><code>filter()</code> is used on a dataset (tidyverse functions typically always take data as its first argument) together with a number of logical expression that specify which rows to keep in the dataset. Recall that a logical expression is a binary expression that relates the left-hand side to the right-hand side in some way, for instance to check equality or inequality, like so:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="op">&lt;</span><span class="st"> </span><span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">3.8</span>)</span></code></pre></div>
 <pre><code>## [1] FALSE FALSE  TRUE</code></pre>
@@ -1762,8 +1762,8 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 ## 17 12700 niss… door   2017 clean vehic…   17738 black 1n4a… 1.68e8 tenn… usa    
 ## # … with 1 more variable: condition &lt;chr&gt;</code></pre>
 </div>
-<div id="selecting" class="section level3">
-<h3>Selecting</h3>
+<div id="selecting" class="section level4">
+<h4>Selecting</h4>
 <p>If you think of filtering as slicing a dataset horizontally, <code>select()</code> does the opposite, slicing a dataset <em>vertically</em>, by dropping a subset of the columns. The interface is similar to <code>filter()</code>’s. You begin with the data and then through various arguments select which columns you want to keep.</p>
 <p>There is a plethora of possibilities when it comes to <code>select()</code>. We’ll try to cover some of the most common ones here, but see the documentation for <code>select()</code> if you want to learn more.</p>
 <p>The simplest option is simply to list the columns you want to keep.</p>
@@ -1840,8 +1840,8 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 <p>The manual entry for <code>select()</code> contains several examples using these helper functions, as does the individual entries for each function.</p>
 <p>Consider taking a little time to play around with <code>select()</code> and its helper functions on the <code>us_cars</code> dataset.</p>
 </div>
-<div id="mutating" class="section level3">
-<h3>Mutating</h3>
+<div id="mutating" class="section level4">
+<h4>Mutating</h4>
 <p>Frequently when visualizing data you will want to transform that data in some way. Perhaps you’re more interested in the proportion than a number, want to convert a value to a different unit or you just need to change the names of some factor variables. In this cases, <code>mutate()</code> is your best friend.</p>
 <p>Let’s start by example. Say that we want to convert the price of the cars in the <code>us_cars</code> dataset to Swedish kronor instead. Here’s how to do this:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true"></a><span class="kw">mutate</span>(us_cars, <span class="dt">price =</span> price<span class="op">*</span><span class="fl">8.92</span>)</span></code></pre></div>
@@ -1900,11 +1900,11 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 ## # … with 2,489 more rows, and 1 more variable: condition &lt;chr&gt;</code></pre>
 </div>
 </div>
-<div id="grouping-mutating-and-summarizing" class="section level2">
-<h2>Grouping, Mutating, and Summarizing</h2>
+<div id="grouping-mutating-and-summarizing" class="section level3">
+<h3>Grouping, Mutating, and Summarizing</h3>
 <p>Another common operation in data-visualization is to group and summarize data. This is useful when you want to visualize a summary statistic, rather than the raw data. Before taking this route in data visualization, however, make it a habit to ask yourself whether this aggregation is needed. If you are able to craft a visualization where you showcase <strong>all</strong> your data without sacrificing the communicative properties of the visualization, then this is always the better alternative.</p>
-<div id="grouping" class="section level3">
-<h3>Grouping</h3>
+<div id="grouping" class="section level4">
+<h4>Grouping</h4>
 <p>To group data using the tidyverse methodology, we use <code>group_by()</code> (from <strong>dplyr</strong>). This is a very simple function. You simply list all the variables (columns) that you want to group by. Let’s group the <code>us_cars</code> dataset by country (USA or Canada).</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true"></a><span class="kw">group_by</span>(us_cars, country)</span></code></pre></div>
 <pre><code>## # A tibble: 2,499 x 12
@@ -1924,8 +1924,8 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 ## # … with 2,489 more rows, and 1 more variable: condition &lt;chr&gt;</code></pre>
 <p>Okay, so not much happened! If you look closely, however, you’ll see that this tibble is now <strong>grouped</strong>—but what does this mean? Well, the truth is that grouping is only useful when combined with functions that modify the data, most prominently <code>summarize()</code> (or <code>summarise()</code>).</p>
 </div>
-<div id="summarizing" class="section level3">
-<h3>Summarizing</h3>
+<div id="summarizing" class="section level4">
+<h4>Summarizing</h4>
 <p><code>summarize()</code> takes a dataset—usually a <em>grouped</em> dataset—and a set of functions that should take a vector as input and return a summary statistics, such as</p>
 <ul>
 <li><code>mean()</code>,</li>
@@ -1951,8 +1951,8 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 </div>
 </div>
 </div>
-<div id="missing-data" class="section level1">
-<h1>Missing Data</h1>
+<div id="missing-data" class="section level2">
+<h2>Missing Data</h2>
 <p>Missing data is an issue that is prevalent in much of the real-life data that you may encounter, particularly when it comes to data involving people. Dealing with missing data is an important topic but, as we said in the introduction, it is a topic that lies mostly outside the scope of this course. We recommend that you always take time to consider the reasons for why data may be missing and also to include missing data in your visualizations (instead of simply removing it).</p>
 <p>What you do need to know, however, is that missing data (coded as <code>NA</code> in R) may interfere with your work in R. Let’s say that you’re working with sleep data on mammals using the <code>msleep</code> dataset from <strong>gplot2</strong>, and want to compute the mean number of hours in REM sleep:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true"></a><span class="kw">mean</span>(msleep<span class="op">$</span>sleep_rem)</span></code></pre></div>
@@ -1960,8 +1960,8 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 <p>The result here, <code>NA</code>, is a result of the presence of <code>NA</code> values in the column <code>sleep_rem</code> in <code>msleep</code> and this behavior is actually the default for the vast majority of operations in R. To deal with this, you have two options: 1) remove the observations with <code>NA</code> values from the data set using <code>na_drop()</code> or 2) set <code>na.rm = TRUE</code> in the call to <code>mean()</code>.</p>
 <p>The second option is usually the best choice here, since it means that you can still keep the <code>NA</code> values around when you want to produce visualizations, but in this course we’ll simply sometimes do <code>na_drop()</code> to make working with the datasets a little bit smoother.</p>
 </div>
-<div id="the-pipe-operator" class="section level1">
-<h1>The Pipe Operator</h1>
+<div id="pipes" class="section level2">
+<h2>Pipes</h2>
 <p>The pipe operator, <code>%&gt;%</code>, is a staple in data science workflows because it makes the process of managing data much more managable, modular, and intuitive. The pipe operator can be hard to get to grips with at first, but once you do, you will never want to go back.</p>
 <p>The pipe operator takes an object on its left-hand side (or line above) and <em>pipes</em> it through to an object (almost exclusively a function) on the right-hand side. The object on the left-hand side will enter the function on the right hand side as <em>the first argument of that function</em>, replacing (pushing back) any other argument that’s already there.</p>
 <p>Let’s say that we have the following function, <code>my_frac()</code>, which takes arguments <code>x</code> and <code>y</code> and returns <code>x/y</code>.</p>
@@ -1980,8 +1980,8 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">my_frac</span>(<span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.4</code></pre>
 <p>You’re probably thinking that this doesn’t seem very useful at all, given that we’ve now spent more code to accomplish exactly what <code>my_frac()</code> already accomplished very well without the pipe. Where the pipe operator comes into its own, however, is when we need to chain multiple functions.</p>
-<div id="case-study-using-pipes" class="section level2">
-<h2>Case Study using Pipes</h2>
+<div id="case-study-using-pipes" class="section level3">
+<h3>Case Study using Pipes</h3>
 <p>Let’s say that we want to take our <code>us_cars</code> dataset and perform a set of options, namely:</p>
 <ol style="list-style-type: decimal">
 <li>filter out all cars that are black,</li>
@@ -1996,8 +1996,8 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 <li>use function composition, or</li>
 <li>use pipes.</li>
 </ol>
-<div id="intermediate-objects" class="section level3">
-<h3>Intermediate Objects</h3>
+<div id="intermediate-objects" class="section level4">
+<h4>Intermediate Objects</h4>
 <p>To solve this by storing temporary objects, here’s what we would do:</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true"></a>black_cars &lt;-<span class="st"> </span><span class="kw">filter</span>(us_cars, color <span class="op">==</span><span class="st"> &quot;black&quot;</span>)</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true"></a>black_cars_groupedby_states &lt;-<span class="st"> </span><span class="kw">group_by</span>(black_cars, state)</span>
@@ -2021,8 +2021,8 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 <p>The largest downside to this approach is that you’re cluttering the workspace with names of intermediary objects that you need to keep track of and name with meaningful names, or alternatively name by incrementing a counter such as <code>cars1</code>, <code>cars2</code>, etc. This latter approach is actually what you’ll often end up doing, and (at least for me) often leads to mixing up the counters and ending up with the wrong results.</p>
 <p>Storing intermediate results is sometimes precisely the right way to go about this, especially when you will later use the intermediary result, but in this case it leads to code that is hard to read and manage.</p>
 </div>
-<div id="function-composition" class="section level3">
-<h3>Function Composition</h3>
+<div id="function-composition" class="section level4">
+<h4>Function Composition</h4>
 <p>An alternative is to use composite functions for our call. The code above then looks like this</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true"></a><span class="kw">arrange</span>(</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true"></a>  <span class="kw">summarize</span>(</span>
@@ -2050,8 +2050,8 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 ## # … with 25 more rows</code></pre>
 <p>Code like this is incredibly hard to manage (and read). Simply keeping track of which argument belongs to which function is strenuous. Imagine that you want to swap order of one of these operations, or add another step somewhere.</p>
 </div>
-<div id="pipes" class="section level3">
-<h3>Pipes</h3>
+<div id="pipes-1" class="section level4">
+<h4>Pipes</h4>
 <p>With pipes, we get the following result:</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true"></a>us_cars <span class="op">%&gt;%</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(color <span class="op">==</span><span class="st"> &quot;black&quot;</span>) <span class="op">%&gt;%</span></span>
@@ -2093,8 +2093,8 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 </div>
 </div>
 </div>
-<div id="source-code" class="section level1">
-<h1>Source Code</h1>
+<div id="source-code" class="section level2">
+<h2>Source Code</h2>
 <p>The source code for this document is available at <a href="https://github.com/stat-lu/STAE04/blob/master/worked-example-working-with-data-in-r.Rmd" class="uri">https://github.com/stat-lu/STAE04/blob/master/worked-example-working-with-data-in-r.Rmd</a>.</p>
 </div>
 <div class="footnotes">
