@@ -250,4 +250,7 @@ ggmap(mp) +
   theme(legend.position = "right")
 ```
 
+## Source Code
 
+The source code for this document is available at
+<https://github.com/stat-lu/STAE04/blob/master/worked-example-chile-plebiscite.Rmd>.
