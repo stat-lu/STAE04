@@ -151,10 +151,11 @@ mpg %>%
 
 If you use a WYSIWYG editor, you need to first import your images
 into the editor and then right-click on them and choose `Insert Caption` (or 
-some similar command). **Don't use `ggtitle()`, `labs(title = ...)`.**
+some similar command). **Don't use `ggtitle()`, `labs(title = ...)`!**
 
-See [The Anatomy of a Plot](https://canvas.education.lu.se/courses/5769/pages/the-anatomy-of-a-plot) for
-examples and more instruction on how to format your figures.
+See 
+[The Anatomy of a Plot](https://stat-lu.github.io/STAE04/misc-the-anatomy-of-a-plot)
+for examples and more instruction on how to format your figures.
 
 ### Code
 
