@@ -27,6 +27,7 @@ This page contains slides for the course STAE04: Data Visualization
 * [Hello, World!](worked-example-hello-world)
 * [Cars](worked-example-cars)
 * [First Steps with ggplot2](worked-example-first-steps-with-ggplot2)
+* [D-Rex](worked-example-drex)
 * [Air Quality](worked-example-airquality)
 * [Arthritis](worked-example-arthritis)
 * [Plants](worked-example-plants)
