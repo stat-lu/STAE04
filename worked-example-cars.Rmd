@@ -301,6 +301,38 @@ mutate(
 ) 
 ```
 
+#### Rename
+
+When you produce visualizations, you need to make sure that annotation in the
+plot, such as the axis titles, are legible. Many datasets, however, have
+variable (column) names that are not. You *can* always fix this when you
+set up your plot, but if you're producing visualizations it may become
+tedious to rename the axes with every plot.
+
+That is why it is often useful to rename your variables during the
+data wrangling step. This also has the benefit of making your data wrangling
+steps more readable. There are multiple ways to rename variables with
+the tidyverse approach. The first and easiest is to use `rename()`.
+You use a `new_name = old_name` scheme to do so. Let's rename "vin" to 
+"vintage".
+
+```{r}
+us_cars %>%
+  rename(vintage = vin)
+```
+
+You can have spaces in your variable names if you want to, but this is bad
+practice for the same reason as it is unwise to include special characters
+like `%`, `&`, `$`, and so on in variable names---it may cause some functions
+to break unexpectedly.
+
+You can also rename variables in your call to `select()` in the same fashion.
+
+```{r}
+us_cars %>%
+  select(vintage = vin, vehicle_status = title_status)
+```
+
 ### Grouping, Mutating, and Summarizing
 
 Another common operation in data-visualization is to group and summarize data. This is

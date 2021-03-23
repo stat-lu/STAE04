@@ -1899,6 +1899,45 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 ## 10  5200 ford  mpv    2017 clean vehic…   63418 black 2fmp… 1.68e8 TEXAS usa    
 ## # … with 2,489 more rows, and 1 more variable: condition &lt;chr&gt;</code></pre>
 </div>
+<div id="rename" class="section level4">
+<h4>Rename</h4>
+<p>When you produce visualizations, you need to make sure that annotation in the plot, such as the axis titles, are legible. Many datasets, however, have variable (column) names that are not. You <em>can</em> always fix this when you set up your plot, but if you’re producing visualizations it may become tedious to rename the axes with every plot.</p>
+<p>That is why it is often useful to rename your variables during the data wrangling step. This also has the benefit of making your data wrangling steps more readable. There are multiple ways to rename variables with the tidyverse approach. The first and easiest is to use <code>rename()</code>. You use a <code>new_name = old_name</code> scheme to do so. Let’s rename “vin” to “vintage”.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true"></a>us_cars <span class="op">%&gt;%</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">vintage =</span> vin)</span></code></pre></div>
+<pre><code>## # A tibble: 2,499 x 12
+##    price brand  model   year title_status  mileage color vintage      lot state 
+##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt; 
+##  1  6300 toyota cruis…  2008 clean vehicle  274117 black jtezu11f… 1.59e8 new j…
+##  2  2899 ford   se      2011 clean vehicle  190552 silv… 2fmdk3gc… 1.67e8 tenne…
+##  3  5350 dodge  mpv     2018 clean vehicle   39590 silv… 3c4pdcgg… 1.68e8 georg…
+##  4 25000 ford   door    2014 clean vehicle   64146 blue  1ftfw1et… 1.68e8 virgi…
+##  5 27700 chevr… 1500    2018 clean vehicle    6654 red   3gcpcrec… 1.68e8 flori…
+##  6  5700 dodge  mpv     2018 clean vehicle   45561 white 2c4rdgeg… 1.68e8 texas 
+##  7  7300 chevr… pk      2010 clean vehicle  149050 black 1gcsksea… 1.68e8 georg…
+##  8 13350 gmc    door    2017 clean vehicle   23525 gray  1gks2gkc… 1.68e8 calif…
+##  9 14600 chevr… malibu  2018 clean vehicle    9371 silv… 1g1zd5st… 1.68e8 flori…
+## 10  5250 ford   mpv     2017 clean vehicle   63418 black 2fmpk3j9… 1.68e8 texas 
+## # … with 2,489 more rows, and 2 more variables: country &lt;chr&gt;, condition &lt;chr&gt;</code></pre>
+<p>You can have spaces in your variable names if you want to, but this is bad practice for the same reason as it is unwise to include special characters like <code>%</code>, <code>&amp;</code>, <code>$</code>, and so on in variable names—it may cause some functions to break unexpectedly.</p>
+<p>You can also rename variables in your call to <code>select()</code> in the same fashion.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a>us_cars <span class="op">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">select</span>(<span class="dt">vintage =</span> vin, <span class="dt">vehicle_status =</span> title_status)</span></code></pre></div>
+<pre><code>## # A tibble: 2,499 x 2
+##    vintage           vehicle_status
+##    &lt;chr&gt;             &lt;chr&gt;         
+##  1 jtezu11f88k007763 clean vehicle 
+##  2 2fmdk3gc4bbb02217 clean vehicle 
+##  3 3c4pdcgg5jt346413 clean vehicle 
+##  4 1ftfw1et4efc23745 clean vehicle 
+##  5 3gcpcrec2jg473991 clean vehicle 
+##  6 2c4rdgeg9jr237989 clean vehicle 
+##  7 1gcsksea1az121133 clean vehicle 
+##  8 1gks2gkc3hr326762 clean vehicle 
+##  9 1g1zd5st5jf191860 clean vehicle 
+## 10 2fmpk3j92hbc12542 clean vehicle 
+## # … with 2,489 more rows</code></pre>
+</div>
 </div>
 <div id="grouping-mutating-and-summarizing" class="section level3">
 <h3>Grouping, Mutating, and Summarizing</h3>
@@ -1906,7 +1945,7 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 <div id="grouping" class="section level4">
 <h4>Grouping</h4>
 <p>To group data using the tidyverse methodology, we use <code>group_by()</code> (from <strong>dplyr</strong>). This is a very simple function. You simply list all the variables (columns) that you want to group by. Let’s group the <code>us_cars</code> dataset by country (USA or Canada).</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true"></a><span class="kw">group_by</span>(us_cars, country)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true"></a><span class="kw">group_by</span>(us_cars, country)</span></code></pre></div>
 <pre><code>## # A tibble: 2,499 x 12
 ## # Groups:   country [2]
 ##    price brand model  year title_status mileage color vin      lot state country
@@ -1934,14 +1973,14 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 <li><code>quantile(..., probs = 0.25)</code>.</li>
 </ul>
 <p>Let’s see how this looks in practice. We’ll compute the median and mean prices of cars in USA and Canada.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a>us_cars_grouped &lt;-<span class="st"> </span><span class="kw">group_by</span>(us_cars, country)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true"></a></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true"></a><span class="kw">summarize</span>(</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true"></a>  us_cars_grouped, </span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true"></a>  <span class="dt">median_price =</span> <span class="kw">median</span>(price), </span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true"></a>  <span class="dt">mean_price =</span> <span class="kw">mean</span>(price),</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true"></a>  <span class="dt">number_of_cars =</span> <span class="kw">n</span>() <span class="co"># captures the size of the group</span></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true"></a>us_cars_grouped &lt;-<span class="st"> </span><span class="kw">group_by</span>(us_cars, country)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true"></a><span class="kw">summarize</span>(</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true"></a>  us_cars_grouped, </span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true"></a>  <span class="dt">median_price =</span> <span class="kw">median</span>(price), </span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true"></a>  <span class="dt">mean_price =</span> <span class="kw">mean</span>(price),</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true"></a>  <span class="dt">number_of_cars =</span> <span class="kw">n</span>() <span class="co"># captures the size of the group</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true"></a>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 4
 ##   country median_price mean_price number_of_cars
 ##   &lt;chr&gt;          &lt;dbl&gt;      &lt;dbl&gt;          &lt;int&gt;
@@ -1955,7 +1994,7 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 <h2>Missing Data</h2>
 <p>Missing data is an issue that is prevalent in much of the real-life data that you may encounter, particularly when it comes to data involving people. Dealing with missing data is an important topic but, as we said in the introduction, it is a topic that lies mostly outside the scope of this course. We recommend that you always take time to consider the reasons for why data may be missing and also to include missing data in your visualizations (instead of simply removing it).</p>
 <p>What you do need to know, however, is that missing data (coded as <code>NA</code> in R) may interfere with your work in R. Let’s say that you’re working with sleep data on mammals using the <code>msleep</code> dataset from <strong>gplot2</strong>, and want to compute the mean number of hours in REM sleep:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true"></a><span class="kw">mean</span>(msleep<span class="op">$</span>sleep_rem)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true"></a><span class="kw">mean</span>(msleep<span class="op">$</span>sleep_rem)</span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 <p>The result here, <code>NA</code>, is a result of the presence of <code>NA</code> values in the column <code>sleep_rem</code> in <code>msleep</code> and this behavior is actually the default for the vast majority of operations in R. To deal with this, you have two options: 1) remove the observations with <code>NA</code> values from the data set using <code>na_drop()</code> or 2) set <code>na.rm = TRUE</code> in the call to <code>mean()</code>.</p>
 <p>The second option is usually the best choice here, since it means that you can still keep the <code>NA</code> values around when you want to produce visualizations, but in this course we’ll simply sometimes do <code>na_drop()</code> to make working with the datasets a little bit smoother.</p>
@@ -1965,19 +2004,19 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 <p>The pipe operator, <code>%&gt;%</code>, is a staple in data science workflows because it makes the process of managing data much more managable, modular, and intuitive. The pipe operator can be hard to get to grips with at first, but once you do, you will never want to go back.</p>
 <p>The pipe operator takes an object on its left-hand side (or line above) and <em>pipes</em> it through to an object (almost exclusively a function) on the right-hand side. The object on the left-hand side will enter the function on the right hand side as <em>the first argument of that function</em>, replacing (pushing back) any other argument that’s already there.</p>
 <p>Let’s say that we have the following function, <code>my_frac()</code>, which takes arguments <code>x</code> and <code>y</code> and returns <code>x/y</code>.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true"></a>my_frac &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true"></a>  x <span class="op">/</span><span class="st"> </span>y</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true"></a>my_frac &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true"></a>  x <span class="op">/</span><span class="st"> </span>y</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true"></a>}</span></code></pre></div>
 <p>Now we can use this function on two numbers, like so:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true"></a><span class="kw">my_frac</span>(<span class="dv">2</span>, <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true"></a><span class="kw">my_frac</span>(<span class="dv">2</span>, <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.4</code></pre>
 <p>If we were to do this with the pipe operator instead, it would look like this:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true"></a><span class="co"># use the pipe operator</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true"></a><span class="dv">2</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">my_frac</span>(<span class="dv">5</span>) <span class="co"># equivalent to my_frac(2, 5)</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true"></a><span class="co"># use the pipe operator</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true"></a><span class="dv">2</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">my_frac</span>(<span class="dv">5</span>) <span class="co"># equivalent to my_frac(2, 5)</span></span></code></pre></div>
 <pre><code>## [1] 0.4</code></pre>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true"></a><span class="co"># or we can do</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true"></a><span class="dv">2</span> <span class="op">%&gt;%</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">my_frac</span>(<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true"></a><span class="co"># or we can do</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true"></a><span class="dv">2</span> <span class="op">%&gt;%</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">my_frac</span>(<span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.4</code></pre>
 <p>You’re probably thinking that this doesn’t seem very useful at all, given that we’ve now spent more code to accomplish exactly what <code>my_frac()</code> already accomplished very well without the pipe. Where the pipe operator comes into its own, however, is when we need to chain multiple functions.</p>
 <div id="case-study-using-pipes" class="section level3">
@@ -1999,11 +2038,11 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 <div id="intermediate-objects" class="section level4">
 <h4>Intermediate Objects</h4>
 <p>To solve this by storing temporary objects, here’s what we would do:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true"></a>black_cars &lt;-<span class="st"> </span><span class="kw">filter</span>(us_cars, color <span class="op">==</span><span class="st"> &quot;black&quot;</span>)</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true"></a>black_cars_groupedby_states &lt;-<span class="st"> </span><span class="kw">group_by</span>(black_cars, state)</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true"></a>black_cars_state_mileage &lt;-</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarize</span>(black_cars_groupedby_states, <span class="dt">mean_mileage =</span> <span class="kw">mean</span>(mileage))</span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true"></a><span class="kw">arrange</span>(black_cars_state_mileage, mean_mileage)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true"></a>black_cars &lt;-<span class="st"> </span><span class="kw">filter</span>(us_cars, color <span class="op">==</span><span class="st"> &quot;black&quot;</span>)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true"></a>black_cars_groupedby_states &lt;-<span class="st"> </span><span class="kw">group_by</span>(black_cars, state)</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true"></a>black_cars_state_mileage &lt;-</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarize</span>(black_cars_groupedby_states, <span class="dt">mean_mileage =</span> <span class="kw">mean</span>(mileage))</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true"></a><span class="kw">arrange</span>(black_cars_state_mileage, mean_mileage)</span></code></pre></div>
 <pre><code>## # A tibble: 35 x 2
 ##    state         mean_mileage
 ##    &lt;chr&gt;                &lt;dbl&gt;
@@ -2024,16 +2063,16 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 <div id="function-composition" class="section level4">
 <h4>Function Composition</h4>
 <p>An alternative is to use composite functions for our call. The code above then looks like this</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true"></a><span class="kw">arrange</span>(</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true"></a>  <span class="kw">summarize</span>(</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true"></a>    <span class="kw">group_by</span>(</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true"></a>      <span class="kw">filter</span>(us_cars, color <span class="op">==</span><span class="st"> &quot;black&quot;</span>),</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true"></a>      state</span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true"></a>    ),</span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true"></a>    <span class="dt">mean_mileage =</span> <span class="kw">mean</span>(mileage)</span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true"></a>  ),</span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true"></a>  mean_mileage</span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true"></a><span class="kw">arrange</span>(</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true"></a>  <span class="kw">summarize</span>(</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true"></a>    <span class="kw">group_by</span>(</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true"></a>      <span class="kw">filter</span>(us_cars, color <span class="op">==</span><span class="st"> &quot;black&quot;</span>),</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true"></a>      state</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true"></a>    ),</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true"></a>    <span class="dt">mean_mileage =</span> <span class="kw">mean</span>(mileage)</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true"></a>  ),</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true"></a>  mean_mileage</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true"></a>)</span></code></pre></div>
 <pre><code>## # A tibble: 35 x 2
 ##    state         mean_mileage
 ##    &lt;chr&gt;                &lt;dbl&gt;
@@ -2053,11 +2092,11 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 <div id="pipes-1" class="section level4">
 <h4>Pipes</h4>
 <p>With pipes, we get the following result:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true"></a>us_cars <span class="op">%&gt;%</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(color <span class="op">==</span><span class="st"> &quot;black&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(state) <span class="op">%&gt;%</span></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean_mileage =</span> <span class="kw">mean</span>(mileage)) <span class="op">%&gt;%</span></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">arrange</span>(mean_mileage)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true"></a>us_cars <span class="op">%&gt;%</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(color <span class="op">==</span><span class="st"> &quot;black&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(state) <span class="op">%&gt;%</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean_mileage =</span> <span class="kw">mean</span>(mileage)) <span class="op">%&gt;%</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">arrange</span>(mean_mileage)</span></code></pre></div>
 <pre><code>## # A tibble: 35 x 2
 ##    state         mean_mileage
 ##    &lt;chr&gt;                &lt;dbl&gt;
@@ -2076,9 +2115,9 @@ Tubercolosis cases in Afghanistan, Brazil, and China in 1999 and 2000.
 <p>The <strong>tidyverse</strong> is designed specifically with the pipe operator in mind. The reason that it works so well with the tidyverse is that virtually every function in the tidyverse takes a dataset as the first argument, so piping together functions like this becomes very natural. The base R functions and many other packages out there don’t necessarily abide by this principle, however, so make sure you know what your functions are doing when you’re using pipes or you may end up with unexpected (and undesirable) consequences.</p>
 <p>If you want to mix tidyverse functions with functions from packages that work differently, you can still do this with pipes, but then need to use the special <code>.</code> argument, which is a placeholder for the object that you are piping.</p>
 <p>One use case for this is fitting a statistical model, for instance a linear regression. You typically do this with the <code>lm()</code> function in R, but this function takes a formula object as its first argument, so won’t work out-of-the box if we want to pipe a dataset into the function. Instead what you then need to do is this:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true"></a>us_cars <span class="op">%&gt;%</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(color <span class="op">==</span><span class="st"> &quot;black&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>mileage, <span class="dt">data =</span> .)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true"></a>us_cars <span class="op">%&gt;%</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(color <span class="op">==</span><span class="st"> &quot;black&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>mileage, <span class="dt">data =</span> .)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = price ~ mileage, data = .)
