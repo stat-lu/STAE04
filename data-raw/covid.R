@@ -74,4 +74,10 @@ a[is.na(match(a, b))]
 
 #inner_join(world, covid2, by = c("region" = "country"))
 
+covid2 %>%
+  mutate(date = parse_date(year_week, "%Y-%U"))
+  separate(year_week, c("year", "week")) %>%
+  mutate(year = as.integer(year),
+         week = as.integer(week))
+
 write_csv(covid2, "data/covid.csv")
