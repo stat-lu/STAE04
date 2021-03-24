@@ -30,26 +30,26 @@ options(scipen = 999)
 Let's get started working with R! In this worked example, we will learn how
 to install and use packages in R as well as perform some basic operations on
 vectors, matrices, and data frames. First off, if you're familiar with
-other programming languages since before, you're notice that
+other programming languages since before, you will notice that
 R is an *interpreted* language, which means that you don't need to compile
 anything.^[R actually does a bit of just-in-time compiling for you, but you
 will hardly notice.]
 
-So it's very easy to write an R program. You simply put some R code in
-a text file with the ending `.R`, and then you can run that program
-using a terminal, R Studio, or some other graphical user interface. So,
+That means it's very easy to write and run an R program. You simply put some R
+code in a text file with the ending `.R`, and then you can run that program
+using a terminal or a graphical user interface like R Studio. So,
 let's say we have a script called [`helloworld.R`](helloworld.R). Then it's just
 a matter of calling `Rscript`^[`Rscript` is a helper application that is
-installed alongside R to make it easy to run scripts.] on it.
+installed alongside R to make it easy to run scripts.] on that scripts, like
+this.
 
 ```{bash}
 Rscript helloworld.R
 ```
 
-This is just to showcase that R is really just a program that processes a 
-text file in a specific way. The `.R` (and `.Rmd`) files that you will be
-working with are only text and you don't need R to read them. You can just open 
-them in a text editor.
+This is just to showcase that R is really just a program that reads and
+interprets text files. The `.R` (and `.Rmd`) files that you will be
+working with are just that: text.
 
 ## Objects in R
 
@@ -78,10 +78,10 @@ the_meaning_of_life
 
 Vectors are one-dimensional arrays which store objects. Vectors can be created
 from functions or directly using, for instance, the `c()` function. Each vector
-can only store objects of **a single type**, which means that you cannot combine
+can only store objects of *a single type*, which means that you cannot combine
 the different data types in R, such as **character**, **numeric**, and 
 **integer**. If you still decide to try to, however, you will soon notice that R
-won't tell you no. Instead, R simply **converts** the vector to a single type 
+won't tell you no. Instead, R simply *converts* the vector to a single type 
 based on a few defaults.
 
 We talked about this in the lecture, so try to see if you can figure out how the
@@ -95,15 +95,28 @@ c(1, 1/3)
 ```
 
 Having numeric values be converted to characters is seldom what you want. The
-conversion from integers to doubles, however, rarely makes much of a difference.
+conversion from integers to doubles if often not a big problem, but can lead
+to improper formatting of things such as axis labels in a plot.
 
-We can manipulate vectors algebraically using the standard arithmetic operators.
+We can manipulate vectors algebraically using standard arithmetic operators.
 
 ```{r}
+1:2 + c(3, 9)      # adding two vectors together
 1.6 / 2
-c(1, 10) * 2
+c(1, 10) * 2       # 2 is multiplied with each element
 c(NA, 3.123, pi)^2 # pi is an object that's always available
 ```
+
+If you combine two vectors thare are of different length but where the
+shorter vector's length is a *multiple* of the longer vector's length, then
+R will *recycle* the shorter vector.
+
+```{r}
+c(1, 2, 3, 4) * c(1, 2)
+```
+
+What do you think happens if the shorter vector's length is *not* a multiple
+of the longer vector's length? We'll find out a bit later.
 
 ### Special Values
 
@@ -117,7 +130,7 @@ a <- NULL
 ```
 
 but note that creating a vector with several values, some of them `NULL`, will
-give a different (perhaps somewhat surprising) result.
+give a different result.
 
 ```{r}
 a <- c(NULL, "a")
@@ -131,14 +144,14 @@ x <- c("a", "b", "c", "e")
 x[1]
 ```
 
-So access several elements, you can provide a vector of indices.
+And to access several elements at once, you can use a vector of indices.
 
 ```{r}
 x[c(1, 4)]
 ```
 
-Accessing a contiguous subvector is often desireable, in which case the `:` 
-operator is a useful tool. It creates a vector of indices, like so:
+Accessing a contiguous sub-vector is often desirable, in which case the `:` 
+operator is a useful tool. It creates a vector of indices.
 
 ```{r}
 1:4
@@ -157,12 +170,16 @@ x[1:2] <- c("foo", "bar")
 x
 ```
 
-It is also possible to **remove** certain elements by negative indexing in the
+Similarly, we can *remove* certain elements by negative indexing in the
 following way.
 
 ```{r}
 x[-1]
+x[-(1:2)]
 ```
+
+Notice the use of parentheses in the second example. What do you think
+`x[-1:2]` would give us?
 
 ### Matrices
 
@@ -194,7 +211,7 @@ m[, 2]
 
 Data frames look a lot like matrices except they allow each column to have a 
 different type. Most of the data that you will encounter in this course will be
-stored as data frames (or tibbles, but more on that later).
+stored as data frames (or as tibbles, but more on that later).
 
 The following code creates a simple data.frame, using the `data.frame()` 
 function.
@@ -227,7 +244,7 @@ call the code below.
 install.packages("ggplot2")
 ```
 
-When you call this line, R will also install all of the **dependencies** that
+When you call this line, R will also install all of the *dependencies* that
 come with ggplot2, which includes other packages. If this is the first time you
 run R, you might also be prompted to choose a CRAN mirror. A good default choice
 is `"https://cloud.r-project.org"`.
@@ -235,34 +252,34 @@ is `"https://cloud.r-project.org"`.
 ### Using Packages
 
 To use a package in R, you can call the `library(<package-name>)` function, 
-after which all of that packages functions---and possibly also its 
+after which all of that packages functions---and often also its 
 datasets---will be available to you directly in your working environment.
 
-Load the **ggplot2** package we just installed by calling
+Load the **ggplot2** package we just installed by calling the following.
 
 ```{r}
 library(ggplot2) # library("ggplot2") would work as well!
 ```
 
-Sometimes you might also see people use `package::function()` to call a 
+Sometimes we will also use `<package>::function()` to call a 
 function from a specific package. In this case, you don't need to call library 
-first.
+first. This is particularly useful if you load two packages that export
+two functions with the same names.
 
 In the following line, we create a plot in **ggplot2** with this syntax, but 
 bear in mind that this is just for show since we're already loaded the package
 using `library()`.
 
 ```{r}
-ggplot2::ggplot(mpg, aes(cty, hwy)) +
-  geom_point()
+ggplot2::ggplot(mpg, ggplot2::aes(cty, hwy)) +
+  ggplot2::geom_point()
 ```
-
 
 ## Functions
 
 ### Function Basics
 
-As we said in the lecture, you will use functions **a lot** throughout this 
+As we said in the lecture, you will use functions *a lot* throughout this 
 course (although you won't write your own). Therefore, you really need to 
 understand how to *call* functions.
 
@@ -270,12 +287,12 @@ Here is a simple function:
 
 ```{r}
 f1 <- function(a, b) {
-  (a + b)^2
+  (a + b) ^ 2
 }
 ```
 
 Its arguments are `a` and `b` and it returns the squared sum of `a` and `b`. 
-When we call it, we must supply both arguments, or R will throw an error. 
+When we call it we must supply both arguments or R will throw an error. 
 
 ```{r eval = FALSE}
 f1(2) # error!
@@ -286,7 +303,7 @@ f1(2, 3)
 ```
 
 You can choose to specify arguments by location, as we did above, or by
-naming each argument, as in the following call.
+naming each argument as in the following call.
 
 ```{r}
 f1(a = 2, b = 3)
@@ -294,17 +311,17 @@ f1(a = 2, b = 3)
 
 When you use functions in R, however, you will find that you seldom need to
 supply all the arguments of a function, which is due to them having 
-**default values**.
+*default values*.
 
-The following function, `f2()`, have defaults for both its arguments.
+The following function, `f2()`, have defaults for both of its arguments.
 
 ```{r}
 f2 <- function(a = 3, b = 0.5) {
-  sqrt(a) + 3*log(b)
+  sqrt(a) + 3 * log(b)
 }
 ```
 
-We can call it without supplying **any** argument.
+We can call it without supplying *any* argument.
 
 ```{r}
 f2()
@@ -354,7 +371,7 @@ d$age <- d$age * 365
 We have already shown a few lines of code that when run produces **errors**.
 Errors notify you that something has gone wrong, and this always happens when
 calling a function (remember that everything you do in R is the result of a 
-function call, even `2 + 3` calls a function under the hood). 
+function call; even `2 + 3` calls a function under the hood). 
 
 With every error, you will receive a message indicating what has gone wrong 
 (and sometimes why). Error messages can, however, be rather cryptic. The best
@@ -364,7 +381,7 @@ someone else has been there before.
 
 ### Warnings
 
-You may also occasionally receive **warnings**. Warnings indicate that something
+You may also occasionally receive *warnings*. Warnings indicate that something
 may not have gone as planned but that the problem hasn't been fatal enough to
 cause the function to terminate. Be weary of warnings. Warnings can be harmless 
 but they may also indicate that something isn't working properly, and you will 
@@ -383,7 +400,7 @@ c(3, 2, 1) * c(1, 2)
 ### Basic Conditional Operators
 
 Conditional statements are very useful when it comes to data science,
-particularly for filtering observations based on the values of a given variable.
+particularly for filtering observations based on the values of another variable.
 Conditionals are logical statements that check each value to see if it is equal 
 to, greater/lesser than, or greater/lesser or equal to some reference. 
 
@@ -448,7 +465,7 @@ persons are vegans or vegetarians.
 d$diet %in% c("vegan", "vegetarian")
 ```
 
-This will come in handy for us later on in the course.
+This will come in handy for us repeatedly throughout the course.
 
 ## Documentation
 
@@ -458,7 +475,7 @@ values are is to read the documentation of the function.
 
 If you're using R Studio (which you really should) you can simply place your 
 cursor on the function, click, and hit `F1` to bring up the documentation for
-the function in the *Help* pane of R Studio. It is also possible to use 
+the function in the help pane of R Studio. It is also possible to use 
 `help(<function-name>)` or `?<function-name>`.
 
 ```{r}
