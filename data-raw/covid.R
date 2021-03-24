@@ -1,12 +1,12 @@
 library(tidyverse)
 library(lubridate)
-library(rworldmap)
+# library(rworldmap)
 
 covid <- read_csv(
  "https://opendata.ecdc.europa.eu/covid19/nationalcasedeath/csv"
 )
 
-world <- map_data(getMap("coarse"))
+# world <- map_data(getMap("coarse"))
 
 # for some reason matching fails on antigua and barbuda
 covid$country[grepl("^Antigua", covid$country)] <- "Antigua and Barbuda"
@@ -14,7 +14,7 @@ covid$country[grepl("^Antigua", covid$country)] <- "Antigua and Barbuda"
 covid2 <-
   covid %>%
   as_tibble() %>%
-  select(-source) %>%
+  select(-source, -country_code) %>%
   filter(!str_detect(country, "total"),
          !(country %in% c("Bonaire, Saint Eustatius and Saba"))) %>%
   mutate(
@@ -66,18 +66,36 @@ covid2 <-
     )
   )
 
-# making sure that the names are matched up
-a <- sort(unique(covid2$country))
-b <- sort(unique(world$region))
+# # making sure that the names are matched up
+# a <- sort(unique(covid2$country))
+# b <- sort(unique(world$region))
+#
+# a[is.na(match(a, b))]
+#
+# inner_join(world, covid2, by = c("region" = "country"))
 
-a[is.na(match(a, b))]
-
-#inner_join(world, covid2, by = c("region" = "country"))
-
-covid2 %>%
-  mutate(date = parse_date(year_week, "%Y-%U"))
+covid3 <-
+  covid2 %>%
   separate(year_week, c("year", "week")) %>%
-  mutate(year = as.integer(year),
-         week = as.integer(week))
+  mutate(
+    year = as.integer(year),
+    week = as.integer(week) - 1,
+    date = as.Date(paste(year, week, 1, sep = "/"), "%Y/%W/%u"),
+    month = month(date)
+  ) %>%
+  select(
+    country,
+    continent,
+    population,
+    date,
+    year,
+    month,
+    week,
+    date,
+    indicator,
+    weekly_count,
+    rate_14_day,
+    cumulative_count
+  )
 
-write_csv(covid2, "data/covid.csv")
+write_csv(covid3, "data/covid.csv")
