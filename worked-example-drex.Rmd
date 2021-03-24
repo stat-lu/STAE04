@@ -104,9 +104,9 @@ that your data is measured on a continuous scale and can make strong
 assumptions about the distributions of your variables, since the choice
 of parameters for the density kernel have large effects on the result. 
 
-Here we try a few different choices to highlight this
+Here we try a few different choices to highlight this.
 
-```{r, fig.cap = "A density plots with various density estimate choices of the x variable."}
+```{r, fig.cap = "Density plots with various density estimate choices."}
 ggplot(xy, aes(x)) +
   geom_density() + # kernel = "gaussian", the default
   geom_density(col = "navy", kernel = "rectangular") +
@@ -119,12 +119,12 @@ choices that are probably better, such as `bw = "SJ"`.
 
 ## Multiple Distributions in One Plot
 
-When you have several variables from the same dataset and thus related, it
+When you have several related variables from the same dataset, it
 often makes good sense to juxtapose them in a plot in order to make it
-easier for the reader to compare the distributions. In the lecture,
-we did you by first pivoting our dataset into a long format in order to have
+easier for the reader to compare the distributions.
+We do so by first pivoting our dataset into a long format in order to have
 one column that denotes the name of the variable and one column that
-contains those variables' values. Let's do so here.
+contains those variables' values.
 
 ```{r}
 xy_long <- pivot_longer(xy, everything())
@@ -138,8 +138,7 @@ to pivot all the variables by calling `everything()`.
 
 ### Violin Plots
 
-Now we're ready to plot
-our distribution. Let's try a violin plot now.
+Now we're ready to plot our distribution. Let's try a violin plot this time.
 
 ```{r, fig.cap = "Violin plots of the x and y variables from our dataset."}
 ggplot(xy_long, aes(name, value)) +
@@ -150,7 +149,7 @@ Violin plots are great for juxtaposing distributions of variables that are
 on roughly the same scale, which is the case here. 
 
 The distribution for `y` seems to be substantially different from that of
-`x`. It is definitely more flat, almost uniform.
+`x`. It is definitely more flat---almost uniform.
 
 ### Faceted Histograms
 
@@ -172,17 +171,17 @@ this time around.
 
 Another approach when juxtaposing plots of distributions like this is to use
 the [patchwork](https://CRAN.R-project.org/package=patchwork) package, which
-can be used to patch together different ggplots. This is very useful if you
-want to juxtapose plots that use different types of layers. Let's
-install the package first.
+can be used to *patch* together plots that you have created separately.
+This is very useful if you want to juxtapose plots that use different types of
+layers. Let's install the package first.
 
 ```{r eval = FALSE}
 install.packages("patchwork")
 ```
 
 The idea of **patchwork** is extremely simple. You simply add separate plots
-together using `+`. Let's say we wanted to juxtapose a density plot of
-variable `x` with a histogram of variably `y`---all we need to do is 
+together using `+`. Say we wanted to juxtapose a density plot of
+variable `x` with a histogram of variably `y`---all we then need to do is 
 create the plots separately and then add them together.
 
 ```{r, fig.cap = "Density plot of x and histogram of y.", fig.width = 6, fig.height = 3}
@@ -197,8 +196,8 @@ p2 <- ggplot(xy, aes(y)) +
 p1 + p2
 ```
 
-Simple, right? Patchwork has much more extensive functionality than this, 
-however, so make sure to check out the
+Simple, right? How plots are patched together can be controlled in detail,
+so make sure to check out the
 [documentation](https://patchwork.data-imaginist.com/index.html) if you're 
 interested.
 
@@ -206,10 +205,10 @@ interested.
 
 We've now plotted several types of plots of the distributions of this
 dataset and might well feel comfortable about making a few conclusions about the 
-data. Stopping here, however, would unfortunately be a severe mistake. What
-we've missed is to plot the *joint* distribution of these variables, which
-is very easy to do using a scatter plot---which we will dig into during the
-next part of the course.
+data. Stopping here, however, would unfortunately be a severe mistake. Because
+what we've missed is to plot the *joint* distribution of these variables, which
+is very easy to do using a scatter plot (which we will tackle in much more
+detail during the next part of the course).
 
 ```{r fig.cap = "The terrifying Datasaurus Rex."}
 ggplot(xy, aes(x, y)) +
