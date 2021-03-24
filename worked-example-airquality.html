@@ -1644,8 +1644,8 @@ div.tocify {
 Ozone and solar radiation from September to May in New York.
 </p>
 </div>
-<p>There is clearly a strong negative relationship here between wind speed and ozone—with increasing levels of speed, air quality seems to improve. That’s hardly surprising if you think about it. But kind of relationship is it? Describing it as a linear relationship is not accurate.</p>
-<p>The best way to describe this relationship is as a <em>inverse</em> relationship. That is, ozone is inversely proportional to wind speed, which is equivalent to saying that the relationship could be described as <span class="math display">\[
+<p>There is clearly a strong negative relationship here between wind speed and ozone—with increasing levels of speed, air quality seems to improve. That’s hardly surprising if you think about it. But what kind of relationship is it? Describing it as a linear relationship is not accurate.</p>
+<p>The best way to describe this relationship is as an <em>inverse</em> relationship. That is, ozone is inversely proportional to wind speed, which is equivalent to saying that the relationship could be described as <span class="math display">\[
 \text{ozone} = \frac{c}{\text{wind speed}}
 \]</span> for some choice of a constant <span class="math inline">\(c\)</span>.</p>
 <p>Take some time to plot the associations between <code>Ozone</code>, <code>Solar.R</code>, <code>Wind</code>, and <code>Temp</code> and try to think about what kind of patterns (if any) it is you see.</p>
@@ -1675,7 +1675,7 @@ Ozone and solar radiation from September to May in New York.
 ## 10    NA     194   8.6    69     5    10 1973-05-10
 ## # … with 143 more rows</code></pre>
 <p>Now we’re ready to play with the data. The main interest of the dataset is of course air quality, so we want to look at ozone levels across time.</p>
-<p>Here is a first attempt. We use the line geom, which usually comes quite natural for this type of data.</p>
+<p>Here is a first attempt. We use the line geom, which is a natural choice for this type of data.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>p1 &lt;-<span class="st"> </span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="st">  </span>airquality2 <span class="op">%&gt;%</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Date, Ozone)) <span class="op">+</span></span>
@@ -1688,9 +1688,9 @@ Ozone and solar radiation from September to May in New York.
 Air quality (ozone levels) in 1973.
 </p>
 </div>
-<p>The result is possible not quite as nice as you’d expect. Can you figure out why there are multiple holes in the plot?</p>
+<p>The result is possibly not quite as nice as you’d expect. Can you figure out why there are multiple holes in the plot?</p>
 <p>The reason is that there are missing values in the data set. This would not per se be a problem for the visualization, weren’t it for the fact that observations that have neighboring observations that are missing also disappear completely from the visualization when we use the line geom.</p>
-<p>In this case a better idea is to use the point geom,</p>
+<p>In this case a better idea is to also use a point geom.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>p2 &lt;-<span class="st"> </span>p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>p2</span></code></pre></div>
 <div class="figure" style="text-align: center">

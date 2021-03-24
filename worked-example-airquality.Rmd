@@ -76,10 +76,10 @@ airquality %>%
 
 There is clearly a strong negative relationship here between wind speed and
 ozone---with increasing levels of speed, air quality seems to improve. That's
-hardly surprising if you think about it. But kind of relationship is it?
+hardly surprising if you think about it. But what kind of relationship is it?
 Describing it as a linear relationship is not accurate. 
 
-The best way to describe this relationship is as a *inverse* relationship. That
+The best way to describe this relationship is as an *inverse* relationship. That
 is, ozone is inversely proportional to wind speed, which is equivalent to
 saying that the relationship could be described as
 $$
@@ -112,7 +112,7 @@ airquality2
 Now we're ready to play with the data. The main interest of the dataset is
 of course air quality, so we want to look at ozone levels across time.
 
-Here is a first attempt. We use the line geom, which usually comes quite natural
+Here is a first attempt. We use the line geom, which is a natural choice
 for this type of data.
 
 ```{r, fig.cap = "Air quality (ozone levels) in 1973.", fig.width = 5.5, fig.height = 1.8}
@@ -124,7 +124,7 @@ p1 <-
 p1
 ```
 
-The result is possible not quite as nice as you'd expect. Can you figure out
+The result is possibly not quite as nice as you'd expect. Can you figure out
 why there are multiple holes in the plot?
 
 The reason is that there are missing values in the data set. This would not
@@ -132,7 +132,7 @@ per se be a problem for the visualization, weren't it for the fact that
 observations that have neighboring observations that are missing also
 disappear completely from the visualization when we use the line geom.
 
-In this case a better idea is to use the point geom,
+In this case a better idea is to also use a point geom.
 
 ```{r, fig.cap = "Air quality (ozone levels) in 1973.", fig.width = 5.5, fig.height = 1.8}
 p2 <- p1 + geom_point()
