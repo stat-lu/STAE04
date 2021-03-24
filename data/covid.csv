@@ -1,4 +1,4 @@
-country,continent,population,date,year,month,week,indicator,weekly_count,rate_14_day,cumulative_count
+region,continent,population,date,year,month,week,indicator,weekly_count,rate_14_day,cumulative_count
 Afghanistan,Asia,38928341,2020-01-06,2020,1,0,cases,0,NA,0
 Afghanistan,Asia,38928341,2020-01-06,2020,1,1,cases,0,0,0
 Afghanistan,Asia,38928341,2020-01-13,2020,1,2,cases,0,0,0
