@@ -1619,11 +1619,11 @@ A boxplot of the x variable.
 </p>
 </div>
 <p>As you see, our call to ggplot2 is quite simple. We use <code>ggplot()</code> with the data as the first argument and a call to <code>aes()</code> for our aesthetics specification as our second argument. The call to <code>aes()</code> is actually optional and if you want to you can provide your mappings inside the layers (geom functions) if you want to.</p>
-<p>The distribution seems to be reasonably symmetric but with a longer tail to the right and with a single outlier at around 100. The boxplot also indicates that the distribution is uni-modal, with a center around 55. But this is the problem with boxplots: they can never “discover” anything but a single mode, since boxplots are based on statistics only related to the quantiles of the distribution.</p>
+<p>The distribution seems to be reasonably symmetric but with a longer tail to the right and with a single outlier at around 100. The boxplot also indicates that the distribution is uni-modal, with a center around 55. But this is the problem with boxplots: they can never “discover” anything <em>but</em> a single mode, since boxplots are based on statistics only related to the quantiles of the distribution.</p>
 </div>
 <div id="dotplot" class="section level3">
 <h3>Dotplot</h3>
-<p>When studying a distribution, it is usually better to start off with a plot with plot that does less abstraction, such as a simply dotplot. The dots in a dotplot can represent more than one observation if you want to, but I think it works best when each dot is a single observation. Use <code>binwidth = 1</code> to request this.</p>
+<p>When studying a distribution, it is usually better to start off with a plot that does less abstraction, such as a simple dotplot. The dots in a dotplot can represent more than one observation if you want to, but I think it works best when each dot is a single observation. Use <code>binwidth = 1</code> to request this.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">ggplot</span>(xy, <span class="kw">aes</span>(x)) <span class="op">+</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_dotplot</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center">

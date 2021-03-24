@@ -58,15 +58,15 @@ The distribution seems to be reasonably symmetric but with a longer tail
 to the right and with a single outlier at 
 around 100. The boxplot also indicates
 that the distribution is uni-modal, with a center around 55. But this is
-the problem with boxplots: they can never "discover" anything but a single mode,
-since boxplots are based on statistics only related to the quantiles of
-the distribution.
+the problem with boxplots: they can never "discover" anything *but*
+a single mode, since boxplots are based on statistics only related to the 
+quantiles of the distribution.
 
 ### Dotplot
 
 When studying a distribution, it is usually better to start off with a plot
-with plot that does less abstraction, such as a
-simply dotplot. The dots in a dotplot can represent more
+that does less abstraction, such as a
+simple dotplot. The dots in a dotplot can represent more
 than one observation if you want to, but I think it works best when
 each dot is a single observation. Use `binwidth = 1` to request this.
 
