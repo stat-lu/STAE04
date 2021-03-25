@@ -1611,7 +1611,7 @@ A specimen of Echinochloa crus-galli.
 </div>
 <div id="data" class="section level3">
 <h3>Data</h3>
-<p>The data we are going to look at is available in the <code>CO2</code> dataset from <strong>datasets</strong> (a package part of the base R distribution). There are five variables:</p>
+<p>The data we are going to look at is available in the <code>CO2</code> dataset from <strong>datasets</strong> (a package that is part of the base R distribution). There are five variables:</p>
 <dl>
 <dt><code>Plant</code></dt>
 <dd>an ordered factor giving a unique identifier for each plant
@@ -1629,11 +1629,11 @@ A specimen of Echinochloa crus-galli.
 <dd>a numeric vector of carbon dioxide uptake rates (umol/m^2 sec)
 </dd>
 </dl>
-<p>The goal of the experiment was to investigate who carbon dioxide uptake is affected based on the ambient carbon dioxide concentration (<code>conc</code>), the origin of the plant <code>Type</code>, and <code>Treatment</code> (whether the plant was chilled overnight before the experiment started or not).</p>
+<p>The goal of the experiment was to investigate how carbon dioxide uptake is affected based on the ambient carbon dioxide concentration (<code>conc</code>), the origin of the plant <code>Type</code>, and <code>Treatment</code> (whether the plant was chilled overnight before the experiment started or not).</p>
 </div>
 <div id="simple-scatter-plot" class="section level3">
 <h3>Simple Scatter Plot</h3>
-<p>Let’s start basic and just look at a scatter plot of the uptake and ambient concentration. We’ll of course put uptake on the y axis, and concentration on the x axis. Before we get started, we’ll also rename some of the variables so that we get decent axis labels by default and change <code>Plant</code> from ordered to unordered (since the variable obviously isn’t ordinal). We’ll call the new dataset <code>co2</code>.</p>
+<p>Let’s start basic and just look at a scatter plot of the uptake and ambient concentration. We’ll of course map uptake to the y axis, and concentration to the x axis. Before we get started, we’ll also rename some of the variables so that we get decent axis labels by default and change <code>Plant</code> from ordered to unordered (since the variable obviously isn’t ordinal). We’ll call the new dataset <code>co2</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>co2 &lt;-<span class="st"> </span></span>
