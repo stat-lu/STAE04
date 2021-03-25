@@ -40,7 +40,7 @@ reproduce that plot as both an animated an interactive visualization.
 
 The dataset that we'll use is available via the 
 [gapminder](https://CRAN.R-project.org/package=gapminder) package. So go
-ahead and install and load that package.
+ahead and install that package.
 
 ```{r eval = FALSE}
 install.packages("gapminder")
@@ -52,7 +52,7 @@ are the first few rows of the dataset.
 ```{r}
 library(gapminder)
 
-gapminder
+head(gapminder)
 ```
 
 The variables should be self-explanatory.
@@ -76,8 +76,8 @@ gapminder %>%
        size = "population")
 ```
 
-Just as we said in the introduction, this graph is not (yet) working out so well
-for us. Let's make it animated instead. For this, we'll use
+Just as we said in the first lecture, this visualization is not (yet) working
+out so well for us. Let's make it animated instead. For this, we'll use
 the [gganimate](https://CRAN.R-project.org/package=gganimate) package.
 First install the package.
 
@@ -142,13 +142,20 @@ Instead, we'll pick out the largest two countries (at the latest
 time stamp) on each continent and label those. First, we 
 store the names of the countries in a vector, `large_country_names`.
 
+The following steps first filter the dataset so that only
+observations from the latest year (`max(year)`) are kept, then groups the
+dataset by continent, then slices the dataset so that the observations
+(countries) with the largest and next-to-largest values of population (`pop`)
+of each group (continent) are kept, and then finally pulls out (using `pull()`) 
+the country names.
+
 ```{r}
-large_country_names <- 
+large_country_names <-
   gapminder %>%
   filter(year == max(year)) %>%
   group_by(continent) %>%
-  filter(pop >= sort(pop, decreasing = TRUE)[2]) %>%
-  pull("country")
+  slice_max(pop, n = 2) %>%
+  pull(country)
 
 large_country_names
 ```
@@ -161,7 +168,7 @@ large_countries <-
   filter(gapminder, country %in% large_country_names)
 ```
 
-Then we put everything together; this time we also change the
+Now we put everything together; this time we also change the
 *easing* of aesthetics from linear to cubic in-and-out using `ease_aes()`,
 to more clearly show that we actually only have data on a 5-year interval here.
 We label the countries with `geom_label_repel()` from the **ggrepel** package,
@@ -196,7 +203,7 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, color = country)) +
 
 ## Interactive Visualization
 
-Interactive visualizations can be really effective, particularly when
+Interactive visualizations are often effective, particularly when
 we want to visualize a complicated dataset such as this one.
 Here we'll use the [plotly](https://CRAN.R-project.org/package=plotly) package
 to do so, which, as you may recall from the lecture, works well in tandem
@@ -212,7 +219,7 @@ Then load the package.
 library(plotly)
 ```
 
-Now we redraw the plot, adding a interactive slider to select the year using
+Now we redraw the plot, adding an interactive slider to select the year using
 plotly. Make note of the additional mapping that we've
 added to `geom_point()`, namely `frame`, which is a special
 mapping that will let plotly know which variable to use to separate
