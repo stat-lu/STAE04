@@ -27,7 +27,8 @@ options(scipen = 999)
 
 To reason about visualizations we need to know a little bit about the anatomy of 
 a plot and in this text we'll talk about some of the fundamental parts of a plot
-so that you know the lingo that we'll be using extensively throughout this course.
+so that you know the lingo that we'll be using extensively throughout this 
+course.
 
 To get going, we first need a plot to focus on. We'll use a simple plot of
 horsepower versus fuel consumption from the `mtcars` dataset.
@@ -95,8 +96,8 @@ knitr::include_graphics("images/anatomy-axes.png")
 ```
 
 The axes is a guide for the connection between the coordinates of the geoms
-and the variables they are mapped to. Without the axes, we would only see the pattern
-of points and not the values these points represent.
+and the variables they are mapped to. Without the axes, we would only see the 
+pattern of points and not the values these points represent.
 
 On each axis there are numbers or words and they are connected via *ticks* or
 *tickmarks* to the gridlines.
@@ -108,7 +109,8 @@ knitr::include_graphics("images/anatomy-legend.png")
 ```
 
 A legend is a guide that helps you read an aesthetic mapped to a variable
-in the plot. The legend in this plot links a color scale to the number of cylinders.
+in the plot. The legend in this plot links a color scale to the number of 
+cylinders.
 
 The legend is sometimes also called a *key*.
 
