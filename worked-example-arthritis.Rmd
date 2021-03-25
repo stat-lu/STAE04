@@ -78,12 +78,12 @@ is due to two reasons:
    first category, since the other portions of the bars are not aligned.^[This
    is not quite as severe a problem for this particular visualization since the
    inner grouping variable is ordinal. For other problems, however, this can
-   be detrimental to the result.]
+   be much more detrimental to the result.]
 2. The bars are not proportional.^[To be fair, the differences between the group
    sizes are small here, but this also means that we don't lose any information
    when using proportional bars instead.]
 
-Let's try a grouped, proportional bar chart instead. To do this, we need
+Let's try a grouped proportional bar chart instead. To do this, we need
 to do a little more work since there is no direct option to do this
 in ggplot2. Our two choices are:
 
@@ -103,7 +103,7 @@ Arthritis %>%
 
 So how does this work? The key to this is that `geom_bar()` computes (and
 makes accessible) certain statistics. Among these are `prop`, which is
-the *groupwise* proportion. To access this statistic, we need to use the
+the *group-wise* proportion. To access this statistic, we need to use the
 special `after_stat()` function, which acts as a wrapper that evaluates
 its arguments after the statistics in the enclosing function have been
 computed. To get this to work properly, we also need to map the `group`
@@ -115,7 +115,7 @@ in ggplot.
 ## Mosaic Plots
 
 In the lecture we also encountered mosaic plots, which are proportional
-bar charts that map, not only the height of the bars, but also the
+bar charts that map not only the height of the bars but also the
 width of the bars to group sizes.
 
 In the lecture, we used the 
@@ -158,42 +158,40 @@ Waffle plots are easy-to-read visualizations that are actually quite uncommon
 in statistical visualizations but much more prevalent in media outlets such as 
 newspapers. They are, as we mentioned in the lecture, at their best when some of
 the categories are so small that their sizes are hard to estimate in a
-barchart of mosaic plot.
+barchart or mosaic plot.
 
 There is a great package for mosaic plots that interact well with 
 ggplot2 called [waffle](https://CRAN.R-project.org/package=waffle).
-Unfortunately, the current version of CRAN is outdated^[Feel free to
-voice your support for a CRAN update
-at <https://github.com/hrbrmstr/waffle/issues/72>.]
-and much of the new functionality that makes it work well with ggplot i only
-available from the 
+Unfortunately, the current version on CRAN is outdated^[Feel free to
+voice your support for a CRAN update at 
+<https://github.com/hrbrmstr/waffle/issues/72>.] and much of the new 
+functionality that makes it work well with ggplot is only available from the 
 [development version at GitHub](https://github.com/hrbrmstr/waffle).
 
 For that reason, waffle plots are not compulsory material in this course and
-will serve mostly as a bonus for those who are interested. 
+will instead serve as bonus material for those who are interested. 
 
-To download development versions of R packages from GitHub, you need either
-the [remotes](https://CRAN.R-project.org/package=remotes) package.^[
-[devtools](https://CRAN.R-project.org/package=devtools) is enough too, since it
-simply interfaces directly with functions in **remotes**.]
+To download development versions of R packages from GitHub, you need the
+the [remotes](https://CRAN.R-project.org/package=remotes) package or the
+[devtools](https://CRAN.R-project.org/package=devtools) package.
 
 ```{r, eval = FALSE}
 # install remotes
 install.packages("remotes")
 
 # install waffle
-remotes::install_github("hrbrmstr/waffle")
+remotes::install_github("hrbrmstr/waffle") # or devtools::install_github()
 ```
 
 The waffle package requires that our data contains counts of the 
 categories, so before we can use it, we need to do a bit of wrangling. More
 precisely, you need to group the data by `Improved` and `Treatment` and
 then use `summarize()` together with either the `n()` function to get either
-counts or proportions. We'll settle for counts in this example. Before looking
-at the following code, see if you can do this by yourself. The result should
-be a 6-row tibble with columns `Treatment`, `Improved` and `Count` (or
-whatever you want to call it). Save the result to an object called
-`Arthritis_summarized`.
+counts or some other expression for proportions. We'll settle for counts in 
+this example. Before looking at the following code, see if you can do this by
+yourself. The result should be a 6-row tibble with columns `Treatment`,
+`Improved` and `Count` (or whatever you want to call it). Save the result to an 
+object called `Arthritis_summarized`.
 
 ```{r}
 Arthritis_summarized <-
@@ -221,12 +219,12 @@ filter(Arthritis_summarized, Treatment == "Treated") %>%
 This looks kind of 
 like a waffle chart, but there's a lot of superfluous information
 that we'd rather get rid off. Thankfully, **waffle** provides the 
-helpful `theme_enhance_waffle()` function for this. Moreover we probably
-prefer the symbols (rectangles) to be squares rather than rectangles---it's
+helpful `theme_enhance_waffle()` function for this. Moreover, we probably
+prefer the symbols (rectangles) to be squares---it's
 supposed to look like a waffle after all, right?---which
 we can accomplish by forcing the coordinate system to be isometric using
-`coord_equal()`. Finally, it will look more aesthetically pleasing if we
-swap the black line color for white, increase their width slightly, and
+`coord_equal()`. Finally, I think it looks more aesthetically pleasing if we
+swap the black line color for white, increase their widths slightly, and
 change theme to the minimal variant.
 
 ```{r, fig.cap = "A prettier waffle plot."}
@@ -272,12 +270,12 @@ that observations can belong to any, all, or none of the levels of a category.
 Here we'll use the [eulerr](https://CRAN.R-project.org/package=eulerr) package.
 This package creates *proportional* Euler diagrams, trying to make the
 area of each intersection proportional to that intersection's size. This is
-not always possible, in which case `euler()` will return a approximate fit.
+not always possible, in which case `euler()` will return an approximate fit.
 For this reason, it is important to always first *fit* the diagram, inspect
 the fit, and then finally plot it.
 
 The simplest way to run `euler()` is to provide a named numeric vector
-that indicates intersections and their sizes. Here's a very simple example.
+that indicates intersections and their sizes. Here's a simple example.
 
 ```{r}
 # install.packages("eulerr")
@@ -361,7 +359,6 @@ result.
 # intersection
 plot(fit_organisms_ellipses, quantities = TRUE)
 ```
-
 
 ## Source Code
 
