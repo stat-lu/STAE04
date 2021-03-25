@@ -58,11 +58,14 @@ mtcars %>%
 knitr::include_graphics("images/anatomy-canvas.png")
 ```
 
-The canvas, also called the plot area, is the area on which the data is drawn. Everything
-outside of the canvas will be annotations and usually don't display data directly.
+The canvas, also called the plot area, is the area on which the data is drawn. 
+Everything outside of the canvas will be annotations and usually don't display
+data directly.
 
 If you use facets in your plot, you might have several canvasses
-in a visualization. We'll discuss facets in detail later, but for now it's sufficient that you think of facets as multiple plots that you line up one after the other.
+in a visualization. We'll discuss facets in detail later, but for now it's
+sufficient that you think of facets as multiple plots that you line up one after
+the other.
 
 ## Grid
 
@@ -70,13 +73,13 @@ in a visualization. We'll discuss facets in detail later, but for now it's suffi
 knitr::include_graphics("images/anatomy-grid.png")
 ```
 
-Sometimes, as in the default ggplot2 theme, the canvas is divided into sections by
-a grid. A grid often makes it easier to compare data points, especially when they are
-far apart. Grids are particularly useful when there are few observations in a 
-visualization.
+Sometimes, as in the default ggplot2 theme, the canvas is divided into sections
+by a grid. A grid often makes it easier to compare data points, especially when
+they are far apart. Grids are particularly useful when there are few 
+observations in a visualization.
 
-Grids often have major and minor gridlines, which is also true for this plot, although
-the difference is slight.
+Grids often have major and minor gridlines, which is also true for this plot,
+although the difference is slight.
 
 ## Geoms
 
@@ -97,8 +100,8 @@ The axes is a guide for the connection between the coordinates of the geoms
 and the variables they are mapped to. Without the axes, we would only see the pattern
 of points and not the values these points represent.
 
-On each axis there are numbers or words and they are connected via *ticks* or *tickmarks*
-to the gridlines.
+On each axis there are numbers or words and they are connected via *ticks* or
+*tickmarks* to the gridlines.
 
 ## Legends
 
@@ -117,14 +120,14 @@ The legend is sometimes also called a *key*.
 knitr::include_graphics("images/anatomy-titles.png")
 ```
 
-The axes should typically always have titles. Titles should be informative and
+The axes should almost always have titles. Titles should be informative and
 if it is not otherwise clear from the caption (see below), they should also
-indicate the unit of measurement if it is not obvious from context. In this plot, for 
-instance, the unit for fuel consumption is given in parenthesis. Sometimes 
-a slash is used instead.
+indicate the unit of measurement if it is not obvious from context. In this 
+plot, for instance, the unit for fuel consumption is given in parenthesis. 
+Sometimes a slash is used instead.
 
-How to format the titles varies depending on the publication. Title or sentence case
-are the two most common choices, but lower case can be fine too.
+How to format the titles varies depending on the publication. Title or sentence
+case are the two most common choices, but lower case can be fine too.
 
 title case
 :   A Nice Title of Something Important
@@ -138,9 +141,10 @@ lower case
 A title should not end with a period unless it is a full sentence.
 
 If it not immediately clear from the categories of the legend, the legend
-should also have a title. Some people like to use a main title (and even subtitle) for the
-visualization as well (using `ggtitle()` or `labs(title = "some title")`), but this is
-usually not necessary and even frowned upon in some formal contexts.
+should also have a title. Some people like to use a main title (and even 
+subtitle) for the visualization as well (using `ggtitle()` or 
+`labs(title = "some title")`), but this is usually not necessary and even
+frowned upon in some formal contexts.
 
 ## Caption
 
@@ -148,6 +152,10 @@ usually not necessary and even frowned upon in some formal contexts.
 knitr::include_graphics("images/anatomy-caption.png")
 ```
 
-When including a visualization in a report, it should always have a numbered caption. The caption should make the entire visualization self-explanatory. Details should be provided in the main body of the text, but given the caption and the visualization, any reader should be able to interpret the plot. 
+When including a visualization in a report, it should always have a numbered 
+caption. The caption should make the entire visualization self-explanatory.
+Details should be provided in the main body of the text, but given the caption 
+and the visualization, any reader should be able to interpret the plot. 
 
-Note that the captions will be numbered automatically if you use R Markdown; most WYSIWYG editors (such as Microsoft Word) are also able to number figures.
+Note that the captions will be numbered automatically if you use R Markdown; 
+most WYSIWYG editors (such as Microsoft Word) are also able to number figures.
