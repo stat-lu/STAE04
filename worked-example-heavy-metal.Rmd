@@ -45,8 +45,8 @@ head(meuse)
 
 The data consists of longitude (`x`) and latitude (`y`), as well as
 different measures related to heavy metals. Before we dig into this
-data set, let's setup the ggplot2 theme for mapping. This time, we use
-the `theme_map()` geom (instead of the `theme_void()` theme we used
+data set, let's set up the ggplot2 theme for mapping. This time, we use
+the `theme_map()` (instead of `theme_void()`, which we used
 previously) from the
 [ggthemes](https://CRAN.R-project.org/package=ggthemes) package.
 
@@ -97,15 +97,11 @@ the development tools if you are on Mac OS X
 receive a helpful error message when trying to install the package about
 what to do.] If you don't want to or have trouble downloading **rgdal**, we
 have provided the converted dataset at the course repository, and
-you can download it by calling the following lines.
+you can load it by calling the following lines.
 
 ```{r, eval = FALSE}
-download.file(
-  "https://github.com/stat-lu/STAE04/raw/master/data/meuse2.rds",
-  file.path("data", "meuse2.rds"),
-  mode = "wb"
-)
-meuse2 <- readRDS(file.path("data", "meuse2.rds"))
+meuse2 <- read_csv(
+  "https://github.com/stat-lu/STAE04/raw/master/data/meuse2.csv")
 ```
 
 Otherwise, we now proceed to convert our coordinates.
@@ -204,7 +200,7 @@ features a host of geocoding alternatives. A couple of these are free, for
 instance the [Nominatim](https://nominatim.org/) API.^[The API is free, but
 it is also rate-limited at one request per second and not as powerful as
 some of the other available APIs. If you have a project where you need more
-serious geo-coding, you should probably get a key for one of the other APIs.]
+serious geocoding, you should probably get a key for one of the other APIs.]
 
 Start by installing the **tidygeocoder** package.
 
