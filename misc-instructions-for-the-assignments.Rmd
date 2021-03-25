@@ -25,12 +25,10 @@ knitr::opts_chunk$set(
 options(scipen = 999)
 ```
 
-# Instructions
-
-For each assignment, as well as for the project, you need to hand in a `.pdf` report. 
-This report should be a written 
-response to the tasks given in the assignment. It should respond to all the questions in 
-the assignment in a **clear** and **succinct** manner.
+For each assignment, as well as for the project, you need to hand in a `.pdf`
+report. This report should be a written 
+response to the tasks given in the assignment. It should respond to all the 
+questions in the assignment in a **clear** and **succinct** manner.
 
 ## Workflow: Two Approaches
 
@@ -65,7 +63,7 @@ simply open the document in R Studio and read through the code and text.
 * It's very convenient to modify figures or change image sizes. (Simply 
   change `fig.width` and `fig.height` in the header).
 * Your document becomes reproducible by someone else if you just give them
-  the `.Rmd` file.
+  the `.Rmd` file (and sometimes some other additional auxiliary files).
 * Code that you include is automatically formatted and receives pretty
   syntax highlighting.
   
@@ -106,7 +104,7 @@ ggsave("filename.png", width = 3, height = 2.3)
 * Modifying figures is a little bit of a hassle since you need to re-import
   the figure every time you modify the plot or make changes to its size.
 * When you want (or need) to include code, you need to format it yourself by
-  using a monospaced font (such as Courier or Consolas), and will not
+  using a mono-spaced font (such as Courier or Consolas), and will not
   get syntax highlighting.
 
 ## Detailed Requirements
@@ -115,7 +113,7 @@ ggsave("filename.png", width = 3, height = 2.3)
 
 Your report does not need to be verbose but it must be **clear** and 
 **coherent**. Use full sentences and describe the steps you take and code you've
-included. Prefer a walk-through approach rather than question: answer format. 
+included. Prefer a walk-through approach rather than a question: answer format. 
 Someone who has not seen the assignment instructions should (reasonably well)
 be able to read your report.
 
@@ -170,11 +168,12 @@ can also format code for you if you select it and hit `Cmd/Ctrl + Alt + a`.
 ## Peer Review and Examination
 
 For each assignment you will need to peer review **three other reports**. To
-complete the reviews, you need to fill out the **rubric** associated with the
+complete these reviews, you need to fill out the **rubric** associated with the
 assignment and add a general comment on the submission. In addition, we also
 encourage you to provide **annotated feedback** using the integrated tools in
 Canvas. Please see
-[this page](https://community.canvaslms.com/t5/Student-Guide/How-do-I-submit-a-peer-review-to-an-assignment/ta-p/293) to read more about peer-reviewing in canvas.
+[this page](https://community.canvaslms.com/t5/Student-Guide/How-do-I-submit-a-peer-review-to-an-assignment/ta-p/293)
+to read more about peer-reviewing in canvas.
 
 Finally, please remember to provide **constructive** feedback.
 

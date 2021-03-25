@@ -1600,8 +1600,6 @@ div.tocify {
 </div>
 
 
-<div id="instructions" class="section level1">
-<h1>Instructions</h1>
 <p>For each assignment, as well as for the project, you need to hand in a <code>.pdf</code> report. This report should be a written response to the tasks given in the assignment. It should respond to all the questions in the assignment in a <strong>clear</strong> and <strong>succinct</strong> manner.</p>
 <div id="workflow-two-approaches" class="section level2">
 <h2>Workflow: Two Approaches</h2>
@@ -1621,7 +1619,7 @@ div.tocify {
 <ul>
 <li>You don’t need to bother with formatting details. R Markdown, pandoc, and LaTeX takes care of it all for you.</li>
 <li>It’s very convenient to modify figures or change image sizes. (Simply change <code>fig.width</code> and <code>fig.height</code> in the header).</li>
-<li>Your document becomes reproducible by someone else if you just give them the <code>.Rmd</code> file.</li>
+<li>Your document becomes reproducible by someone else if you just give them the <code>.Rmd</code> file (and sometimes some other additional auxiliary files).</li>
 <li>Code that you include is automatically formatted and receives pretty syntax highlighting.</li>
 </ul>
 </div>
@@ -1652,7 +1650,7 @@ div.tocify {
 <h4>Cons</h4>
 <ul>
 <li>Modifying figures is a little bit of a hassle since you need to re-import the figure every time you modify the plot or make changes to its size.</li>
-<li>When you want (or need) to include code, you need to format it yourself by using a monospaced font (such as Courier or Consolas), and will not get syntax highlighting.</li>
+<li>When you want (or need) to include code, you need to format it yourself by using a mono-spaced font (such as Courier or Consolas), and will not get syntax highlighting.</li>
 </ul>
 </div>
 </div>
@@ -1661,7 +1659,7 @@ div.tocify {
 <h2>Detailed Requirements</h2>
 <div id="writing" class="section level3">
 <h3>Writing</h3>
-<p>Your report does not need to be verbose but it must be <strong>clear</strong> and <strong>coherent</strong>. Use full sentences and describe the steps you take and code you’ve included. Prefer a walk-through approach rather than question: answer format. Someone who has not seen the assignment instructions should (reasonably well) be able to read your report.</p>
+<p>Your report does not need to be verbose but it must be <strong>clear</strong> and <strong>coherent</strong>. Use full sentences and describe the steps you take and code you’ve included. Prefer a walk-through approach rather than a question: answer format. Someone who has not seen the assignment instructions should (reasonably well) be able to read your report.</p>
 </div>
 <div id="figures" class="section level3">
 <h3>Figures</h3>
@@ -1691,7 +1689,7 @@ Engine displacement and number of cylinders for 38 popular models of cars from <
 </div>
 <div id="peer-review-and-examination" class="section level2">
 <h2>Peer Review and Examination</h2>
-<p>For each assignment you will need to peer review <strong>three other reports</strong>. To complete the reviews, you need to fill out the <strong>rubric</strong> associated with the assignment and add a general comment on the submission. In addition, we also encourage you to provide <strong>annotated feedback</strong> using the integrated tools in Canvas. Please see <a href="https://community.canvaslms.com/t5/Student-Guide/How-do-I-submit-a-peer-review-to-an-assignment/ta-p/293">this page</a> to read more about peer-reviewing in canvas.</p>
+<p>For each assignment you will need to peer review <strong>three other reports</strong>. To complete these reviews, you need to fill out the <strong>rubric</strong> associated with the assignment and add a general comment on the submission. In addition, we also encourage you to provide <strong>annotated feedback</strong> using the integrated tools in Canvas. Please see <a href="https://community.canvaslms.com/t5/Student-Guide/How-do-I-submit-a-peer-review-to-an-assignment/ta-p/293">this page</a> to read more about peer-reviewing in canvas.</p>
 <p>Finally, please remember to provide <strong>constructive</strong> feedback.</p>
 <div id="you-have-one-week-to-complete-your-peer-review" class="section level3">
 <h3>You have one week to complete your peer review!</h3>
@@ -1711,7 +1709,6 @@ Engine displacement and number of cylinders for 38 popular models of cars from <
 <li>If you want code in your R Markdown document to appear inside your final report, use <code>echo = TRUE</code> in the header of the code chunk.</li>
 <li>The size of figures can be controlled using the <code>fig.width</code> and <code>fig.height</code> options in the code header (if you use R Markdown) and the <code>width</code> and <code>height</code> arguments in <code>ggsave()</code> if you use a WYSIWYG editor. <strong>Please don’t resize the images inside the editor</strong>, which will risk making the annotation in the visualization hard to read.</li>
 </ul>
-</div>
 </div>
 <div class="footnotes">
 <hr />
