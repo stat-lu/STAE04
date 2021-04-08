@@ -388,6 +388,34 @@ If this doesn't help, take a look at
 <https://github.com/yihui/tinytex/issues/103> to see if any of the
 suggested solutions there may help.
 
+## Error: `/usr/local/bin not writable`
+
+If you are on Mac OS X, you may be getting the following error (or
+something like it) when
+trying to run `tinytex::install_tinytex()`:
+
+```shell
+add_link_dir_dir: destination /usr/local/bin not writable, 
+no links from /Users/<user>/Library/TinyTeX/bin/x86_64-darwin.
+tlmgr: An error has occurred. See above messages. Exiting.
+```
+
+In this case, try to run the following commands in your terminal:
+
+```shell
+sudo chown -R `whoami`:admin /usr/local/bin
+```
+
+followed by
+
+```shell
+~/Library/TinyTeX/bin/x86_64-darwin/tlmgr path add
+```
+
+If this doesn't work, have a look at
+<https://github.com/yihui/tinytex/issues/24>, where this issue has been
+discussed.
+
 ## I still cannot knit to `.pdf`!
 
 As a last resort, you can change the output from pdf to Word document
