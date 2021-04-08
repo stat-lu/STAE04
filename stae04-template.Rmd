@@ -87,9 +87,18 @@ tinytex::install_tinytex()
 ```
 
 After this, we also recommend that you set the options in 
-`Tools > Global Options > Sweave` in R Studio as in Figure 3.
+`Tools > Global Options > Sweave` in R Studio as in Figure 3, 
+which we have downloaded here.
 
-![Suggested global options in R Studio.](images/rstudio-sweave-settings.png){width=300px}
+```{r echo = FALSE}
+download.file(
+  "https://github.com/stat-lu/STAE04/raw/master/images/rstudio-sweave-settings.png",
+  "rstudio-sweave-settings.png",
+  mode = "wb"
+)
+```
+
+![Suggested global options in R Studio.](rstudio-sweave-settings.png){width=300px}
 
 ## Knitting
 
