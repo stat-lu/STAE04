@@ -16,6 +16,10 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-This repository contains the slides and code used to generate the slides
-for the course STAE04: Data Visualization. Please see 
-<https://stat-lu.github.io/STAE04/> for links to all of the slides.
+**Note: The course repository for STAE04 has moved to
+<https://github.com/stat-lu/dataviz> for all upcoming instalments of the
+course.**
+
+*This repository contains the slides and code used to generate the slides
+for the course STAE04: Data Visualization. Please see
+<https://stat-lu.github.io/STAE04/> for links to all of the slides.*
